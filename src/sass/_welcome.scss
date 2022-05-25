@@ -1,0 +1,225 @@
+* {
+    box-sizing: border-box;
+  }
+// Body
+$body-bg: #f8fafc;
+
+// Typography
+$font-family-sans-serif: 'Nunito', sans-serif;
+$font-size-base: 0.9rem;
+$line-height-base: 1.6;
+@mixin movile {
+    @media only screen and (min-width: 425px) {
+      @content;
+    }
+  }
+
+@mixin tablet {
+  @media only screen and (min-width: 768px) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media only screen and (min-width: 992px) {
+    @content;
+  }
+}
+
+@mixin large {
+  @media only screen and (min-width: 1200px) {
+    @content;
+  }
+}
+
+section{
+    display: flex;
+    justify-content: center;
+}
+
+.container{
+    height:100vh;
+    border: none;
+    .background1{
+        background-image: url('../img/carrito-de-bebe-movil.jpg');
+        height: 100vh;
+        background-size: cover;
+        @include movile {
+            background-image: url('../img/carrito-de-bebe-tablet.jpg');
+        }
+        @include tablet() {
+            background-image: url('../img/carrito-de-bebe-desktop.jpg');
+        }
+        @include desktop() {
+            background-image: url('../img/carrito-de-bebé-trio-de-Asalvo_1.jpg');
+        }
+    }
+    .background2{
+        background-image: url('../img/carrito-de-bebe-movil.jpg');
+        height: 100vh;
+        background-size: cover;
+        @include movile() {
+            background-image: url('../img/carrito-de-bebe-tablet.jpg');
+        }
+        @include tablet() {
+            background-image: url('../img/carrito-de-bebe-desktop.jpg');
+        }
+        @include desktop() {
+            background-image: url('../img/carrito-de-bebé-trio-de-Asalvo_1.jpg');
+        }
+    }
+    .background3{
+        background-image: url('../img/carrito-de-bebe-movil.jpg');
+        height: 100vh;
+        background-size: cover;
+        @include movile() {
+            background-image: url('../img/carrito-de-bebe-tablet.jpg');
+        }
+        @include tablet() {
+            background-image: url('../img/carrito-de-bebe-desktop.jpg');
+        }
+        @include desktop() {
+            background-image: url('../img/carrito-de-bebé-trio-de-Asalvo_1.jpg');
+        }
+    }
+}
+.cartaheader{
+    background-color: rgb(127, 168, 255);
+}
+
+[class*="col-"] {
+    padding: 10px;
+  }
+
+.header {
+    padding: 15px;
+}
+.welcome{
+    float:right;
+    color:white;
+}
+@font-face {
+    font-family: "Comfortaa";
+    src: url("../fonts/Comfortaa-VariableFont_wght.ttf");
+}
+.flexea{
+    display:flex;
+}
+.flexea.column{
+    flex-direction: column;
+    align-items: center;
+    a, input{
+        width: 100%;
+        button{
+            color: #FFFFFF;
+            font-weight: bold;
+            font-family: 'Comfortaa';
+            width: 100%;
+        }
+    }
+}
+button.encuentra{
+    border: 1px solid rgb(49, 153, 181);
+    background-color:rgb(49, 153, 181) ;
+}
+button.registro{
+    border: 1px solid white;
+    background-color: rgb(185 185 185 / 0%);
+}
+.titulo{
+    font-family: 'Comfortaa';
+    font-size: 32px;  
+    color: #FFFFFF;
+}
+
+
+.inicio-sesion{
+    font-family: 'Comfortaa';
+    font-size: 15px;
+    text-decoration-line: underline;
+    color: #FFFFFF;
+}
+
+ul, li {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+ul.slider{
+    position: relative;
+    height: 280px;
+    li {
+        position: absolute;
+        left: 0px;
+        top: 0px;
+        width: inherit;
+        height: inherit;
+        opacity: 0;
+        transition: opacity .5s;
+        background-color: rgb(185 185 185 / 0%);
+        color:white;
+    }
+}
+
+ul.slider li img{
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+  }
+
+ul.slider  {
+    
+    /*Mostramos el primer <li>*/
+    li:target {
+        opacity: 1; /*Mostramos el <li> del enlace que pulsemos*/
+    }
+    li:first-child{
+        opacity: 1;
+    }
+    
+}
+
+li#slide1.col-9.esco {
+    opacity: 0; 
+}
+.esco{
+    visibility: hidden;
+}
+
+.menu{
+    text-align: center;
+    margin: 0px;
+    li{
+        display: inline-block;
+        text-align: center;
+        a{
+            display: inline-block;
+            color: white;
+            text-decoration: none;
+            background-color: rgb(185, 185, 185);
+            padding: 7px;
+            width: 7px;
+            height: 7px;
+            margin:0px;
+            font-size: 10px;
+            opacity: 0.7;
+            border-radius: 100%;
+          }
+          
+      }
+}
+/*
+.menu li a:active{
+    display: inline-block;
+    color: white;
+    text-decoration: none;
+    background-color: white;
+    padding: 10px;
+    width: 10px;
+    height: 10px;
+    font-size: 10px;
+    opacity: 1;
+    border-radius: 100%;
+      
+}
+  */
