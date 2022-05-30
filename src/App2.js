@@ -1,54 +1,142 @@
-import React from "react";
-import {useState} from "react";
-import { BrowserRouter as Router, Routes, Switch, Route,  Link } from "react-router-dom";
-import './sass/app.scss';
-//import Example from './components/Example';
-import User from './components/User';
-import Welcome from './components/Welcome';
-import Login from './components/Login';
-import Notes from "./services/notes";
+import React, { useState, useEffect } from 'react'
+import Note from './components2/Note'
+import Notification from './components2/Notification'
+import noteService from './services/notes'
+import loginService from './services/login'
+import LoginForm from './components2/LoginForm'
 
-const App = () => {
+import NoteForm from './components2/NoteForm.js'
 
-  const [page, setPage] = useState('about')
+const App2 = () => {
+  const [notes, setNotes] = useState([]) 
+  
+  const [showAll, setShowAll] = useState(true)
+  const [errorMessage, setErrorMessage] = useState(null)
 
-  document.addEventListener('load', function(){
-    var slide1 = document.getElementById("slide1")
-    var slide2 = document.getElementById("slide2")
-    var slide3 = document.getElementById("slide3")
-    slide1.addEventListener("click", function(){
-        if(slide1.className==="esco"){
-            slide1.removeClass('esco')
-        }
-    })
-    slide2.addEventListener("click", function(){
-        if(slide1.className===""){
-            slide1.addClass('esco')
-        }
-    })
-    slide3.addEventListener("click", function(){
-        if(slide1.className===""){
-            slide1.addClass('esco')
-        }
-    })
-  })
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
+  const [user, setUser] = useState(null)
 
-  return ( 
-    <div className="container ">
-      <Router>
-      
+  useEffect(() => {
+    noteService
+      .getAll()
+      .then(initialNotes => {
+        setNotes(initialNotes)
+      })
+  }, [])
 
-        <Routes>
-          <Route path="/welcome" element={<Welcome />} />
-          <Route path="/login/*" element={<Login />} />
-          
-        </Routes>
-      </Router>
-      
+  useEffect(() => {
+    const loggedUserJSON = window.localStorage.getItem('loggedNoteAppUser')
+    if (loggedUserJSON) {
+      const user = JSON.parse(loggedUserJSON)
+      setUser(user)
+      noteService.setToken(user.token)
+    }
+  }, [])
 
+  const handleLogout = () => {
+    setUser(null)
+    noteService.setToken(null)
+    window.localStorage.removeItem('loggedNoteAppUser')
+  }
+
+  const addNote = (noteObject) => {
+    noteService
+      .create(noteObject)
+      .then(returnedNote => {
+        setNotes(notes.concat(returnedNote))
+      })
+  }
+
+  const toggleImportanceOf = (id) => {
+    const note = notes.find(n => n.id === id)
+    const changedNote = { ...note, important: !note.important }
+  
+    noteService
+      .update(id, changedNote)
+      .then(returnedNote => {
+        setNotes(notes.map(note => note.id !== id ? note : returnedNote))
+      })
+      .catch(error => {
+        setErrorMessage(
+          `Note '${note.content}' was already removed from server`
+        )
+        setTimeout(() => {
+          setErrorMessage(null)
+        }, 5000)   
+      })
+  }
+
+  const handleLogin = async (event) => {
+    event.preventDefault()
+
+    try {
+      const user = await loginService.login({
+        username,
+        password
+      })
+  
+      window.localStorage.setItem(
+        'loggedNoteAppUser', JSON.stringify(user)
+      )
+
+      noteService.setToken(user.token)
+
+      setUser(user)
+      setUsername('')
+      setPassword('')
+    } catch(e) {
+      setErrorMessage('Wrong credentials')
+      setTimeout(() => {
+        setErrorMessage(null)
+      }, 5000)
+    }
+
+  }
+
+  const notesToShow = showAll
+    ? notes
+    : notes.filter(note => note.important)
+
+  return (
+    <div>
+      <h1>Notes</h1>
+
+      <Notification message={errorMessage} />
+
+      {
+        user
+          ? <NoteForm
+              addNote={addNote}
+              handleLogout={handleLogout}
+            />
+          : <LoginForm
+              username={username}
+              password={password}
+              handleUsernameChange={
+                ({target}) => setUsername(target.value)}
+              handlePasswordChange={
+                ({target}) => setPassword(target.value)
+              }
+              handleSubmit={handleLogin}
+            />
+      }
+
+      <div>
+        <button onClick={() => setShowAll(!showAll)}>
+          show {showAll ? 'important' : 'all' }
+        </button>
+      </div>      
+      <ul>
+        {notesToShow.map((note, i) => 
+          <Note
+            key={i}
+            note={note} 
+            toggleImportance={() => toggleImportanceOf(note.id)}
+          />
+        )}
+      </ul> 
     </div>
-  );
+  )
 }
-
-
-export default App;
+export default App2

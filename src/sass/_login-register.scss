@@ -5,15 +5,17 @@
     float: left;
     padding: 15px;
   }
-.loginpop{
+.pop{
     position: fixed;
     flex-direction: column;
     background: white;
-    height: 99vh;
+    height: 100vh;
     top: 0;
     bottom: 0;
     left: 0;
     right: 0;
+    display: flex;
+    justify-content: center;
     header, section{
         background: white;
         justify-content: auto;
@@ -22,6 +24,10 @@
     header{
         display: flex;
     }
+}
+.absolute{
+  position:absolute;
+  display: block;
 }
 .body{
   flex-direction: column;
@@ -51,7 +57,13 @@ fieldset{
     display: flex;
     flex-direction: column;
 }
-
+button{
+    align-self: center;
+}
+.error{
+  color: #e70000;
+  background-color: #ff00002b;
+}
 @mixin movile {
     @media only screen and (min-width: 425px) {
       @content;

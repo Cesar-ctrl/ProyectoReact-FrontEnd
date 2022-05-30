@@ -1,17 +1,133 @@
 import React from 'react';
-import {useRef, useEffect} from 'react';
+import {useRef, useEffect, useState} from 'react';
 import { BrowserRouter as Router, Routes, Switch, Route,  Link } from "react-router-dom";
-import ReactDOM from 'react-dom';
-import Login from './Login';
-import {useState} from 'react';
+import User from './User';
+import App from '../App';
+import Login from './LoginF';
+import Register from './Register';
+import noteService from '../services/login'
+import loginService from '../services/login'
+import registerService from '../services/register'
 
 function Welcome() {
 
     const [addClass,setAddClass] = useState(false)
+    const [errorMessage, setErrorMessage] = useState(null)
+
+  const [username, setUsername] = useState('')
+  const [name, setName] = useState('')
+  const [surnames, setSurnames] = useState('')
+  const [dni, setDni] = useState('')
+  const [phone, setPhone] = useState('')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [user, setUser] = useState(null)
+  const [page, setPage] = useState('about')
+
+  
+
+  useEffect(() => {
+    const loggedUserJSON = window.localStorage.getItem('loggedNoteAppUser')
+    if (loggedUserJSON) {
+      const user = JSON.parse(loggedUserJSON)
+      setUser(user)
+      noteService.setToken(user.token)
+    }
+  }, [])
+
+  const handleLogout = () => {
+    setUser(null)
+    noteService.setToken(null)
+    window.localStorage.removeItem('loggedNoteAppUser')
+  }
+
+  const handleLogin = async (event) => {
+    event.preventDefault()
+
+    try {
+      const user = await loginService.login({
+        email,
+        password
+      })
+      console.log(user)
+      window.localStorage.setItem(
+        'loggedNoteAppUser', JSON.stringify(user)
+      )
+      noteService.setToken(user.token)
+
+      setUser(user)
+      setEmail('')
+      setPassword('')
+      this.props.history.push('/')
+    } catch(e) {
+      setErrorMessage('Email o contraseña inválidos')
+      setTimeout(() => {
+        setErrorMessage(null)
+      }, 5000)
+    }
+
+  }
+
+  const handleRegister = async (event) => {
+    event.preventDefault()
+
+    try {
+      const user = await registerService.register({
+        name,
+        surnames,
+        dni,
+        phone,
+        email,
+        password
+      })
+      console.log(user)
+      window.localStorage.setItem(
+        'loggedNoteAppUser', JSON.stringify(user)
+      )
+      setUser(user)
+      setEmail('')
+      setPassword('')
+    } catch(e) {
+      setErrorMessage('Wrong credentials')
+      setTimeout(() => {
+        setErrorMessage(null)
+      }, 5000)
+    }
+
+  }
+
+
+  //---------------------------------
+
+  document.addEventListener('load', function(){
+    var slide1 = document.getElementById("slide1")
+    var slide2 = document.getElementById("slide2")
+    var slide3 = document.getElementById("slide3")
+    slide1.addEventListener("click", function(){
+        if(slide1.className==="esco"){
+            slide1.removeClass('esco')
+        }
+    })
+    slide2.addEventListener("click", function(){
+        if(slide1.className===""){
+            slide1.addClass('esco')
+        }
+    })
+    slide3.addEventListener("click", function(){
+        if(slide1.className===""){
+            slide1.addClass('esco')
+        }
+    })
+  })
+
+
 
     return (
 
-    <section className={`background1 `}>
+        <Router>
+
+      
+<section className={`background1 `}>
         <div className="row">
             <header className="header welcome">
                 <div className=""> 
@@ -64,17 +180,64 @@ function Welcome() {
             </section>
             <section>
                <div className='col-11 flexea column'>
-                   <a href="" >
-                       <button className='encuentra'>Encuentra niñeras</button>
-                   </a>
-                   <a href="" > 
+
+                    <Link to="/index">
+                        <button className='encuentra'>Encuentra niñeras</button>
+                    </Link>
+                       
+
+                    <Link to="/register">
                        <button className='registro'>Regístrate</button>
-                   </a>
+                    </Link>
                </div>
             </section>
 
         </div>
     </section>
+
+        <Routes>
+          <Route path="/welcome" element={<Welcome />} />
+          <Route path="/login/*" element={<Login 
+              email={email}
+              password={password}
+              handleEmailChange={
+                ({target}) => setEmail(target.value)}
+              handlePasswordChange={
+                ({target}) => setPassword(target.value)
+              }
+              handleSubmit={handleLogin}
+              errorMessage={errorMessage}
+            />} />
+          <Route path="/index/*" element={<App />} />
+          <Route path="/register/*" element={<Register
+            name={name}
+            surnames={surnames}
+            dni={dni}
+            phone={phone}
+            email={email}
+            password={password}
+            handleNameChange={
+              ({target}) => setName(target.value)}
+            handleSurnamesChange={
+            ({target}) => setSurnames(target.value)}
+            handleDniChange={
+              ({target}) => setDni(target.value)
+            }
+            handlePhoneChange={
+              ({target}) => setPhone(target.value)}
+            handleEmailChange={
+              ({target}) => setEmail(target.value)
+            }
+            handlePasswordChange={
+              ({target}) => setPassword(target.value)
+            }
+            handleSubmit={handleRegister}
+           />} />
+        </Routes>
+      </Router>
+
+
+    
     
     );
 
