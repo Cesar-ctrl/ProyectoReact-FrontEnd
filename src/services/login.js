@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const baseUrl = 'https://damp-temple-29994.herokuapp.com/api/login'
+const baseUrl = 'http://localhost:3001/api/login'
 
 const login = async credentials => {
   const { data } = await axios.post(baseUrl, credentials)

@@ -19,7 +19,7 @@ export default function LoginF ({handleSubmit, ...props}) {
                     </Link>
                     <h2>Iniciar sesión en BabyGuard</h2>
                 </header>
-                <span className='error'>
+                <span className=''>
                     <Notification  message={props.errorMessage} />
                 </span>
                 <form action="" className='login' onSubmit={handleSubmit}>
@@ -43,6 +43,7 @@ export default function LoginF ({handleSubmit, ...props}) {
                     </Link>
                 </div>
             </section>
+            
         
         </section>
   )

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { BrowserRouter as Router, Routes, Switch, Route,  Link } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Switch, Route,  Navigate } from "react-router-dom";
 import './sass/app.scss';
 //import Example from './components/Example';
 import User from './components/User';
@@ -10,13 +10,14 @@ import Notes from "./services/notes";
 import App2 from "./App2"
 import loginService from './services/login'
 import registerService from './services/register'
-const App = () => {
+import Home from './components/Home'
 
-  
+const App = () => {
 
   return ( 
     <div className="container ">
-      <Welcome />
+      
+      <Home />
       
 
     </div>
