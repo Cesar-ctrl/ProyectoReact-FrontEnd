@@ -188,7 +188,7 @@ function Welcome() {
             <section>
                <div className='col-11 flexea column'>
 
-                    <Link to="/index">
+                    <Link to="/welcome">
                         <button className='encuentra'>Encuentra niñeras</button>
                     </Link>
                        
