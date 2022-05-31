@@ -31,3 +31,20 @@
     }
 }
 .col-12 {width: 100%;}
+
+a {
+    text-decoration: none;
+}
+.flexea{
+    display:flex;
+}
+.flexea.column{
+    flex-direction: column;
+    align-items: center;
+}
+
+.fotoestandar{
+    width: 55px;
+    height: 55px;
+    border-radius: 55px;
+}

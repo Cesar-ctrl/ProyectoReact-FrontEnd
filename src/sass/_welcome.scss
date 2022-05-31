@@ -101,22 +101,17 @@ $line-height-base: 1.6;
 h3{
     margin: 0px;
 }
-.flexea{
-    display:flex;
-}
-.flexea.column{
-    flex-direction: column;
-    align-items: center;
-    a, input{
+
+a, input{
+    width: 100%;
+    button{
+        color: #FFFFFF;
+        font-weight: bold;
+        font-family: 'Comfortaa';
         width: 100%;
-        button{
-            color: #FFFFFF;
-            font-weight: bold;
-            font-family: 'Comfortaa';
-            width: 100%;
-        }
     }
 }
+
 button.encuentra{
     border: 1px solid rgb(49, 153, 181);
     background-color:rgb(49, 153, 181) ;
@@ -196,7 +191,6 @@ li#slide1.col-9.esco {
         a{
             display: inline-block;
             color: white;
-            text-decoration: none;
             background-color: rgb(185, 185, 185);
             padding: 7px;
             width: 7px;
