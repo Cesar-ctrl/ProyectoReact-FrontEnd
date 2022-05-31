@@ -13,7 +13,7 @@ function Home() {
                     <Route path="/buscar" element={ <Busqueda />} />
                     <Route path="/favoritos"  />
                     <Route path="/mensajes"  />
-                    <Route path="/solicitar"  />
+                    <Route path="/child"  />
                     <Route path="/perfil"  />
                 </Routes>
             </main>
@@ -31,7 +31,7 @@ function Home() {
                 <img src="../img/mensaje.svg" alt="" className='icono'/>
                     Mensajes
                 </Link>
-                <Link className="nav footer" to="/solicitar">
+                <Link className="nav footer" to="/child">
                 <img src="../img/child.svg" alt="" className='icono'/>
                     Niños
                 </Link>
