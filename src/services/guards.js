@@ -35,4 +35,4 @@ const request = axios.put(`${baseUrl}/${id}`, newObject, config)
 return request.then(response => response.data)
 }
 
-export default { guards, getAll }
+export default { guards, getAll, update }

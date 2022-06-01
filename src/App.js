@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { BrowserRouter as Router, Routes, Switch, Route,  Navigate } from "react-router-dom";
+
 import './sass/app.scss';
 //import Example from './components/Example';
 import User from './components/User';
@@ -32,6 +33,8 @@ const App = () => {
   const [page, setPage] = useState('about')
   const [loggedIn, setLoggedIn] = useState(null)
 
+  
+
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem('loggedNoteAppUser')
     if (loggedUserJSON) {
@@ -39,6 +42,7 @@ const App = () => {
       setUser(user)
       noteService.setToken(user.token)
       setLoggedIn(true)
+
     }
   }, [])
 
@@ -69,6 +73,7 @@ const App = () => {
       setEmail('')
       setPassword('')
       setLoggedIn(true)
+
       
     } catch(e) {
       setErrorMessage('Email o contraseña inválidos')
@@ -124,20 +129,7 @@ const App = () => {
           handleSubmit={handleLogin}
           errorMessage={errorMessage}
         />} />  
-        {
-          loggedIn ?  <Navigate from='/login/' to="/home/*" />: 
-          <Route path="/login/*" element={<Login 
-            email={email}
-            password={password}
-            handleEmailChange={
-              ({target}) => setEmail(target.value)}
-            handlePasswordChange={
-              ({target}) => setPassword(target.value)
-            }
-            handleSubmit={handleLogin}
-            errorMessage={errorMessage}
-          />} />
-        }
+        
         <Route path="/register/*" element={<Register
           name={name}
           surnames={surnames}
