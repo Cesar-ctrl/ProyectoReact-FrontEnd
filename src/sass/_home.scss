@@ -22,56 +22,59 @@
     }
 }
 
-.main.background1{
-    background-image: url('../img/backgraund-mobile.jpg');
-    height: 100vh;
-    background-size: cover;
-    @include movile {
-        background-image: url('../img/background-tablet.jpg');
+.main{
+    &.background1{
+        background-image: url('../img/backgraund-mobile.jpg');
+        height: 100vh;
+        background-size: cover;
+        @include movile {
+            background-image: url('../img/background-tablet.jpg');
+        }
+        @include tablet() {
+            background-image: url('../img/backgraund-desktop.jpg');
+        }
+        
     }
-    @include tablet() {
-        background-image: url('../img/backgraund-desktop.jpg');
+    &.background2{
+        background-image: url('../img/carrito-de-bebe-movil.jpg');
+        height: 100vh;
+        background-size: cover;
+        @include movile() {
+            background-image: url('../img/carrito-de-bebe-tablet.jpg');
+        }
+        @include tablet() {
+            background-image: url('../img/carrito-de-bebe-desktop.jpg');
+        }
+        @include desktop() {
+            background-image: url('../img/carrito-de-bebé-trio-de-Asalvo_1.jpg');
+        }
     }
-    
-}
-.main.background2{
-    background-image: url('../img/carrito-de-bebe-movil.jpg');
-    height: 100vh;
-    background-size: cover;
-    @include movile() {
-        background-image: url('../img/carrito-de-bebe-tablet.jpg');
+    &.background3{
+        background-image: url('../img/carrito-de-bebe-movil.jpg');
+        height: 100vh;
+        background-size: cover;
+        @include movile() {
+            background-image: url('../img/carrito-de-bebe-tablet.jpg');
+        }
+        @include tablet() {
+            background-image: url('../img/carrito-de-bebe-desktop.jpg');
+        }
+        @include desktop() {
+            background-image: url('../img/carrito-de-bebé-trio-de-Asalvo_1.jpg');
+        }
     }
-    @include tablet() {
-        background-image: url('../img/carrito-de-bebe-desktop.jpg');
-    }
-    @include desktop() {
-        background-image: url('../img/carrito-de-bebé-trio-de-Asalvo_1.jpg');
-    }
-}
-.main.background3{
-    background-image: url('../img/carrito-de-bebe-movil.jpg');
-    height: 100vh;
-    background-size: cover;
-    @include movile() {
-        background-image: url('../img/carrito-de-bebe-tablet.jpg');
-    }
-    @include tablet() {
-        background-image: url('../img/carrito-de-bebe-desktop.jpg');
-    }
-    @include desktop() {
-        background-image: url('../img/carrito-de-bebé-trio-de-Asalvo_1.jpg');
+    &.titulo{
+        color: black;
+        padding-top: 30px ;
+        padding-bottom: 30px;
+        padding-left: 20px;
+       
     }
 }
 
-.busqueda{
+
+.home{
     height: 93vh;
-}
-.main.titulo{
-    color: black;
-    padding-top: 30px ;
-    padding-bottom: 30px;
-    padding-left: 20px;
-   
 }
 h2{
     margin: 0px;
@@ -105,13 +108,89 @@ h2{
     background: rgba(213, 245, 240, 0.46);
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 25px;
+    min-height: 60vh;
     .cuidador{
-        padding-top: 10px;
-        padding-bottom: 10px;
-        padding-right: 20px;
-        padding-left: 20px;
+        padding: {
+            top: 10px;
+            bottom: 10px;
+            right: 20px;
+            left: 20px;
+        }
+        margin-top: 10px;
         background: #FFFFFF;
         box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
         border-radius: 12px;
+        @include movile() {
+            padding: {
+                top: 15px;
+                bottom: 15px;
+                right: 30px;
+                left: 30px;
+            }
+        }
+
+
+        .foto{
+            display: flex;
+        }
+        .nombreval{
+            align-items: stretch;
+            justify-content: space-evenly;
+            h3{
+                padding: {
+                    top: 6px;
+                    bottom: 6px;
+                }
+            }
+        }
+        h3{
+            font-size: 9px;
+            overflow:hidden;
+
+            @include movileS(){
+                font-size: 10px;
+            }
+            @include movileM(){
+                font-size: 12px;
+            }
+            @include movile(){
+                font-size: 13px;
+            }
+        }
     }
+}
+.indispuesto{
+    cursor:not-allowed;
+    opacity: 0.7;
+}
+
+.box.flex{
+    display: flex;
+   .cursor-pointer{
+       .w-6.h-6{
+           $size: 15px;
+           width: 11px;
+           height: 11px;
+            @include movileS(){
+                width: 12px;
+                height: 12px;
+            }
+            @include movileM(){
+                width: $size;
+                height: $size;
+            }
+            @include movile(){
+                width: $size + 2 ;
+                height: $size + 2;
+            }
+            @include tablet(){
+                width: $size;
+                height: $size;
+            }
+            @include desktop(){
+                width: $size;
+                height: $size;
+            }
+       }
+   }
 }

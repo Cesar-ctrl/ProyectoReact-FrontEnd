@@ -1,22 +1,10 @@
 import React, { useState, useEffect } from 'react'
-import StarIcon from './Staricon'
-import RatingIcon from './Rating'
- 
+import Star from './Star'
+
 
 const Busqueda = () => {
-    const [rating, setRating] = React.useState(0);
-    const [hoverRating, setHoverRating] = React.useState(0);
-    const onMouseEnter = (index) => {
-        setHoverRating(index);
-    };
-    const onMouseLeave = () => {
-        setHoverRating(0);
-    };
-    const onSaveRating = (index) => {
-        setRating(index);
-    };
     return (
-      <section className="busqueda ">
+      <section className="home busqueda">
         <header className='titulo main'>
 
             <h2>Búsqueda</h2>
@@ -37,27 +25,43 @@ const Busqueda = () => {
         </section>
         <section className='flexea column'>
             <div className='col-10 column listado'>
-                <div className='cuidador flexea'>
+                <div className='cuidador flexea roww'>
                     <div className='foto'>
                         <img src="../img/Prueba2.jpg" className='fotoestandar' alt="" />
                     </div>
-                    <div className='nombreval flexea'>
-                        <h3></h3>
-                        <div className="box flex">
-                            {[1, 2, 3, 4, 5].map((index) => {
-                                return (
-                                <RatingIcon 
-                                    index={index} 
-                                    rating={rating} 
-                                    hoverRating={hoverRating} 
-                                    onMouseEnter={onMouseEnter} 
-                                    onMouseLeave={onMouseLeave} 
-                                    onSaveRating={onSaveRating} />
-                                )
-                            })}
+                    <div>
+                        <div className='nombreval flexea column'>
+                            <h3>NOMBRE APELLIDO</h3>
+                            <div className="flexea roww">
+                                {<Star />}
+
+                                <h3>4.8</h3>
+                            </div>
                         </div>
                     </div>
-                    <div className='horadisp'></div>
+                    <div className='horadisp flexea column'>
+                        <img src="../img/reloj-pequenio.png" className="reloj pequenio" alt="" />
+                        <h3>12:00-18:00</h3>
+                    </div>
+                </div>
+                <div className='cuidador flexea roww'>
+                    <div className='foto'>
+                        <img src="../img/Prueba2.jpg" className='fotoestandar' alt="" />
+                    </div>
+                    <div>
+                        <div className='nombreval flexea column'>
+                            <h3>NOMBRE APELLIDO</h3>
+                            <div className="flexea roww">
+                                {<Star />}
+
+                                <h3>4.8</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div className='horadisp flexea column'>
+                        <img src="../img/reloj-pequenio.png" className="reloj pequenio" alt="" />
+                        <h3>12:00-18:00</h3>
+                    </div>
                 </div>
             </div>
         </section>

@@ -8,6 +8,16 @@ $body-bg: #f8fafc;
 $font-family-sans-serif: 'Nunito', sans-serif;
 $font-size-base: 0.9rem;
 $line-height-base: 1.6;
+@mixin movileS {
+    @media only screen and (min-width: 320px) {
+      @content;
+    }
+  }
+@mixin movileM {
+    @media only screen and (min-width: 375px) {
+      @content;
+    }
+  }
 @mixin movile {
     @media only screen and (min-width: 425px) {
       @content;
@@ -49,6 +59,11 @@ $line-height-base: 1.6;
         @include desktop() {
             background-image: url('../img/carrito-de-bebé-trio-de-Asalvo_1.jpg');
         }
+        .flexea.columncenter{
+            align-items: normal;
+            justify-content: center;
+            
+        }
     }
     .background2{
         background-image: url('../img/carrito-de-bebe-movil.jpg');
@@ -89,6 +104,9 @@ $line-height-base: 1.6;
 
 .header {
     padding: 15px;
+}
+.floatright{
+    float: right;
 }
 .welcome{
     float:right;

@@ -8,6 +8,11 @@
 
 @import 'home';
 
+*{
+    font-family: "Comfortaa";
+    src: url("../fonts/Comfortaa-VariableFont_wght.ttf");   
+}
+
 .col-1 {width: 8.33%;}
 .col-2 {width: 16.66%;}
 .col-3 {width: 25%;}
@@ -37,14 +42,98 @@ a {
 }
 .flexea{
     display:flex;
-}
-.flexea.column{
-    flex-direction: column;
-    align-items: center;
+    &.column{
+        flex-direction: column;
+        align-items: center;
+    }
+    &.column.notcenter{
+        flex-direction: column;
+        align-items: normal;
+    }
+    &.roww{
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-around;
+    }
 }
 
+
 .fotoestandar{
-    width: 55px;
-    height: 55px;
+    $size: 45px;
+    width: $size * 0.8;
+    height: $size * 0.8;
     border-radius: 55px;
+    @include movileS(){
+        width: $size * 0.9;
+        height: $size * 0.9;
+    }
+    @include movileM(){
+        width: $size * 1.2;
+        height: $size * 1.2;
+    }
+    @include movile(){
+        width: $size * 1.4;
+        height: $size * 1.4;
+    }
+    @include tablet(){
+        width: $size * 1.4;
+        height: $size * 1.4;
+    }
+    @include desktop(){
+        width: $size;
+        height: $size;
+    }
+}
+.reloj{
+    $size2: 80px;
+    width: $size2 * 0.5;
+    height: $size2 * 0.5;
+
+    @include movileS(){
+        width: $size2 * 0.6;
+        height: $size2 * 0.6;
+    }
+    @include movileM(){
+        width: $size2 * 0.8;
+        height: $size2 * 0.8;
+    }
+    @include movile(){
+        width: $size2;
+        height: $size2;
+    }
+    @include tablet(){
+        width: $size2;
+        height: $size2;
+    }
+    @include desktop(){
+        width: $size2;
+        height: $size2;
+    }
+
+}
+
+.reloj.pequenio{
+    $size: 42px;
+    width: $size * 0.5;
+    height: $size * 0.5;
+    @include movileS(){
+        width: $size * 0.6;
+        height: $size * 0.6;
+    }
+    @include movileM(){
+        width: $size * 0.8;
+        height: $size * 0.8;
+    }
+    @include movile(){
+        width: $size ;
+        height: $size ;
+    }
+    @include tablet(){
+        width: $size;
+        height: $size;
+    }
+    @include desktop(){
+        width: $size;
+        height: $size;
+    }
 }
