@@ -5,7 +5,11 @@ import Busqueda from './Busqueda';
 import Favoritos from './Favoritos';
 import Chat from './Chat';
 
+
 function Home() {
+
+
+
     return(
         <div className="container ">
             <main className='main background1'>
