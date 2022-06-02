@@ -7,8 +7,6 @@ import User from './components/User';
 import Welcome from './components/Welcome';
 import Login from './components/LoginF';
 import Register from './components/Register';
-import Notes from "./services/notes";
-import App2 from "./App2"
 import noteService from './services/notes'
 import loginService from './services/login'
 import registerService from './services/register'
@@ -65,6 +63,9 @@ const App = () => {
       console.log(user)
       window.localStorage.setItem(
         'loggedNoteAppUser', JSON.stringify(user)
+      )
+      window.localStorage.setItem(
+        'favGuardsAppUser', JSON.stringify(user)
       )
       
       noteService.setToken(user.token)
