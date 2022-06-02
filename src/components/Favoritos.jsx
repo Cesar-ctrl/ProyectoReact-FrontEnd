@@ -1,9 +1,16 @@
-import React from "react";
+import React, { useState, useEffect } from 'react'
 import Star from './Star'
 
 
 const Favoritos = () => {
 
+    const [guards, setGuards] = useState([]) 
+    const [showAll, setShowAll] = useState(true)
+
+
+    const guardsToShow = showAll
+    ? guards
+    : guards.filter(guard => guard.disponible)
 
     return (
         <section className="home">
@@ -14,14 +21,10 @@ const Favoritos = () => {
             <section className='buscador'>
                 <div className='barra'>
                     
-                    <input type="text" className='barra col-8' />
-                    <div className='imgbuscar'>
-                        <img src="../img/lupa-busqueda.png" alt="" className='lupa'/>
-                    </div>
+                <button onClick={() => setShowAll(!showAll)}>
+                    show {showAll ? 'important' : 'all' }
+                </button>
                     
-                </div>
-                <div className='filtros'>
-
                 </div>
             </section>
             <section className='flexea column'>

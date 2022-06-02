@@ -17,6 +17,7 @@ import Busqueda from './components/Busqueda';
 import Favoritos from './components/Favoritos';
 import Star from './components/Star';
 import Chat from './components/Chat';
+import guards from './services/guards';
 
 const App = () => {
 
@@ -32,7 +33,7 @@ const App = () => {
   const [user, setUser] = useState(null)
   const [page, setPage] = useState('about')
   const [loggedIn, setLoggedIn] = useState(null)
-
+  const [showAll, setShowAll] = useState(true)
   
 
   useEffect(() => {
@@ -112,6 +113,8 @@ const App = () => {
     }
 
   }
+
+
   return ( 
     <Router>
       <Routes>
