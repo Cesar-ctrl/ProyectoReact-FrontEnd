@@ -33,6 +33,7 @@ const Guard = ({ guard, toggleDisponible }) => {
 }
 
 const FavGuard = ({ guard, toggleDisponible }) => {
+    const loggedUserJSON = window.localStorage.getItem('loggedNoteAppUser')
     const label = guard.disponible
     ? 'make not disponible'
     : 'make disponible';

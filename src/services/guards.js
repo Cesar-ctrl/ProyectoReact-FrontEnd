@@ -14,8 +14,13 @@ const getAll = () => {
     return request.then(response => response.data)
 }
 
-const getFav = () => {
-  const request = axios.get(baseUrl)
+const getFav = (guards) => {
+  const config = {
+    headers: {
+    Authorization: token
+    }
+  } 
+  const request = axios.post(`${baseUrl}/fav`, guards, config)
   return request.then(response => response.data)
 }
 
@@ -41,4 +46,4 @@ const request = axios.put(`${baseUrl}/${id}`, newObject, config)
 return request.then(response => response.data)
 }
 
-export default { guards, getAll, update }
+export default { guards, getAll, update, getFav }

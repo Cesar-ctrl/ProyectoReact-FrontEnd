@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Routes, Switch, Route,  Link } from "react-rou
 import Busqueda from './Busqueda';
 import Favoritos from './Favoritos';
 import Chat from './Chat';
+import Child from './Child';
 
 
 function Home() {
@@ -20,7 +21,7 @@ function Home() {
                 <Route path="/buscar" element={ <Busqueda />} />
                 <Route path="/favoritos" element={ <Favoritos /> }  />
                 <Route path="/chat" element={ <Chat /> }  />
-                <Route path="/child"  />
+                <Route path="/child" element={ <Child /> } />
                 <Route path="/perfil"  />
             </Routes>
             </main>

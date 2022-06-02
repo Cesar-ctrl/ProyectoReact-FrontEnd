@@ -64,9 +64,7 @@ const App = () => {
       window.localStorage.setItem(
         'loggedNoteAppUser', JSON.stringify(user)
       )
-      window.localStorage.setItem(
-        'favGuardsAppUser', JSON.stringify(user)
-      )
+
       
       noteService.setToken(user.token)
       
