@@ -93,7 +93,9 @@ export default function RegisterF ({handleSubmit, ...props}) {
             console.log(necesidadesesp)
             console.log(user.id)
           if(necesidadesesp != ''){
+            const user4 = JSON.parse(loggedUserJSON)
             console.log('pasa por necesidadesespe != "" ')
+            console.log(user4)
             const child = await childService.child({
                 name,
                 surnames,

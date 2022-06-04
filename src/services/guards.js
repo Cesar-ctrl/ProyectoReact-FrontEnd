@@ -46,4 +46,8 @@ const request = axios.put(`${baseUrl}/${id}`, newObject, config)
 return request.then(response => response.data)
 }
 
-export default { guards, getAll, update, getFav }
+const setToken = newToken => {
+  token = `Bearer ${newToken}`
+}
+
+export default { guards, getAll, update, getFav, setToken }

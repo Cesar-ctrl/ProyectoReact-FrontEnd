@@ -7,10 +7,7 @@ import Star from './Star'
 const Favoritos = () => {
 
     const [guards, setGuards] = useState([]) 
-    const [user, setUser] = useState([]) 
     const [showAll, setShowAll] = useState(true)
-    const loggUseJSON = window.localStorage.getItem('loggedNoteAppUser')
-    const usuario = JSON.parse(loggUseJSON)
 
     useEffect(() => {
         guardService

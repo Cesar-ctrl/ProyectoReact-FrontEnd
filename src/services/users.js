@@ -25,4 +25,15 @@ const request = axios.put(`${baseUrl}/fav/${id}`, newObject, config)
 return request.then(response => response.data)
 }
 
-export default { guards, getAll, update, getFav }
+const getChild = (id) => {
+  const config = {
+      headers: {
+      Authorization: token
+      }
+  }
+  
+  const request = axios.get(`${baseUrl}/hijos/${id}`, config)
+  return request.then(response => response.data)
+  }
+
+export default { users, getAll, update, getChild }

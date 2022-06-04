@@ -6,10 +6,22 @@ import Favoritos from './Favoritos';
 import Chat from './Chat';
 import Child from './Child';
 import ChildRegister from './ChildRegister'
-
+import noteService from '../services/notes'
+import childService from '../services/childs'
 
 function Home() {
+    const [user, setUser] = useState(null)
 
+
+    useEffect(() => {
+        const loggedUserJSON = window.localStorage.getItem('loggedNoteAppUser')
+        if (loggedUserJSON) {
+          const user = JSON.parse(loggedUserJSON)
+          setUser(user)
+          noteService.setToken(user.token)
+          childService.setToken(user.token)
+        }
+      }, [])
 
 
     return(

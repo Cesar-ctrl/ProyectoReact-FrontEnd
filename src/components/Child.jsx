@@ -2,28 +2,26 @@ import React, { useState, useEffect } from "react";
 import Star from './Star'
 import {  Notification } from './Staricon'
 import childService from '../services/childs'
+import userService from '../services/users'
 import Hijo from '../components2/Hijo'
 import { useNavigate,  Link } from "react-router-dom";
-import ChildRegister from './ChildRegister'
 
 const Child = () => {
     //Se que debería llamarse children
     const [childs, setChilds] = useState([]) 
-    const [showAll, setShowAll] = useState(true)
-    const [errorMessage, setErrorMessage] = useState(null)
+      const loggUserJSON = window.localStorage.getItem('loggedNoteAppUser')
+      const usuario = JSON.parse(loggUserJSON)
 
-    useEffect(() => {
-        childService
-          .getAll()
+
+
+      useEffect(() => {
+        userService
+          .getChild(usuario.id)
           .then(initialGuards => {
             setChilds(initialGuards)
           })
       }, [])
-    const loggUserJSON = window.localStorage.getItem('loggedNoteAppUser')
-    const usuario = JSON.parse(loggUserJSON)
-
     const childsToShow = childs.filter(n => n.user.id === usuario.id)
-    console.log(childsToShow)
     return (
         
         <section className="home busqueda">
