@@ -24,7 +24,7 @@
 
 .main{
     &.background1{
-        background-image: url('../img/backgraund-mobile.jpg');
+        background-image: url('../img/backgraund-mobile-large.jpg');
         height: 100vh;
         background-size: cover;
         @include movile {
@@ -108,7 +108,8 @@ h2{
     background: rgba(213, 245, 240, 0.46);
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 25px;
-    min-height: 60vh;
+    height: 60vh;
+    overflow: scroll;
     .cuidador{
         padding: {
             top: 10px;

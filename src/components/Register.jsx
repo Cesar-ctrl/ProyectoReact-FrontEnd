@@ -1,10 +1,55 @@
 import React, { useState, useEffect } from 'react'
-import Togglable from './Togglable.js'
-import PropTypes from 'prop-types'
-import { BrowserRouter as Router, Routes, Switch, Route,  Link } from "react-router-dom";
+import registerService from '../services/register'
+import { useNavigate,  Link } from "react-router-dom";
 
 export default function RegisterF ({handleSubmit, ...props}) {
-    const [passwordConfirm, setPasswordConfirm] = useState('')
+    const [errorMessage, setErrorMessage] = useState(null)
+    const [name, setName] = useState('')
+    const [surnames, setSurnames] = useState('')
+    const [dni, setDni] = useState('')
+    const [phone, setPhone] = useState('')
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+    const [user, setUser] = useState(null)
+    const [loggedIn, setLoggedIn] = useState(null)
+    const navigate = useNavigate();
+
+    const handleNameChange = ({target}) => setName(target.value)
+    const handleSurnamesChange = ({target}) => setSurnames(target.value)
+    const handleDniChange = ({target}) => setDni(target.value)
+    const handlePhoneChange = ({target}) => setPhone(target.value)
+    const handleEmailChange = ({target}) => setEmail(target.value)
+    const handlePasswordChange = ({target}) => setPassword(target.value)
+
+    const handleRegister = async (event) => {
+        event.preventDefault()
+    
+        try {
+          const user = await registerService.register({
+            name,
+            surnames,
+            dni,
+            phone,
+            email,
+            password
+          })
+          console.log(user)
+          window.localStorage.setItem(
+            'loggedNoteAppUser', JSON.stringify(user)
+          )
+          setUser(user)
+          setEmail('')
+          setPassword('')
+          setLoggedIn(true)
+          navigate("/home/buscar", { replace: true });
+        } catch(e) {
+          setErrorMessage('Wrong credentials')
+          setTimeout(() => {
+            setErrorMessage(null)
+          }, 5000)
+        }
+    
+      }
 
   return (
         <section className='pop absolute'>
@@ -18,31 +63,31 @@ export default function RegisterF ({handleSubmit, ...props}) {
                     </Link>
                     <h2>Registrarse en BabyGuard</h2>
                 </header>
-                <form action="" className='login' onSubmit={handleSubmit}>
+                <form action="" className='login' onSubmit={handleRegister}>
                     <fieldset className='col-12'>
                         <label htmlFor="name" className='col-10'>Nombre</label>
-                        <input className="col-10" type="text" name="name" value={props.name} placeholder="Introduzca su Nombre"  pattern="[^0-9\x22]+"  title="Solo se aceptan letras"  onChange={props.handleNameChange} />
+                        <input className="col-10" type="text" name="name" value={ name} placeholder="Introduzca su Nombre"  pattern="[^0-9\x22]+"  title="Solo se aceptan letras"  onChange={ handleNameChange} />
                     </fieldset>
                     <fieldset className='col-12'>
                         <label htmlFor="surnames" className='col-10'>Apellidos</label>
-                        <input className="col-10" type="text" name="surnames" value={props.surnames} placeholder="Introduzca sus Apellidos"  pattern="[^0-9\x22]+"  title="Solo se aceptan letras"  onChange={props.handleSurnamesChange} />
+                        <input className="col-10" type="text" name="surnames" value={ surnames} placeholder="Introduzca sus Apellidos"  pattern="[^0-9\x22]+"  title="Solo se aceptan letras"  onChange={ handleSurnamesChange} />
                     </fieldset>
                     <fieldset className='col-12'>
                         <label htmlFor="dni" className='col-10'>DNI</label>
-                        <input className="col-10" type="text" name="dni" value={props.dni} placeholder="Introduzca su DNI" pattern="[0-9]{8}[A-Za-z]{1}" title="Debe poner 8 números y una letra"  onChange={props.handleDniChange} />
+                        <input className="col-10" type="text" name="dni" value={ dni} placeholder="Introduzca su DNI" pattern="[0-9]{8}[A-Za-z]{1}" title="Debe poner 8 números y una letra"  onChange={ handleDniChange} />
                     </fieldset>
                     <fieldset className='col-12'>
                         <label htmlFor="phone" className='col-10'>Télefono</label>
-                        <input className="col-10" type="text" name="phone" value={props.phone} placeholder="Introduzca su teléfono" pattern="[0-9]{9}" title="Debe introducir su teléfono"  onChange={props.handlePhoneChange} />
+                        <input className="col-10" type="text" name="phone" value={ phone} placeholder="Introduzca su teléfono" pattern="[0-9]{9}" title="Debe introducir su teléfono"  onChange={ handlePhoneChange} />
                     </fieldset>
 
                     <fieldset className='col-12'>
                         <label htmlFor="email" className='col-10'>Correo electrónico</label>
-                        <input className="col-10" type="email" name="email" value={props.email} placeholder="Introduzca su correo electrónico" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"  onChange={props.handleEmailChange} />
+                        <input className="col-10" type="email" name="email" value={ email} placeholder="Introduzca su correo electrónico" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"  onChange={ handleEmailChange} />
                     </fieldset>
                     <fieldset className='col-12'>
                         <label htmlFor="Password" className='col-10'>Contraseña</label>
-                        <input className="col-10" type="password" value={props.password} name="Password" placeholder="Introduzca contraseña de al menos 8 caracteres" pattern=".{8,}" title="Debe usar 8 o más caracteres" onChange={props.handlePasswordChange} />
+                        <input className="col-10" type="password" value={ password} name="Password" placeholder="Introduzca contraseña de al menos 8 caracteres" pattern=".{8,}" title="Debe usar 8 o más caracteres" onChange={ handlePasswordChange} />
                     </fieldset>
                     <fieldset className='col-12'>
                         <label htmlFor="PasswordConfirm" className='col-10'>Confirmación de la contraseña</label>
@@ -65,9 +110,4 @@ export default function RegisterF ({handleSubmit, ...props}) {
   )
 }
 
-RegisterF.propTypes = {
-    handleSubmit: PropTypes.func.isRequired,
-    username: PropTypes.string,
-  
-  }
 

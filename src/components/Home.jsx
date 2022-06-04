@@ -26,7 +26,6 @@ function Home() {
             </Routes>
             </main>
             <footer className="footerhome">
-            
                 <Link className="nav footer" to="/home/buscar">
                     <img src="../img/lupa.svg" alt="" className='icono'/>
                     Buscar
