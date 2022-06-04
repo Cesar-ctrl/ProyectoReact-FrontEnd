@@ -5,6 +5,7 @@ import Busqueda from './Busqueda';
 import Favoritos from './Favoritos';
 import Chat from './Chat';
 import Child from './Child';
+import ChildRegister from './ChildRegister'
 
 
 function Home() {
@@ -22,6 +23,7 @@ function Home() {
                 <Route path="/favoritos" element={ <Favoritos /> }  />
                 <Route path="/chat" element={ <Chat /> }  />
                 <Route path="/child" element={ <Child /> } />
+                <Route path="/child/signup" element={ <ChildRegister /> } />
                 <Route path="/perfil"  />
             </Routes>
             </main>

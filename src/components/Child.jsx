@@ -3,7 +3,8 @@ import Star from './Star'
 import {  Notification } from './Staricon'
 import childService from '../services/childs'
 import Hijo from '../components2/Hijo'
-
+import { useNavigate,  Link } from "react-router-dom";
+import ChildRegister from './ChildRegister'
 
 const Child = () => {
     //Se que debería llamarse children
@@ -24,11 +25,10 @@ const Child = () => {
     const childsToShow = childs.filter(n => n.user.id === usuario.id)
     console.log(childsToShow)
     return (
+        
         <section className="home busqueda">
         <header className='titulo main'>
-
             <h2>Búsqueda</h2>
-
         </header>
         <section className='buscador'>
             <div className='barra'>
@@ -51,9 +51,9 @@ const Child = () => {
                         child={child}
                     />
                 )}
-                <div className='cuidador flexea roww'>
+                <Link className='cuidador flexea roww' to='signup'>
                     <h3>¿Añadir un niño?</h3>
-                </div>
+                </Link>
                 
             </div>
         </section>

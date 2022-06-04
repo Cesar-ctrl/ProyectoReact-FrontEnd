@@ -1,8 +1,9 @@
 import axios from 'axios'
 
-const baseUrl = 'http://localhost:3001/api/hijos'
+const baseUrl = 'https://damp-temple-29994.herokuapp.com/api/hijos'
 
 const child = async credentials => {
+  console.log(credentials)
   const { data } = await axios.post(baseUrl, credentials)
   return data
 }

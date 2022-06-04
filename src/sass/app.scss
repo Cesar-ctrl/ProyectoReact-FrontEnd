@@ -35,7 +35,10 @@
         width: 97.66%;
     }
 }
-.col-12 {width: 100%;}
+.col-12 {
+    width: 100%;
+    margin: 0px;
+}
 
 a {
     text-decoration: none;

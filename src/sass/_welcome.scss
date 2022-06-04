@@ -129,6 +129,9 @@ a, input{
         width: 100%;
     }
 }
+input[type="checkbox"]{
+    width: auto;
+}
 
 button.encuentra{
     border: 1px solid rgb(49, 153, 181);
