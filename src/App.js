@@ -26,13 +26,6 @@ const App = () => {
     }
   }, [])
 
-  const handleLogout = () => {
-    setUser(null)
-    noteService.setToken(null)
-    window.localStorage.removeItem('loggedNoteAppUser')
-    setLoggedIn(false)
-  }
-
 
   return ( 
     <Router>

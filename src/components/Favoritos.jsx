@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import guardService from '../services/guards';
+import userService from '../services/users';
 import Guard from '../components2/Guard'
 import Star from './Star'
 
@@ -8,10 +8,21 @@ const Favoritos = () => {
 
     const [guards, setGuards] = useState([]) 
     const [showAll, setShowAll] = useState(true)
-
+    const [errorMessage, setErrorMessage] = useState(null)
+    const loggUserJSON = window.localStorage.getItem('loggedNoteAppUser')
+    const usuario = JSON.parse(loggUserJSON)
+    //useEffect(() => {
+    //    guardService
+    //      .getAll()
+    //      .then(initialGuards => {
+    //        setGuards(initialGuards)
+    //      })
+    //  }, [])
     useEffect(() => {
-        guardService
-          .getAll()
+        const loggUserJSON = window.localStorage.getItem('loggedNoteAppUser')
+        const usuario = JSON.parse(loggUserJSON)
+        userService
+          .getFavUser(usuario.id)
           .then(initialGuards => {
             setGuards(initialGuards)
           })
@@ -25,29 +36,27 @@ const Favoritos = () => {
     //})
 
     // TODO: CONSEGUIR QUE ESTO FUNCIONE
-    //const toggleFav = (id) => {
-    //    const user = user.find(n => n.id === usuario.)
-    //    const changedNote = { ...guard, disponible: !guard.disponible }
-    //  
-    //    guardService
-    //      .update(id, changedNote)
-    //      .then(returnedGuard => {
-    //        setGuards(guards.map(guard => guard.id !== id ? guard : returnedGuard))
-    //      })
-    //      .catch(error => {
-    //        setErrorMessage(
-    //          `Note '${guard.content}' was already removed from server`
-    //        )
-    //        setTimeout(() => {
-    //          setErrorMessage(null)
-    //        }, 5000)   
-    //      })
-    //  }
-    
-    const guardsToShow = showAll
-    ? guards
-    : guards.filter(guard => guard.disponible)
+    const toggleFav = (id) => {
+        const user = user.find(n => n.id === usuario.id)
+        
+        userService
+          .getFavUser(id)
+          .then(returnedGuard => {
+            setGuards(guards.map(guard => guard.id !== id ? guard : returnedGuard))
+          })
+          .catch(error => {
+            setErrorMessage(
+              `Note  was already removed from server`
+            )
+            setTimeout(() => {
+              setErrorMessage(null)
+            }, 5000)   
+          })
+      }
 
+    const guardsToShow = showAll
+    ? guards.guards
+    : guards.guards.filter(guard => guard.disponible)
     return (
         <section className="home">
             <header className='titulo main'>
@@ -58,20 +67,23 @@ const Favoritos = () => {
                 <div className='barra'>
                     
                 <button onClick={() => setShowAll(!showAll)}>
-                    show {showAll ? 'important' : 'all' }
+                    Ver niñeras  {showAll ? 'disponibles' : 'todas' }
                 </button>
                     
                 </div>
             </section>
             <section className='flexea column'>
                 <div className='col-10 column listado'>
-                {guardsToShow.map((guard, i) => 
-                    <Guard
-                        key={i}
-                        guard={guard} 
-                        
-                    />
-                )}
+                {
+                guardsToShow? guardsToShow.map((guard, i) => 
+                <Guard
+                    key={i}
+                    guard={guard} 
+                    toggleDisponible={() => toggleFav(guard.id)}
+                    
+                />
+             ): console.log("esperando")
+                }
 
                     <div className='cuidador flexea roww'>
                         <div className='foto'>

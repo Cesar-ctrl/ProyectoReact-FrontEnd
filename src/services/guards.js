@@ -4,6 +4,10 @@ const baseUrl = 'https://damp-temple-29994.herokuapp.com/api/babyguards'
 
 let token = null
 
+const setToken = newToken => {
+  token = `Bearer ${newToken}`
+}
+
 const guards = async credentials => {
   const { data } = await axios.get(baseUrl, credentials)
   return data
@@ -44,10 +48,6 @@ const config = {
 
 const request = axios.put(`${baseUrl}/${id}`, newObject, config)
 return request.then(response => response.data)
-}
-
-const setToken = newToken => {
-  token = `Bearer ${newToken}`
 }
 
 export default { guards, getAll, update, getFav, setToken }

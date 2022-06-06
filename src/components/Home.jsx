@@ -5,9 +5,11 @@ import Busqueda from './Busqueda';
 import Favoritos from './Favoritos';
 import Chat from './Chat';
 import Child from './Child';
+import Miperfil from './Miperfil';
 import ChildRegister from './ChildRegister'
 import noteService from '../services/notes'
 import childService from '../services/childs'
+import userService from '../services/users'
 
 function Home() {
     const [user, setUser] = useState(null)
@@ -18,6 +20,7 @@ function Home() {
         if (loggedUserJSON) {
           const user = JSON.parse(loggedUserJSON)
           setUser(user)
+          userService.setToken(user.token)
           noteService.setToken(user.token)
           childService.setToken(user.token)
         }
@@ -36,7 +39,7 @@ function Home() {
                 <Route path="/chat" element={ <Chat /> }  />
                 <Route path="/child" element={ <Child /> } />
                 <Route path="/child/signup" element={ <ChildRegister /> } />
-                <Route path="/perfil"  />
+                <Route path="/perfil" element={ <Miperfil /> } />
             </Routes>
             </main>
             <footer className="footerhome">

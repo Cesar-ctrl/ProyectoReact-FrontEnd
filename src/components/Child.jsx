@@ -1,7 +1,4 @@
 import React, { useState, useEffect } from "react";
-import Star from './Star'
-import {  Notification } from './Staricon'
-import childService from '../services/childs'
 import userService from '../services/users'
 import Hijo from '../components2/Hijo'
 import { useNavigate,  Link } from "react-router-dom";
@@ -9,24 +6,26 @@ import { useNavigate,  Link } from "react-router-dom";
 const Child = () => {
     //Se que debería llamarse children
     const [childs, setChilds] = useState([]) 
-      const loggUserJSON = window.localStorage.getItem('loggedNoteAppUser')
-      const usuario = JSON.parse(loggUserJSON)
+    const [showAll, setShowAll] = useState(true)
+    const loggUserJSON = window.localStorage.getItem('loggedNoteAppUser')
+    const usuario = JSON.parse(loggUserJSON)
 
-
-
-      useEffect(() => {
+    useEffect(() => {
         userService
-          .getChild(usuario.id)
-          .then(initialGuards => {
-            setChilds(initialGuards)
-          })
-      }, [])
-    const childsToShow = childs.filter(n => n.user.id === usuario.id)
+            .getUser(usuario.id)
+            .then(initialGuards => {
+                setChilds(initialGuards)
+            })
+    }, [])
+
+    const childsToShow = showAll
+    ? childs.hijos
+    : childs.hijos.filter(guard => guard.disponible)
     return (
         
         <section className="home busqueda">
         <header className='titulo main'>
-            <h2>Búsqueda</h2>
+            <h2>Niños</h2>
         </header>
         <section className='buscador'>
             <div className='barra'>
@@ -43,12 +42,13 @@ const Child = () => {
         </section>
         <section className='flexea column'>
             <div className='col-10 column listado'>
-                {childsToShow.map((child, i) => 
+                {childsToShow? childsToShow.map((child, i) =>
                     <Hijo
                         key={i}
                         child={child}
                     />
-                )}
+                ):console.log("Esperando")
+            }
                 <Link className='cuidador flexea roww' to='signup'>
                     <h3>¿Añadir un niño?</h3>
                 </Link>

@@ -16,26 +16,26 @@ const Busqueda = () => {
             setGuards(initialGuards)
           })
       }, [])
-    
+      
     const toggleDisponible = (id) => {
         const guard = guards.find(n => n.id === id)
-        const changedNote = { ...guard, disponible: !guard.disponible }
-      
+        const changedGuard = { ...guard, disponible: !guard.disponible }
+        
         guardService
-          .update(id, changedNote)
-          .then(returnedGuard => {
+            .update(id, changedGuard)
+            .then(returnedGuard => {
             setGuards(guards.map(guard => guard.id !== id ? guard : returnedGuard))
-          })
-          .catch(error => {
+            })
+            .catch(error => {
             setErrorMessage(
-              `Note '${guard.content}' was already removed from server`
+                `Note '${guard.content}' was already removed from server`
             )
             setTimeout(() => {
-              setErrorMessage(null)
+                setErrorMessage(null)
             }, 5000)   
-          })
-      }
-
+            })
+    }
+    console.log(guards)
 
     const guardsToShow = showAll
     ? guards

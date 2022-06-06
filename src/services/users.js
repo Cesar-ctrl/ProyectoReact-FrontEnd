@@ -1,8 +1,13 @@
 import axios from 'axios'
 
-const baseUrl = 'https://damp-temple-29994.herokuapp.com/api/users'
+const baseUrl = 'http://localhost:3001/api/users'
 
 let token = null
+
+const setToken = newToken => {
+  token = `Bearer ${newToken}`
+}
+
 
 const users = async credentials => {
   const { data } = await axios.get(baseUrl, credentials)
@@ -25,15 +30,14 @@ const request = axios.put(`${baseUrl}/fav/${id}`, newObject, config)
 return request.then(response => response.data)
 }
 
-const getChild = (id) => {
-  const config = {
-      headers: {
-      Authorization: token
-      }
-  }
-  
-  const request = axios.get(`${baseUrl}/hijos/${id}`, config)
+const getUser = (id) => {
+  const request = axios.get(`${baseUrl}/${id}`)
   return request.then(response => response.data)
   }
 
-export default { users, getAll, update, getChild }
+const getFavUser = (id) => {
+  const request = axios.get(`${baseUrl}/fav/${id}`)
+  return request.then(response => response.data)
+}
+
+export default { users, getAll, update, getUser, setToken, getFavUser }
