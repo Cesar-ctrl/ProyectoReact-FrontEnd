@@ -13,7 +13,7 @@ import userService from '../services/users'
 
 function Home() {
     const [user, setUser] = useState(null)
-
+    const modoEdicion = true
 
     useEffect(() => {
         const loggedUserJSON = window.localStorage.getItem('loggedNoteAppUser')
@@ -38,7 +38,12 @@ function Home() {
                 <Route path="/favoritos" element={ <Favoritos /> }  />
                 <Route path="/chat" element={ <Chat /> }  />
                 <Route path="/child" element={ <Child /> } />
-                <Route path="/child/signup" element={ <ChildRegister /> } />
+                <Route path="/child/signup" element={ <ChildRegister 
+                    modoEdicion={false}
+                /> } />
+                <Route path="/child/change/*" element={ <ChildRegister 
+                    modoEdicion={modoEdicion}
+                /> } />
                 <Route path="/perfil" element={ <Miperfil /> } />
             </Routes>
             </main>

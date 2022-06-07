@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const baseUrl = 'https://damp-temple-29994.herokuapp.com/api/hijos'
+const baseUrl = 'http://localhost:3001/api/hijos'
 
 let token = null
 
@@ -29,6 +29,25 @@ const getAll = () => {
     return request.then(response => response.data)
 }
 
+const getChild = (id) => {
+  const config = {
+    headers: {
+    Authorization: token
+    }
+}
+    const request =  axios.get(`${baseUrl}/${id}`, config)
+    return request.then(response => response.data)
+}
+const update = (id, newObject) => {
+  const config = {
+      headers: {
+      Authorization: token
+      }
+  }
+  
+  const request = axios.put(`${baseUrl}/${id}`, newObject, config)
+  return request.then(response => response.data)
+  }
 
 
-export default { child, getAll, setToken }
+export default { child, getAll, setToken, getChild, update }

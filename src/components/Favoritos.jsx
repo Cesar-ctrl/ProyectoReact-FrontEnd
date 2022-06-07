@@ -2,15 +2,15 @@ import React, { useState, useEffect } from 'react'
 import userService from '../services/users';
 import Guard from '../components2/Guard'
 import Star from './Star'
-
+import BotonRegistro from './BotonRegistro'
 
 const Favoritos = () => {
 
     const [guards, setGuards] = useState([]) 
     const [showAll, setShowAll] = useState(true)
     const [errorMessage, setErrorMessage] = useState(null)
-    const loggUserJSON = window.localStorage.getItem('loggedNoteAppUser')
-    const usuario = JSON.parse(loggUserJSON)
+    const loggeUserJSON = window.localStorage.getItem('loggedNoteAppUser')
+    const usuario = JSON.parse(loggeUserJSON)
     //useEffect(() => {
     //    guardService
     //      .getAll()
@@ -20,12 +20,14 @@ const Favoritos = () => {
     //  }, [])
     useEffect(() => {
         const loggUserJSON = window.localStorage.getItem('loggedNoteAppUser')
-        const usuario = JSON.parse(loggUserJSON)
-        userService
-          .getFavUser(usuario.id)
-          .then(initialGuards => {
-            setGuards(initialGuards)
-          })
+        if(loggUserJSON){
+            const usuario = JSON.parse(loggUserJSON)
+            userService
+            .getFavUser(usuario.id)
+            .then(initialGuards => {
+                setGuards(initialGuards)
+            })
+        }
       }, [])
 
 
@@ -57,6 +59,7 @@ const Favoritos = () => {
     const guardsToShow = showAll
     ? guards.guards
     : guards.guards.filter(guard => guard.disponible)
+    const loggUserJSON = window.localStorage.getItem('loggedNoteAppUser')
     return (
         <section className="home">
             <header className='titulo main'>
@@ -65,15 +68,21 @@ const Favoritos = () => {
             </header>
             <section className='buscador'>
                 <div className='barra'>
-                    
-                <button onClick={() => setShowAll(!showAll)}>
-                    Ver niñeras  {showAll ? 'disponibles' : 'todas' }
-                </button>
-                    
+                {
+                loggUserJSON? 
+                    <button onClick={() => setShowAll(!showAll)}>
+                        Ver niñeras  {showAll ? 'disponibles' : 'todas' }
+                    </button>
+                : console.log("esperando")
+                } 
                 </div>
             </section>
             <section className='flexea column'>
+                {
+                loggUserJSON? 
+                
                 <div className='col-10 column listado'>
+
                 {
                 guardsToShow? guardsToShow.map((guard, i) => 
                 <Guard
@@ -81,8 +90,8 @@ const Favoritos = () => {
                     guard={guard} 
                     toggleDisponible={() => toggleFav(guard.id)}
                     
-                />
-             ): console.log("esperando")
+                />)
+                :console.log("esperando")
                 }
 
                     <div className='cuidador flexea roww'>
@@ -125,6 +134,8 @@ const Favoritos = () => {
                         </div>
                     </div>
                 </div>
+                :<BotonRegistro />
+                }
             </section>
         </section>
     )

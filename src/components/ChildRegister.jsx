@@ -3,12 +3,20 @@ import childService from '../services/childs'
 import { useNavigate,  Link } from "react-router-dom";
 
 export default function RegisterF ({handleSubmit, ...props}) {
-    const [errorMessage, setErrorMessage] = useState(null)
-    const [name, setName] = useState('')
-    const [surnames, setSurnames] = useState('')
-    const [edad, setEdad] = useState(0)
-    const [dni, setDni] = useState('')
-    const [necesidadesesp, setNecesidadesesp] = useState('')
+    
+    const [modoEdicion, setmodoEdicion] = useState(false)
+    const [childs, setChilds] = useState([]) 
+    const [Id, setId] = useState("")
+
+    const loggUserJSON = window.localStorage.getItem('loggedNoteAppUser')
+    const user = JSON.parse(loggUserJSON)
+    
+    console.log(props.modoEdicion)
+    const [name, setName] = useState(props.modoEdicion? childs.name:'')// (modoEdicion? childs.name:'')
+    const [surnames, setSurnames] = useState(props.modoEdicion? childs.surnames:'')
+    const [edad, setEdad] = useState(props.modoEdicion? childs.edad:0)
+    const [DNI, setDni] = useState(props.modoEdicion? childs.DNI:'')
+    const [necesidadesesp, setNecesidadesesp] = useState(props.modoEdicion? childs.necesidadesesp:'')
     const [child, setChild] = useState(null)
     const navigate = useNavigate();
 
@@ -78,65 +86,9 @@ export default function RegisterF ({handleSubmit, ...props}) {
         
 
     ]
-
-    const loggedUserJSON = window.localStorage.getItem('loggedNoteAppUser')
-    const user = JSON.parse(loggedUserJSON)
-
-    const handleRegisterChild = async (event) => {
-        event.preventDefault()
-        try {
-            console.log(name)
-            console.log(surnames)
-            console.log(dni)
-            console.log(edad)
-            console.log(alergenos)
-            console.log(necesidadesesp)
-            console.log(user.id)
-          if(necesidadesesp != ''){
-            const user4 = JSON.parse(loggedUserJSON)
-            console.log('pasa por necesidadesespe != "" ')
-            console.log(user4)
-            const child = await childService.child({
-                name,
-                surnames,
-                edad,
-                dni,
-                alergenos,
-                necesidadesesp,
-                user:user.id
-              })
-          }else{
-            console.log(' NO pasa por necesidadesespe != "" ')
-            const child = await childService.child({
-                name,
-                surnames,
-                edad,
-                dni,
-                alergenos,
-                user:user.id
-                
-              })
-          }
-          
-          setChild(child)
-          setEdad('')
-          setDni('')
-          setAlergenos('')
-          setNecesidadesesp('')
-          navigate("/home/child", { replace: true });
-        } catch(e) {
-          setErrorMessage('Wrong credentials')
-          setTimeout(() => {
-            setErrorMessage(null)
-          }, 5000)
-        }
-    
-      }
-
-      const [alergenos, setAlergenos] = useState(
+    const [alergenos, setAlergenos] = useState(
         new Array(listaalergenos.length).fill(false)
       );
-      const [total, setTotal] = useState(0);
 
       const handleOnChange = (position) => {
         const updatedAlergenos = alergenos.map((item, index) =>
@@ -147,6 +99,79 @@ export default function RegisterF ({handleSubmit, ...props}) {
     
       };
 
+    useEffect(() => {
+        setmodoEdicion(props.modoEdicion)
+        if(props.modoEdicion){
+            const path = window.location.pathname
+            const arr = path.split("/")
+            setId(arr[4])
+            childService.setToken(user.token)
+            childService.getChild(arr[4])
+                .then(initialGuards => {
+                    setChilds(initialGuards)
+                })
+            setName(childs.name)
+            setSurnames(childs.surnames)
+            setEdad(childs.edad)
+            setDni(childs.DNI)
+            setNecesidadesesp(childs.necesidadesesp)
+        }
+
+    }, [])
+    
+    
+    const handleRegisterChild = async (event) => {
+        event.preventDefault()
+        try {
+
+            const child = await childService.child({
+                name,
+                surnames,
+                edad,
+                DNI,
+                alergenos,
+                necesidadesesp,
+                user:user.id
+                })
+            
+            setChild(child)
+            setEdad('')
+            setDni('')
+            setAlergenos('')
+            setNecesidadesesp('')
+            navigate("/home/child", { replace: true });
+        } catch(e) {
+
+        }
+    
+      }
+    const activarModoEdicion = () => {
+
+        console.log(childs)
+        setmodoEdicion(true)
+
+    }
+
+    const editarHijo = async(e) =>{
+        e.preventDefault()
+        try{
+            await childService.update(Id, {
+                name,
+                surnames,
+                edad,
+                DNI,
+                alergenos,
+                necesidadesesp,
+                user:user.id
+              })
+            
+            setmodoEdicion(false)
+            setId("")
+        }catch (error){
+
+        }
+    }
+    
   return (
         <section className='pop absolute'>
             <header>
@@ -154,23 +179,24 @@ export default function RegisterF ({handleSubmit, ...props}) {
             </header>
             <section className='body'>
                 <header>
-                    <Link to="/" >
-                        Inicio Sesión
+                    <Link to="/home/child" >
+                        Atrás
                     </Link>
                     <h2>Dar de alta a tu niño/a</h2>
                 </header>
-                <form action="" className='login' onSubmit={handleRegisterChild}>
+                
+                <form action="" className='login' onSubmit={modoEdicion? editarHijo:handleRegisterChild}>
                     <fieldset className='col-12'>
                         <label htmlFor="name" className='col-10'>Nombre</label>
-                        <input className="col-10" type="text" name="name" value={ name} placeholder="Introduzca su Nombre"  pattern="[^0-9\x22]+"  title="Solo se aceptan letras"  onChange={ handleNameChange} />
+                        <input className="col-10" type="text" name="name" value={childs.name} placeholder="Introduzca su Nombre"  pattern="[^0-9\x22]+"  title="Solo se aceptan letras"  onChange={ handleNameChange} />
                     </fieldset>
                     <fieldset className='col-12'>
                         <label htmlFor="surnames" className='col-10'>Apellidos</label>
-                        <input className="col-10" type="text" name="surnames" value={ surnames} placeholder="Introduzca sus Apellidos"  pattern="[^0-9\x22]+"  title="Solo se aceptan letras"  onChange={ handleSurnamesChange} />
+                        <input className="col-10" type="text" name="surnames" value placeholder="Introduzca sus Apellidos"  pattern="[^0-9\x22]+"  title="Solo se aceptan letras"  onChange={ handleSurnamesChange} />
                     </fieldset>
                     <fieldset className='col-12'>
                         <label htmlFor="dni" className='col-10'>DNI</label>
-                        <input className="col-10" type="text" name="dni" value={ dni} placeholder="Introduzca su DNI" pattern="[0-9]{8}[A-Za-z]{1}" title="Debe poner 8 números y una letra"  onChange={ handleDniChange} />
+                        <input className="col-10" type="text" name="dni" value={ DNI} placeholder="Introduzca su DNI" pattern="[0-9]{8}[A-Za-z]{1}" title="Debe poner 8 números y una letra"  onChange={ handleDniChange} />
                     </fieldset>
                     <fieldset className='col-12'>
                         <label htmlFor="edad" className='col-10'>Edad</label>
@@ -204,21 +230,17 @@ export default function RegisterF ({handleSubmit, ...props}) {
                         <input className="col-10" type="text" value={ necesidadesesp} name="necesidadesesp" placeholder="Escriba el niño/a tiene alguna necesidad especial" pattern="[^0-9\x22]+" onChange={ handleNecesidadesespChange} />
                     </fieldset>
 
-                    <fieldset className='col-12'>
+                    <fieldset className='col-12 end'>
                         <label htmlFor="enviar" className='col-10'>Dar de alta</label>
-                        <button className="col-2 col-10" type="submit" name="enviar" value="Registrarse" id='form-register-button'> Iniciar Sesion</button>
+                        <button className="col-2 col-10" type="submit" name="enviar" value="Registrarse" id='form-register-button'>Enviar</button>
                     </fieldset>
                 </form>
-                <div >
-                    <Link to="/login">
-                        ¿Ya tienes una cuenta?
-                    </Link>
-                </div>
             </section>
         
         </section>
         
   )
 }
+
 
 

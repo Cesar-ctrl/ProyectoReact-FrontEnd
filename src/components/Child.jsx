@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import userService from '../services/users'
 import Hijo from '../components2/Hijo'
 import { useNavigate,  Link } from "react-router-dom";
+import BotonRegistro from './BotonRegistro'
 
 const Child = () => {
     //Se que debería llamarse children
@@ -10,13 +11,18 @@ const Child = () => {
     const loggUserJSON = window.localStorage.getItem('loggedNoteAppUser')
     const usuario = JSON.parse(loggUserJSON)
 
+
     useEffect(() => {
+        if(loggUserJSON){
         userService
             .getUser(usuario.id)
             .then(initialGuards => {
                 setChilds(initialGuards)
             })
+        }
     }, [])
+
+
 
     const childsToShow = showAll
     ? childs.hijos
@@ -29,11 +35,17 @@ const Child = () => {
         </header>
         <section className='buscador'>
             <div className='barra'>
-                
-                <input type="text" className='barra col-8' />
-                <div className='imgbuscar'>
-                    <img src="../img/lupa-busqueda.png" alt="" className='lupa'/>
+            {
+                loggUserJSON? 
+                <div>
+                    <input type="text" className='barra col-8' />
+                    <div className='imgbuscar'>
+                        <img src="../img/lupa-busqueda.png" alt="" className='lupa'/>
+                    </div>
                 </div>
+
+                : console.log("esperando")
+            }
                 
             </div>
             <div className='filtros'>
@@ -41,6 +53,9 @@ const Child = () => {
             </div>
         </section>
         <section className='flexea column'>
+        {
+            loggUserJSON? 
+            
             <div className='col-10 column listado'>
                 {childsToShow? childsToShow.map((child, i) =>
                     <Hijo
@@ -54,6 +69,8 @@ const Child = () => {
                 </Link>
                 
             </div>
+            :<BotonRegistro />
+        }
         </section>
 
       </section>

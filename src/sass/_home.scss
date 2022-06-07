@@ -63,16 +63,29 @@
             background-image: url('../img/carrito-de-bebé-trio-de-Asalvo_1.jpg');
         }
     }
-    &.titulo{
-        color: black;
-        padding-top: 30px ;
-        padding-bottom: 30px;
-        padding-left: 20px;
-       
+    
+}
+.titulo{
+    color: black;
+    padding: {
+        top: 30px;
+        bottom: 30px;
+        right: 20px;
+        left: 20px;
     }
 }
-
-
+.cabezera{
+    font-size: x-large;
+}
+.pie{
+    margin-top: 30px;
+}
+.redirect{
+    border-radius: 7px;
+}
+.end{
+    padding-bottom: 60px;
+}
 .home{
     height: 93vh;
 }
