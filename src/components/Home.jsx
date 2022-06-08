@@ -10,6 +10,7 @@ import ChildRegister from './ChildRegister'
 import noteService from '../services/notes'
 import childService from '../services/childs'
 import userService from '../services/users'
+import PerfilGuard from '../components2/PerfilGuard';
 
 function Home() {
     const [user, setUser] = useState(null)
@@ -45,6 +46,7 @@ function Home() {
                     modoEdicion={modoEdicion}
                 /> } />
                 <Route path="/perfil" element={ <Miperfil /> } />
+                <Route path="/buscar/guard/*" element={ <PerfilGuard /> } />
             </Routes>
             </main>
             <footer className="footerhome">

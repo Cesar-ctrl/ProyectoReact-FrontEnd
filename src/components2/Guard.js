@@ -1,5 +1,6 @@
 import React from 'react'
 import Star from '../components/Star'
+import { useNavigate,  Link } from "react-router-dom";
 
 const Guard = ({ guard, toggleDisponible }) => {
     const label = guard.disponible
@@ -7,8 +8,10 @@ const Guard = ({ guard, toggleDisponible }) => {
     : 'make disponible';
 
   return (
-
-    <div className={guard.disponible ? 'cuidador flexea roww' : 'cuidador flexea roww indispuesto'}>
+    <Link to={"/home/buscar/guard/"+guard.id}
+        guardid={guard.id}
+        >
+        <div className={guard.disponible ? 'cuidador flexea roww' : 'cuidador flexea roww indispuesto'}>
         <div className='foto'>
             <img src="../img/Prueba2.jpg" className='fotoestandar' alt="" />
         </div>
@@ -29,6 +32,7 @@ const Guard = ({ guard, toggleDisponible }) => {
         </div>
         <button onClick={toggleDisponible}>{label}</button>
     </div>
+    </Link>
   )
 }
 

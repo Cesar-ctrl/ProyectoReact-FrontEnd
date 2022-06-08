@@ -27,10 +27,9 @@ export default function RegisterF ({handleSubmit, ...props}) {
         event.preventDefault()
 
         try {
-            var filename = selectedFile.name
+            
             if(selectedFile !== null){
                 console.log(selectedFile)
-                console.log(filename)
                 const user = await registerService.register({
                     name,
                     surnames,
@@ -38,7 +37,7 @@ export default function RegisterF ({handleSubmit, ...props}) {
                     phone,
                     email,
                     password,
-                    filename
+                    selectedFile
                 })
                 console.log(user)
                 window.localStorage.setItem(
