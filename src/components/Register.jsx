@@ -10,6 +10,7 @@ export default function RegisterF ({handleSubmit, ...props}) {
     const [phone, setPhone] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const [selectedFile, setSelectedFile] = useState(null);
     const [user, setUser] = useState(null)
     const [loggedIn, setLoggedIn] = useState(null)
     const navigate = useNavigate();
@@ -21,22 +22,44 @@ export default function RegisterF ({handleSubmit, ...props}) {
     const handleEmailChange = ({target}) => setEmail(target.value)
     const handlePasswordChange = ({target}) => setPassword(target.value)
 
+    
     const handleRegister = async (event) => {
         event.preventDefault()
-    
+
         try {
-          const user = await registerService.register({
-            name,
-            surnames,
-            dni,
-            phone,
-            email,
-            password
-          })
-          console.log(user)
-          window.localStorage.setItem(
-            'loggedNoteAppUser', JSON.stringify(user)
-          )
+            var filename = selectedFile.name
+            if(selectedFile !== null){
+                console.log(selectedFile)
+                console.log(filename)
+                const user = await registerService.register({
+                    name,
+                    surnames,
+                    dni,
+                    phone,
+                    email,
+                    password,
+                    filename
+                })
+                console.log(user)
+                window.localStorage.setItem(
+                    'loggedNoteAppUser', JSON.stringify(user)
+                )
+            }else{
+                const user = await registerService.register({
+                    name,
+                    surnames,
+                    dni,
+                    phone,
+                    email,
+                    password
+                })
+                console.log(user)
+                window.localStorage.setItem(
+                    'loggedNoteAppUser', JSON.stringify(user)
+                )
+            }
+            
+          
           setUser(user)
           setEmail('')
           setPassword('')
@@ -92,6 +115,10 @@ export default function RegisterF ({handleSubmit, ...props}) {
                     <fieldset className='col-12'>
                         <label htmlFor="PasswordConfirm" className='col-10'>Confirmación de la contraseña</label>
                         <input className="col-10" type="password" placeholder="Repita la contraseña" name="PasswordConfirm"  />
+                    </fieldset>
+                    <fieldset className='col-12'>
+                        <label htmlFor="imgUrl" className='col-10'>Foto de perfil (No es obligatorio)</label>
+                        <input className="col-10" type="file" name="imgUrl" placeholder="¿Quiere subir una imagen?" onChange={(e) => setSelectedFile(e.target.files[0])}  />
                     </fieldset>
                     <fieldset className='col-12'>
                         <label htmlFor="enviar" className='col-10'>Iniciar Sesion</label>
