@@ -11,7 +11,6 @@ export default function RegisterF ({handleSubmit, ...props}) {
     const loggUserJSON = window.localStorage.getItem('loggedNoteAppUser')
     const user = JSON.parse(loggUserJSON)
     
-    console.log(props.modoEdicion)
     const [name, setName] = useState(props.modoEdicion? childs.name:'')// (modoEdicion? childs.name:'')
     const [surnames, setSurnames] = useState(props.modoEdicion? childs.surnames:'')
     const [edad, setEdad] = useState(props.modoEdicion? childs.edad:0)
@@ -192,7 +191,7 @@ export default function RegisterF ({handleSubmit, ...props}) {
                     </fieldset>
                     <fieldset className='col-12'>
                         <label htmlFor="surnames" className='col-10'>Apellidos</label>
-                        <input className="col-10" type="text" name="surnames" value placeholder="Introduzca sus Apellidos"  pattern="[^0-9\x22]+"  title="Solo se aceptan letras"  onChange={ handleSurnamesChange} />
+                        <input className="col-10" type="text" name="surnames" value={childs.surnames} placeholder="Introduzca sus Apellidos"  pattern="[^0-9\x22]+"  title="Solo se aceptan letras"  onChange={ handleSurnamesChange} />
                     </fieldset>
                     <fieldset className='col-12'>
                         <label htmlFor="dni" className='col-10'>DNI</label>

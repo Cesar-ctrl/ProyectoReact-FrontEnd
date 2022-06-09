@@ -19,14 +19,14 @@ const getAll = () => {
     return request.then(response => response.data)
 }
 
-const update = (id, newObject) => {
+const postfav = (id, newObject) => {
 const config = {
     headers: {
     Authorization: token
     }
 }
 
-const request = axios.put(`${baseUrl}/fav/${id}`, newObject, config)
+const request = axios.post(`${baseUrl}/fav/${id}`, newObject, config)
 return request.then(response => response.data)
 }
 
@@ -40,4 +40,4 @@ const getFavUser = (id) => {
   return request.then(response => response.data)
 }
 
-export default { users, getAll, update, getUser, setToken, getFavUser }
+export default { users, getAll, postfav, getUser, setToken, getFavUser }

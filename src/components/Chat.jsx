@@ -3,7 +3,7 @@ import Star from './Star'
 import {  Notification } from './Staricon'
 
 const Chat = () => {
-
+    const newmode = window.localStorage.getItem('newmode')
     return (
         <section className="home">
             <header className='titulo main'>
@@ -27,7 +27,10 @@ const Chat = () => {
                 <div className='col-10 column listado'>
                     <div className='cuidador flexea roww'>
                         <div className='foto'>
+                            {
+                            newmode?<img src="../img/pepe-clown.gif" className='fotoestandar' alt="" /> :
                             <img src="../img/Prueba2.jpg" className='fotoestandar' alt="" />
+                            }
                         </div>
                         <div>
                             <div className='nombreval flexea column'>

@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Comic+Neue&display=swap');
 * {
     box-sizing: border-box;
   }
@@ -5,7 +6,7 @@
 $body-bg: #f8fafc;
 
 // Typography
-$font-family-sans-serif: 'Nunito', sans-serif;
+$font-family-sans-serif: 'Comic Neue', cursive;
 $font-size-base: 0.9rem;
 $line-height-base: 1.6;
 @mixin movileS {
@@ -44,9 +45,12 @@ $line-height-base: 1.6;
 
 
 .container{
+    font-family: "Comfortaa";
+    src: url("../fonts/Comfortaa-VariableFont_wght.ttf");  
     height:100vh;
     border: none;
     .background1{
+        transition: opacity .5s;
         background-image: url('../img/carrito-de-bebe-movil.jpg');
         height: 100vh;
         background-size: cover;
@@ -66,32 +70,47 @@ $line-height-base: 1.6;
         }
     }
     .background2{
-        background-image: url('../img/carrito-de-bebe-movil.jpg');
+        transition: opacity .5s;
+        background-image: url('../img/bebe-comiendo-movil.png');
         height: 100vh;
         background-size: cover;
         @include movile() {
-            background-image: url('../img/carrito-de-bebe-tablet.jpg');
+            background-image: url('../img/bebe-comiendo-tablet.png');
         }
         @include tablet() {
-            background-image: url('../img/carrito-de-bebe-desktop.jpg');
+            background-image: url('../img/bebe-comiendo-desktop.png');
         }
         @include desktop() {
-            background-image: url('../img/carrito-de-bebé-trio-de-Asalvo_1.jpg');
+            background-image: url('../img/bebe-comiendo-desktop.png');
+        }
+        .flexea.columncenter{
+            align-items: normal;
+            justify-content: center;
+            
         }
     }
     .background3{
-        background-image: url('../img/carrito-de-bebe-movil.jpg');
+        transition: opacity .5s;
+        background-image: url('../img/sillita-coche-bebe-movil.png');
         height: 100vh;
         background-size: cover;
         @include movile() {
-            background-image: url('../img/carrito-de-bebe-tablet.jpg');
+            background-image: url('../img/sillita-coche-bebe-tablet.png');
         }
         @include tablet() {
-            background-image: url('../img/carrito-de-bebe-desktop.jpg');
+            background-image: url('../img/sillita-coche-bebe-desktop.png');
         }
         @include desktop() {
-            background-image: url('../img/carrito-de-bebé-trio-de-Asalvo_1.jpg');
+            background-image: url('../img/sillita-coche-bebe-grande.png');
         }
+        .flexea.columncenter{
+            align-items: normal;
+            justify-content: center;
+            
+        }
+    }
+    &.backunder{
+        font-family: $font-family-sans-serif;
     }
 }
 .cartaheader{
@@ -120,7 +139,7 @@ h3{
     margin: 0px;
 }
 
-a, input{
+a, input, textarea{
     width: 100%;
     button{
         color: #FFFFFF;
@@ -128,6 +147,9 @@ a, input{
         font-family: 'Comfortaa';
         width: 100%;
     }
+}
+textarea{
+    margin-top: 5px;
 }
 input[type="checkbox"]{
     width: auto;

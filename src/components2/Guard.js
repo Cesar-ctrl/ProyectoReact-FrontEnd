@@ -2,56 +2,30 @@ import React from 'react'
 import Star from '../components/Star'
 import { useNavigate,  Link } from "react-router-dom";
 
-const Guard = ({ guard, toggleDisponible }) => {
+const Guard = ({ guard, toggleFav }) => {
     const label = guard.disponible
-    ? 'make not disponible'
-    : 'make disponible';
+    ? 'Guardar Favorito'
+    : '';
+    const newmode = window.localStorage.getItem('newmode')
 
   return (
-    <Link to={"/home/buscar/guard/"+guard.id}
-        guardid={guard.id}
-        >
-        <div className={guard.disponible ? 'cuidador flexea roww' : 'cuidador flexea roww indispuesto'}>
-        <div className='foto'>
-            <img src="../img/Prueba2.jpg" className='fotoestandar' alt="" />
-        </div>
-        
-        <div>
-            <div className='nombreval flexea column'>
-                <h3>{guard.name}{guard.surnames}</h3>
-                <div className="flexea roww">
-                    {<Star />}
-
-                    <h3>4.8</h3>
-                </div>
-            </div>
-        </div>
-        <div className='horadisp flexea column'>
-            <img src="../img/reloj-pequenio.png" className="reloj pequenio" alt="" />
-            <h3>12:00-18:00</h3>
-        </div>
-        <button onClick={toggleDisponible}>{label}</button>
-    </div>
-    </Link>
-  )
-}
-
-const FavGuard = ({ guard, toggleDisponible }) => {
-    const loggedUserJSON = window.localStorage.getItem('loggedNoteAppUser')
-    const label = guard.disponible
-    ? 'make not disponible'
-    : 'make disponible';
-
-  return (
-
+    
     <div className={guard.disponible ? 'cuidador flexea roww' : 'cuidador flexea roww indispuesto'}>
         <div className='foto'>
-            <img src="../img/Prueba2.jpg" className='fotoestandar' alt="" />
+            {
+                newmode?<img src="../img/pepe-clown.gif" className='fotoestandar' alt="" /> :
+                <img src="../img/Prueba2.jpg" className='fotoestandar' alt="" />
+            }
+            
         </div>
         
         <div>
             <div className='nombreval flexea column'>
+            <Link to={"/home/buscar/guard/"+guard.id}
+            guardid={guard.id}
+            >
                 <h3>{guard.name}{guard.surnames}</h3>
+            </Link>
                 <div className="flexea roww">
                     {<Star />}
 
@@ -61,10 +35,11 @@ const FavGuard = ({ guard, toggleDisponible }) => {
         </div>
         <div className='horadisp flexea column'>
             <img src="../img/reloj-pequenio.png" className="reloj pequenio" alt="" />
-            <h3>12:00-18:00</h3>
+            <h3>{guard.horarioinicio}-{guard.horariofin}</h3>
         </div>
-        <button onClick={toggleDisponible}>{label}</button>
+        <button onClick={toggleFav}>{label}</button>
     </div>
+    
   )
 }
 

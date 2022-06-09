@@ -15,7 +15,7 @@ import PerfilGuard from '../components2/PerfilGuard';
 function Home() {
     const [user, setUser] = useState(null)
     const modoEdicion = true
-
+    const [container, setContainer] = useState('container')
     useEffect(() => {
         const loggedUserJSON = window.localStorage.getItem('loggedNoteAppUser')
         if (loggedUserJSON) {
@@ -27,14 +27,17 @@ function Home() {
         }
       }, [])
 
+    const toggleback = () => {
+        setContainer('container backunder')
+        window.localStorage.setItem(
+            'newmode', true
+          )
+    }
 
     return(
-        <div className="container ">
+        <div className={container} id="containermain">
             <main className='main background1'>
-
-
             <Routes>
-               
                 <Route path="/buscar" element={ <Busqueda />} />
                 <Route path="/favoritos" element={ <Favoritos /> }  />
                 <Route path="/chat" element={ <Chat /> }  />
@@ -49,7 +52,9 @@ function Home() {
                 <Route path="/buscar/guard/*" element={ <PerfilGuard /> } />
             </Routes>
             </main>
+            
             <footer className="footerhome">
+            <hr onDoubleClick ={ () => toggleback() }/>
                 <Link className="nav footer" to="/home/buscar">
                     <img src="../img/lupa.svg" alt="" className='icono'/>
                     Buscar

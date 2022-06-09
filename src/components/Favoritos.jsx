@@ -55,7 +55,8 @@ const Favoritos = () => {
             }, 5000)   
           })
       }
-
+    
+    const newmode = window.localStorage.getItem('newmode')
     const guardsToShow = showAll
     ? guards.guards
     : guards.guards.filter(guard => guard.disponible)
@@ -96,7 +97,10 @@ const Favoritos = () => {
 
                     <div className='cuidador flexea roww'>
                         <div className='foto'>
-                            <img src="../img/Prueba2.jpg" className='fotoestandar' alt="" />
+                        {
+                        newmode?<img src="../img/pepe-clown.gif" className='fotoestandar' alt="" /> :
+                        <img src="../img/Prueba2.jpg" className='fotoestandar' alt="" />
+                        }
                         </div>
                         <div>
                             <div className='nombreval flexea column'>
@@ -116,7 +120,10 @@ const Favoritos = () => {
                     
                     <div className='cuidador flexea roww indispuesto'>
                         <div className='foto'>
-                            <img src="../img/Prueba2.jpg" className='fotoestandar' alt="" />
+                            {
+                                newmode?<img src="../img/pepe-clown.gif" className='fotoestandar' alt="" /> :
+                                <img src="../img/Prueba2.jpg" className='fotoestandar' alt="" />
+                            }
                         </div>
                         <div>
                             <div className='nombreval flexea column'>

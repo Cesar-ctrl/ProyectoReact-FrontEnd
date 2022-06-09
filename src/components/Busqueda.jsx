@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import Star from './Star'
 import guardService from '../services/guards'
+import userService from '../services/users'
 import Guard from '../components2/Guard'
 
 const Busqueda = () => {
@@ -8,6 +9,9 @@ const Busqueda = () => {
     const [guards, setGuards] = useState([]) 
     const [showAll, setShowAll] = useState(true)
     const [errorMessage, setErrorMessage] = useState(null)
+
+    const loggeUserJSON = window.localStorage.getItem('loggedNoteAppUser')
+    const usuario = JSON.parse(loggeUserJSON)
 
     useEffect(() => {
         guardService
@@ -17,12 +21,11 @@ const Busqueda = () => {
           })
       }, [])
       
-    const toggleDisponible = (id) => {
+    const toggleFav = (id) => {
         const guard = guards.find(n => n.id === id)
-        const changedGuard = { ...guard, disponible: !guard.disponible }
-        
-        guardService
-            .update(id, changedGuard)
+        console.log(guard)
+        userService
+            .postfav(usuario.id, guard.id)
             .then(returnedGuard => {
             setGuards(guards.map(guard => guard.id !== id ? guard : returnedGuard))
             })
@@ -67,48 +70,11 @@ const Busqueda = () => {
             {guardsToShow.map((guard, i) => 
                 <Guard
                     key={i}
-                    guard={guard} 
-                    toggleDisponible={() => toggleDisponible(guard.id)}
+                    guard={guard}
+                    toggleFav={() => toggleFav(guard.id)}
                 />
             )}
-                <div className='cuidador flexea roww'>
-                    <div className='foto'>
-                        <img src="../img/Prueba2.jpg" className='fotoestandar' alt="" />
-                    </div>
-                    <div>
-                        <div className='nombreval flexea column'>
-                            <h3>NOMBRE APELLIDO</h3>
-                            <div className="flexea roww">
-                                {<Star />}
-
-                                <h3>4.8</h3>
-                            </div>
-                        </div>
-                    </div>
-                    <div className='horadisp flexea column'>
-                        <img src="../img/reloj-pequenio.png" className="reloj pequenio" alt="" />
-                        <h3>12:00-18:00</h3>
-                    </div>
-                </div>
-                <div className='cuidador flexea roww'>
-                    <div className='foto'>
-                        <img src="../img/Prueba2.jpg" className='fotoestandar' alt="" />
-                    </div>
-                    <div>
-                        <div className='nombreval flexea column'>
-                            <h3>NOMBRE APELLIDO</h3>
-                            <div className="flexea roww">
-                                {<Star />}
-
-                                <h3>4.8</h3>
-                            </div>
-                        </div>
-                    </div>
-                    <div className='horadisp flexea column'>
-                        <img src="../img/reloj-pequenio.png" className="reloj pequenio" alt="" />
-                        <h3>12:00-18:00</h3>
-                    </div>
-                </div>
+                
             </div>
         </section>
 

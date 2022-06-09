@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import {  Link, useNavigate } from "react-router-dom";
 import Notification from '../components2/Notification'
-import loginService from '../services/login'
+import guardService from '../services/guards'
 import noteService from '../services/notes'
 
 export default function LoginF ({...props}) {
@@ -18,16 +18,21 @@ export default function LoginF ({...props}) {
     
     const handleLogin = async (event) => {
         event.preventDefault()
+
         try {
-          const user = await loginService.login({
+          const user = await guardService.login({
             email,
             password
           })
           console.log(user)
           window.localStorage.setItem(
-            'loggedNoteAppUser', JSON.stringify(user)
+            'loggedNoteAppGuard', JSON.stringify(user)
           )
+    
+          
           noteService.setToken(user.token)
+        
+          
           setUser(user)
           setEmail('')
           setPassword('')
@@ -56,7 +61,7 @@ export default function LoginF ({...props}) {
                     <Link to="/" >
                         Inicio Sesión
                     </Link>
-                    <h2>Iniciar sesión en BabyGuard</h2>
+                    <h2>Iniciar sesión como cuidador</h2>
                 </header>
                 <span className=''>
                     <Notification  message={errorMessage} />

@@ -34,19 +34,7 @@ const Child = () => {
             <h2>Niños</h2>
         </header>
         <section className='buscador'>
-            <div className='barra'>
-            {
-                loggUserJSON? 
-                <div>
-                    <input type="text" className='barra col-8' />
-                    <div className='imgbuscar'>
-                        <img src="../img/lupa-busqueda.png" alt="" className='lupa'/>
-                    </div>
-                </div>
-
-                : console.log("esperando")
-            }
-                
+            <div className='barra'>      
             </div>
             <div className='filtros'>
 

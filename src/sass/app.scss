@@ -1,6 +1,7 @@
 // Fonts
 @import url('https://fonts.googleapis.com/css?family=Nunito');
-
+//@import url('https://fonts.googleapis.com/css2?family=Comic+Neue&display=swap');
+    
 // Variables
 @import 'welcome';
  
@@ -8,10 +9,6 @@
 
 @import 'home';
 
-*{
-    font-family: "Comfortaa";
-    src: url("../fonts/Comfortaa-VariableFont_wght.ttf");   
-}
 
 .col-1 {width: 8.33%;}
 .col-2 {width: 16.66%;}
@@ -59,11 +56,23 @@ a {
         align-items: center;
         justify-content: space-around;
     }
+    &.roww.evenly{
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-evenly;
+    }
     &.centertext{
         display:flex;
+        align-items: center; 
+    }
+    &.perfil{
+        justify-content: space-between;
         align-items: center;
-
-        
+    }
+    &.wrap{
+        flex-wrap: wrap;
+        justify-content: space-around;
+        align-items: center;
     }
 }
 
@@ -119,11 +128,35 @@ a {
         width: $size2;
         height: $size2;
     }
+    &.pequenio{
+        $size: 42px;
+        width: $size * 0.5;
+        height: $size * 0.5;
+        @include movileS(){
+            width: $size * 0.6;
+            height: $size * 0.6;
+        }
+        @include movileM(){
+            width: $size * 0.8;
+            height: $size * 0.8;
+        }
+        @include movile(){
+            width: $size ;
+            height: $size ;
+        }
+        @include tablet(){
+            width: $size;
+            height: $size;
+        }
+        @include desktop(){
+            width: $size;
+            height: $size;
+        }
+    }
 
 }
-
-.reloj.pequenio{
-    $size: 42px;
+.dias{
+    $size: 22px;
     width: $size * 0.5;
     height: $size * 0.5;
     @include movileS(){
@@ -147,3 +180,4 @@ a {
         height: $size;
     }
 }
+

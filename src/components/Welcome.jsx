@@ -29,10 +29,28 @@ document.addEventListener('load', function(){
       }
   })
 })
+function startTime() {
+  switch (document.getElementById("contenedor").classList.value){
+    case 'background1':
+      document.getElementById("contenedor").classList.value = 'background2'
+      break
+    case 'background2':
+      document.getElementById("contenedor").classList.value = 'background3'
+      break
+    case 'background3':
+      document.getElementById("contenedor").classList.value = 'background1'
+      break
+  }
+  setTimeout(function() {startTime()}, 7000)
+}
+useEffect(() => {
+ startTime() 
+}, [])
+
 
 return (
   <main className='container'>
-    <section className={`background1 `}>
+    <section className='background1'  id="contenedor">
       <div className="flexea column notcenter">
         <header className="header welcome">
           <div className="floatright"> 
@@ -86,7 +104,7 @@ return (
         <section className='flexea columncenter'>
           <div className='col-11 flexea column'>
 
-            <Link to="/home/*">
+            <Link to="/home">
               <button className='encuentra'>Encuentra niñeras</button>
             </Link>
               
@@ -94,11 +112,13 @@ return (
             <Link to="/register">
               <button className='registro'>Regístrate</button>
             </Link>
+            
           </div>
         </section>
       </div>
 
     </section>
+    
   </main>
       
 );
