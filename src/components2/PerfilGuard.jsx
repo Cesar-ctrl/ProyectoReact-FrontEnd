@@ -105,7 +105,7 @@ const PerfilGuard = ({ }) => {
             <div className='foto'>
                 <img src="http://localhost:3000/img/Prueba2.jpg" className='fotoestandar' alt="" />
             </div>
-            <h2>{name} {guard.surnames}</h2>
+            <h2>{guard.name} {guard.surnames}</h2>
         </header>
         <section className='flexea column'>
             <div className='col-10 column listado deperfil'>
