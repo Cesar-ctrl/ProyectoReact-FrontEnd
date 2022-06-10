@@ -30,7 +30,7 @@ const PerfilGuard = ({ }) => {
         setId(arr[4])
         if(user){
             guardService.setToken(user.token)
-        }else{
+        }if(guardian){
             guardService.setToken(guardian.token)
         }
         guardService.getGuard(arr[4])
@@ -110,24 +110,25 @@ const PerfilGuard = ({ }) => {
         <section className='flexea column'>
             <div className='col-10 column listado deperfil'>
             <div className='cuidador flexea roww'>
-                {user?  <p>{guard.descripcion}</p> : guardian.id==guard.id? 
+                {user?  <p>{guard.descripcion}</p> : guardian?  guardian.id==guard.id? 
                 <div>
                     <textarea name="descripcion" id="descr" cols="30" rows="5" defaultValue={descr} onChange={handleDescrChange} >{guard.descripcion}</textarea> 
                     <input type="button" value="Guardar" onClick={() => changeDesc()} />
                 </div>
-                : <p>{guard.descripcion}</p>}
+                : <p>{guard.descripcion}</p>:<p>{guard.descripcion}</p>}
                 
             </div>
                 <div className='cuidador flexea wrap'>
                     <div className='horadisp flexea column'>
                         <img src="http://localhost:3000/img/reloj-grande.png" className="reloj" alt="" />
-                        {user?<h3>{guard.horarioinicio}-{guard.horariofin}</h3> :guardian.id==guard.id?
+                        {user?<h3>{guard.horarioinicio}-{guard.horariofin}</h3> : guardian? guardian.id==guard.id?
                             <div>
                                 <input className="col-12" type="time" name="horarioinicio" defaultValue={ guard.horarioinicio} value={horarioinicio} onChange={ handleHorarioinicioChange} />
                                 <input className="col-12" type="time" name="horariofin" defaultValue={ guard.horariofin} value={horariofin}  min={horarioinicio}  onChange={ handleHorariofinChange} />
                                 <input type="button" value="Guardar" onClick={() => changeHorario()} />
                             </div>
                             : <h3>{guard.horarioinicio}-{guard.horariofin}</h3>
+                            :<h3>{guard.horarioinicio}-{guard.horariofin}</h3>
                             
                         }
                     </div>
@@ -162,9 +163,9 @@ const PerfilGuard = ({ }) => {
                         </div>
                     </div>
                     {
-                       user? <br /> : guardian.id==guard.id?
+                       user? <br /> : guardian? guardian.id==guard.id?
                        <button onClick={toggleDisponible}>{label}</button>
-                       : <br />
+                       : <br />:<br />
                     }
                     
                 </div>
