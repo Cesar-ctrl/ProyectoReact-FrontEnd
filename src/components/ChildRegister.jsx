@@ -195,11 +195,11 @@ export default function RegisterF ({handleSubmit, ...props}) {
                     </fieldset>
                     <fieldset className='col-12'>
                         <label htmlFor="dni" className='col-10'>DNI</label>
-                        <input className="col-10" type="text" name="dni" value={ DNI} placeholder="Introduzca su DNI" pattern="[0-9]{8}[A-Za-z]{1}" title="Debe poner 8 números y una letra"  onChange={ handleDniChange} />
+                        <input className="col-10" type="text" name="dni" value={ childs.DNI} placeholder="Introduzca su DNI" pattern="[0-9]{8}[A-Za-z]{1}" title="Debe poner 8 números y una letra"  onChange={ handleDniChange} />
                     </fieldset>
                     <fieldset className='col-12'>
                         <label htmlFor="edad" className='col-10'>Edad</label>
-                        <input className="col-10" type="number" name="edad" value={ edad} placeholder="Introduzca su edad" pattern="[0-9]{2}" title="Debe introducir su edad 2 cifras"  onChange={ handleEdadChange} />
+                        <input className="col-10" type="number" name="edad" value={ childs.edad} placeholder="Introduzca su edad" pattern="[0-9]{2}" title="Debe introducir su edad 2 cifras"  onChange={ handleEdadChange} />
                     </fieldset>
 
 
@@ -226,7 +226,7 @@ export default function RegisterF ({handleSubmit, ...props}) {
 
                     <fieldset className='col-12'>
                         <label htmlFor="necesidadesesp" className='col-10'>Necesidades Especiales</label>
-                        <input className="col-10" type="text" value={ necesidadesesp} name="necesidadesesp" placeholder="Escriba el niño/a tiene alguna necesidad especial" pattern="[^0-9\x22]+" onChange={ handleNecesidadesespChange} />
+                        <input className="col-10" type="text" value={ childs.necesidadesesp} name="necesidadesesp" placeholder="Escriba el niño/a tiene alguna necesidad especial" pattern="[^0-9\x22]+" onChange={ handleNecesidadesespChange} />
                     </fieldset>
 
                     <fieldset className='col-12 end'>
