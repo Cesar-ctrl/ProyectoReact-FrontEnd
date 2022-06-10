@@ -27,11 +27,6 @@ const Miperfil = () => {
         <section className='buscador'>
             <div className='barra'>
                 
-                <input type="text" className='barra col-8' />
-                <div className='imgbuscar'>
-                    <img src="../img/lupa-busqueda.png" alt="" className='lupa'/>
-                </div>
-                
             </div>
             <div className='filtros'>
 
@@ -47,12 +42,14 @@ const Miperfil = () => {
             </div>
         </div>
         <div className='cuidador flexea'>
-            <div className='foto'>
-                <img src="../img/settings.svg" className='fotoestandar' alt="" />
-            </div>
-            <div className='nombreval flexea centertext'>
-                <h3>Ajustes</h3>
-            </div>
+            <Link to="/home/perfil/ajustes" className="flexea color">
+                <div className='foto'>
+                    <img src="../img/settings.svg" className='fotoestandar' alt="" />
+                </div>
+                <div className='nombreval flexea centertext'>
+                    <h3>Ajustes</h3>
+                </div>
+            </Link>
         </div>
         <div className='cuidador flexea'>
             <div className='foto'>

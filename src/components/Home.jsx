@@ -11,6 +11,7 @@ import noteService from '../services/notes'
 import childService from '../services/childs'
 import userService from '../services/users'
 import PerfilGuard from '../components2/PerfilGuard';
+import Ajustes from './Ajustes';
 
 function Home() {
     const [user, setUser] = useState(null)
@@ -49,6 +50,7 @@ function Home() {
                     modoEdicion={modoEdicion}
                 /> } />
                 <Route path="/perfil" element={ <Miperfil /> } />
+                <Route path="/perfil/ajustes" element={ <Ajustes /> } />
                 <Route path="/buscar/guard/*" element={ <PerfilGuard /> } />
             </Routes>
             </main>

@@ -36,17 +36,17 @@
         
     }
     &.background2{
-        background-image: url('../img/carrito-de-bebe-movil.jpg');
+        background-image: url('../img/backgraund-mobile2.png');
         height: 100vh;
         background-size: cover;
         @include movile() {
-            background-image: url('../img/carrito-de-bebe-tablet.jpg');
+            background-image: url('../img/backgraund-tablet2.png');
         }
         @include tablet() {
-            background-image: url('../img/carrito-de-bebe-desktop.jpg');
+            background-image: url('../img/backgraund-desktop2.png');
         }
         @include desktop() {
-            background-image: url('../img/carrito-de-bebé-trio-de-Asalvo_1.jpg');
+            background-image: url('../img/backgraund-desktop2.png');
         }
     }
     &.background3{
@@ -65,6 +65,49 @@
     }
     
 }
+.home{
+    &.background1{
+        background-image: url('../img/backgraund-mobile-large.jpg');
+        height: 100vh;
+        background-size: cover;
+        @include movile {
+            background-image: url('../img/background-tablet.jpg');
+        }
+        @include tablet() {
+            background-image: url('../img/backgraund-desktop.jpg');
+        }
+        
+    }
+    &.background2{
+        background-image: url('../img/backgraund-mobile2.png');
+        height: 100vh;
+        background-size: cover;
+        @include movile() {
+            background-image: url('../img/backgraund-tablet2.png');
+        }
+        @include tablet() {
+            background-image: url('../img/backgraund-desktop2.png');
+        }
+        @include desktop() {
+            background-image: url('../img/backgraund-desktop2.png');
+        }
+    }
+    &.background3{
+        background-image: url('../img/backgraund-mobile3.png');
+        height: 100vh;
+        background-size: cover;
+        @include movile() {
+            background-image: url('../img/backgraund-tablet3.jpg');
+        }
+        @include tablet() {
+            background-image: url('../img/backgraund-desktop3.jpg');
+        }
+        @include desktop() {
+            background-image: url('../img/carrito-de-bebé-trio-de-Asalvo_1.jpg');
+        }
+    }
+    
+}
 .titulo{
     color: black;
     padding: {
@@ -73,6 +116,9 @@
         right: 20px;
         left: 20px;
     }
+}
+.color{
+    color: black;
 }
 .cabezera{
     font-size: x-large;
@@ -143,7 +189,7 @@ h2{
             }
         }
 
-
+        
         .foto{
             display: flex;
         }
@@ -180,7 +226,12 @@ h2{
     cursor:not-allowed;
     opacity: 0.7;
 }
-
+.superfoto{
+    display: block;
+    width: 25vw;
+    height: 40vh;
+    background-image: url('../img/backgraund-mobile2.png') ;
+}
 .box.flex{
     display: flex;
    .cursor-pointer{
