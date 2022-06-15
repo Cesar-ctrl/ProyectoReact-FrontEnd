@@ -76,7 +76,7 @@ return (
             <ul className='slider'>
               <li id="slide1" className={`col-10 ${addClass? 'esco':null}`}   >
                 <h3  >¡NUEVA APP PARA EL CUIDADO DE TUS HIJOS!</h3>
-                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+                <p>Babyguard es una App nueva para contratar niñeras en cualquier momento. Ofrecemos el mejor cuidado solo a profesionales. Dejanos el cuidado de tus hijos.</p>
               </li>
               <li id="slide2" className="col-10">
                 <h3  >¡NUEVA APP PARA EL CUIDADO DE TUS HIJOS! 22222</h3>
