@@ -6,7 +6,7 @@ export default function RegisterF ({handleSubmit, ...props}) {
     const [errorMessage, setErrorMessage] = useState(null)
     const [name, setName] = useState('')
     const [surnames, setSurnames] = useState('')
-    const [dni, setDni] = useState('')
+    const [DNI, setDni] = useState('')
     const [phone, setPhone] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
@@ -29,11 +29,18 @@ export default function RegisterF ({handleSubmit, ...props}) {
         try {
             
             if(selectedFile !== null){
+                console.log(name)
+                console.log(surnames)
+                console.log(DNI)
+                console.log(phone)
+                console.log(email)
+                console.log(password)
                 console.log(selectedFile)
+
                 const user = await registerService.register({
                     name,
                     surnames,
-                    dni,
+                    DNI,
                     phone,
                     email,
                     password,
@@ -44,10 +51,17 @@ export default function RegisterF ({handleSubmit, ...props}) {
                     'loggedNoteAppUser', JSON.stringify(user)
                 )
             }else{
+                console.log(name)
+                console.log(surnames)
+                console.log(DNI)
+                console.log(phone)
+                console.log(email)
+                console.log(password)
+                console.log(selectedFile)
                 const user = await registerService.register({
                     name,
                     surnames,
-                    dni,
+                    DNI,
                     phone,
                     email,
                     password
@@ -84,7 +98,7 @@ export default function RegisterF ({handleSubmit, ...props}) {
                         Inicio Sesión
                     </Link>
                     <h2>Registrarse en BabyGuard</h2>
-                </header>
+                </header>           
                 <form action="" className='login' onSubmit={handleRegister}>
                     <fieldset className='col-12'>
                         <label htmlFor="name" className='col-10'>Nombre</label>
@@ -96,7 +110,7 @@ export default function RegisterF ({handleSubmit, ...props}) {
                     </fieldset>
                     <fieldset className='col-12'>
                         <label htmlFor="dni" className='col-10'>DNI</label>
-                        <input className="col-10" type="text" name="dni" value={ dni} placeholder="Introduzca su DNI" pattern="[0-9]{8}[A-Za-z]{1}" title="Debe poner 8 números y una letra"  onChange={ handleDniChange} />
+                        <input className="col-10" type="text" name="dni" value={ DNI} placeholder="Introduzca su DNI" pattern="[0-9]{8}[A-Za-z]{1}" title="Debe poner 8 números y una letra"  onChange={ handleDniChange} />
                     </fieldset>
                     <fieldset className='col-12'>
                         <label htmlFor="phone" className='col-10'>Télefono</label>
