@@ -86,11 +86,12 @@ export default function RegisterF ({handleSubmit, ...props}) {
   return (
         <section className='pop absolute'>
             <header>
-                <p>Flecha Atrás</p><h1 className='atras'>Iniciar sesión</h1>
             </header>
             <section className='body'>
                 <header>
+                
                     <Link to="/" >
+                    <img src="../img/back-arrow.svg" alt="" className='reloj pequenio'/>
                         Inicio Sesión
                     </Link>
                     <h2>Registrarse en BabyGuard</h2>
