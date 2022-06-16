@@ -116,12 +116,12 @@ export default function GuardsRegister ({handleSubmit, ...props}) {
   return (
         <section className='pop absolute'>
             <header>
-                <p>Flecha Atrás</p><h1 className='atras'>Iniciar sesión</h1>
             </header>
             <section className='body'>
                 <header>
                     <Link to="/" >
-                        Inicio Sesión
+                    <img src="../img/back-arrow.svg" alt="" className='reloj pequenio'/>
+                        Atrás
                     </Link>
                     <h2>Registrarse como cuidador</h2>
                 </header>

@@ -15,7 +15,7 @@ import Ajustes from './Ajustes';
 import UserUpdate from '../componentes-update/UserUpdate'
 import GuardUpdate from '../componentes-update/GuardUpdate'
 
-function Home() {
+function Home(Backgraound, ...props) {
     const [user, setUser] = useState(null)
     const modoEdicion = true
     const [container, setContainer] = useState('container')
@@ -28,6 +28,7 @@ function Home() {
           noteService.setToken(user.token)
           childService.setToken(user.token)
         }
+        console.log(Backgraound)
       }, [])
 
     const toggleback = () => {
@@ -36,7 +37,7 @@ function Home() {
             'newmode', true
           )
     }
-
+    
     return(
         <div className={container} id="containermain">
             <main className='main background1'>

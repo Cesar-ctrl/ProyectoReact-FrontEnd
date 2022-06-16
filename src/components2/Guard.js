@@ -24,7 +24,7 @@ const Guard = ({ guard, toggleFav }) => {
             <Link to={"/home/buscar/guard/"+guard.id}
             guardid={guard.id}
             >
-                <h3>{guard.name}{guard.surnames}</h3>
+                <h3>{guard.name} {guard.surnames}</h3>
             </Link>
                 <div className="flexea roww">
                     {<Star />}

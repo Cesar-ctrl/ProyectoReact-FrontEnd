@@ -49,12 +49,12 @@ export default function LoginF ({...props}) {
     
         <section className='pop'>
             <header>
-                <p>Flecha Atrás</p><h1 className='atras'>Iniciar sesión</h1>
             </header>
             <section className='body'>
                 <header>
                     <Link to="/" >
-                        Inicio Sesión
+                    <img src="../img/back-arrow.svg" alt="" className='reloj pequenio'/>
+                        Atrás
                     </Link>
                     <h2>Iniciar sesión en BabyGuard</h2>
                 </header>
