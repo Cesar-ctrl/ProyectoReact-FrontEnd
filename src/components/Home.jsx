@@ -28,7 +28,7 @@ function Home(Backgraound, ...props) {
           noteService.setToken(user.token)
           childService.setToken(user.token)
         }
-        console.log(Backgraound)
+            console.log(Backgraound)
       }, [])
 
     const toggleback = () => {
