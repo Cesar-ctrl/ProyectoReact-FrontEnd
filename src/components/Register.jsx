@@ -126,10 +126,7 @@ export default function RegisterF ({handleSubmit, ...props}) {
                         <label htmlFor="PasswordConfirm" className='col-10'>Confirmación de la contraseña</label>
                         <input className="col-10" type="password" placeholder="Repita la contraseña" name="PasswordConfirm"  />
                     </fieldset>
-                    <fieldset className='col-12'>
-                        <label htmlFor="imgUrl" className='col-10'>Foto de perfil (No es obligatorio)</label>
-                        <input className="col-10" type="file" name="imgUrl" placeholder="¿Quiere subir una imagen?" onChange={(e) => setSelectedFile(e.target.files[0])}  />
-                    </fieldset>
+                    
                     <fieldset className='col-12'>
                         <label htmlFor="enviar" className='col-10'>Iniciar Sesion</label>
                         <button className="col-2 col-10" type="submit" name="enviar" value="Registrarse" id='form-register-button'> Iniciar Sesion</button>

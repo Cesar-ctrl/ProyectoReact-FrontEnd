@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const baseUrl = 'https://damp-temple-29994.herokuapp.com/api/users'
+const baseUrl = 'http://localhost:3001/api/users'
 
 let token = null
 
@@ -20,14 +20,24 @@ const getAll = () => {
 }
 
 const postfav = (id, newObject) => {
-const config = {
-    headers: {
-    Authorization: token
-    }
+  const config = {
+      headers: {
+      Authorization: token
+      }
+  }
+
+  const request = axios.post(`${baseUrl}/fav/${id}`, newObject, config)
+  return request.then(response => response.data)
 }
 
-const request = axios.post(`${baseUrl}/fav/${id}`, newObject, config)
-return request.then(response => response.data)
+const updateUser = (id, newObject) => {
+  const config = {
+      headers: {
+      Authorization: token
+      }
+  }
+  const request = axios.put(`${baseUrl}/${id}`, newObject, config)
+  return request.then(response => response.data)
 }
 
 const getUser = (id) => {
@@ -40,4 +50,4 @@ const getFavUser = (id) => {
   return request.then(response => response.data)
 }
 
-export default { users, getAll, postfav, getUser, setToken, getFavUser }
+export default { users, getAll, postfav, getUser, setToken, getFavUser, updateUser }

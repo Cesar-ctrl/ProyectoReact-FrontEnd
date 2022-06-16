@@ -12,6 +12,8 @@ import childService from '../services/childs'
 import userService from '../services/users'
 import PerfilGuard from '../components2/PerfilGuard';
 import Ajustes from './Ajustes';
+import UserUpdate from '../componentes-update/UserUpdate'
+import GuardUpdate from '../componentes-update/GuardUpdate'
 
 function Home() {
     const [user, setUser] = useState(null)
@@ -51,6 +53,8 @@ function Home() {
                 /> } />
                 <Route path="/perfil" element={ <Miperfil /> } />
                 <Route path="/perfil/ajustes" element={ <Ajustes /> } />
+                <Route path="/perfil/personal" element={ <UserUpdate /> } />
+                <Route path="/perfil/guardpersonal" element={ <GuardUpdate /> } />
                 <Route path="/buscar/guard/*" element={ <PerfilGuard /> } />
             </Routes>
             </main>
@@ -58,23 +62,23 @@ function Home() {
             <footer className="footerhome">
             <hr onDoubleClick ={ () => toggleback() }/>
                 <Link className="nav footer" to="/home/buscar">
-                    <img src="../img/lupa.svg" alt="" className='icono'/>
+                    <img src="http://localhost:3000/img/lupa.svg" alt="" className='icono'/>
                     Buscar
                 </Link>
                 <Link className="nav footer" to="/home/favoritos" >
-                <img src="../img/estrella.svg" alt="" className='icono'/>
+                <img src="http://localhost:3000/img/estrella.svg" alt="" className='icono'/>
                     Favoritos
                 </Link>
                 <Link className="nav footer" to="/home/chat">
-                <img src="../img/mensaje.svg" alt="" className='icono'/>
+                <img src="http://localhost:3000/img/mensaje.svg" alt="" className='icono'/>
                     Chat
                 </Link>
                 <Link className="nav footer" to="/home/child">
-                <img src="../img/child.svg" alt="" className='icono'/>
+                <img src="http://localhost:3000/img/child.svg" alt="" className='icono'/>
                     Niños
                 </Link>
                 <Link className="nav footer" to="/home/perfil">
-                <img src="../img/cuenta.svg" alt="" className='icono'/>
+                <img src="http://localhost:3000/img/cuenta.svg" alt="" className='icono'/>
                     Perfil
                 </Link>
             </footer>

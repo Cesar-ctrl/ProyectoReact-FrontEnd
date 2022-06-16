@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const baseUrl = 'https://damp-temple-29994.herokuapp.com/api/babyguards'
+const baseUrl = 'http://localhost:3001/api/babyguards'
 
 let token = null
 
@@ -10,13 +10,13 @@ const setToken = newToken => {
 
 //Este sirve para registrar un nuevo cuidador
 const register = async credentials => {
-  console.log(credentials)
   const { data } = await axios.post(baseUrl, credentials)
   return data
 }
 //Este sirve para hacer log in de cuidador
 const login = async credentials => {
-  const { data } = await axios.post('https://damp-temple-29994.herokuapp.com/api/loginguards', credentials)
+  console.log(credentials)
+  const { data } = await axios.post('http://localhost:3001/api/loginguards', credentials)
   return data
 }
 //Este sirve para traer todos los cuidadores
@@ -60,21 +60,33 @@ const puthorario = (id, horarioinicio, horariofin) => {
   return request.then(response => response.data)
 }
 
-//Este sirve para cambiar la disponibilidad del cuidador
+//Este sirve para cambiar el cuidador
 const update = (id, newObject) => {
   const config = {
       headers: {
       Authorization: token
       }
   }
-  const disponible = {
+  console.log(id)
+  console.log(newObject)
+  const request = axios.put(`${baseUrl}/${id}`, newObject, config)
+  return request.then(response => response.data)
+}
+
+//Este sirve para cambiar la disponibilidad del cuidador
+const updateDisp = (id, newObject) => {
+  const config = {
+      headers: {
+      Authorization: token
+      }
+  }
+  var dispon = {
     disponible:newObject
   }
-
-  const request = axios.put(`${baseUrl}/${id}`, disponible, config)
+  const request = axios.put(`${baseUrl}/disp/${id}`, dispon, config)
   return request.then(response => response.data)
 }
 
 
 
-export default { login, register, putdesc, getAll, update, setToken, getGuard, puthorario }
+export default { login, register, putdesc, getAll, update, updateDisp, setToken, getGuard, puthorario }

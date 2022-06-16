@@ -68,8 +68,9 @@ const PerfilGuard = ({ }) => {
     const toggleDisponible = () => {
         const guardd = guard
         const changedGuard = { ...guardd, disponible: !guardd.disponible }
+        console.log(changedGuard)
         guardService
-            .update(guardd.id, changedGuard.disponible)
+            .updateDisp(guardd.id, changedGuard.disponible)
             .then(returnedGuard => {
             setGuards(returnedGuard)
             })
@@ -103,7 +104,7 @@ const PerfilGuard = ({ }) => {
     <section className="home">
         <header className='titulo main flexea perfil'>
             <div className='foto'>
-                <img src="http://localhost:3000/img/Prueba2.jpg" className='fotoestandar' alt="" />
+            <img src={"http://localhost:3001/api/img/public/"+guard.imgUrl} className='reloj' alt="" />
             </div>
             <h2>{guard.name} {guard.surnames}</h2>
         </header>

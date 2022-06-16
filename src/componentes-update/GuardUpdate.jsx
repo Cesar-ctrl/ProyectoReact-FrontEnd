@@ -1,18 +1,22 @@
 import React, { useState, useEffect } from 'react'
 import guardService from '../services/guards'
+import imageService from '../services/images'
 import { useNavigate,  Link } from "react-router-dom";
 
-export default function GuardsRegister ({handleSubmit, ...props}) {
+export default function GuardsUpdate ({handleSubmit, ...props}) {
+
+    const loggUserJSON = window.localStorage.getItem('loggedNoteAppGuard')
+    const usuario = JSON.parse(loggUserJSON)
+
     const [errorMessage, setErrorMessage] = useState(null)
-    const [name, setName] = useState('')
-    const [surnames, setSurnames] = useState('')
-    const [DNI, setDni] = useState('')
-    const [phone, setPhone] = useState('')
-    const [email, setEmail] = useState('')
-    const [horariofin, setHorariofin] = useState('')
-    const [horarioinicio, setHorarioinicio] = useState('')
-    const [password, setPassword] = useState('')
+    const [nombre, setName] = useState('')
+    const [apellidos, setSurnames] = useState('')
+    const [telef, setPhone] = useState('')
+    const [horariofinal, setHorariofin] = useState('')
+    const [horarioinic, setHorarioinicio] = useState('')
+    const [selectedFile, setSelectedFile] = useState(null);
     const [guard, setGuard] = useState(null)
+    const [info, setInfo] = useState(null)
     const [loggedIn, setLoggedIn] = useState(null)
     const navigate = useNavigate();
 
@@ -60,53 +64,53 @@ export default function GuardsRegister ({handleSubmit, ...props}) {
         const updatedDias = dias.map((item, index) =>
             index === position ? !item : item
         );
-
         setDias(updatedDias);
     };
-
-
-    const handleNameChange = ({target}) => setName(target.value)
-    const handleSurnamesChange = ({target}) => setSurnames(target.value)
-    const handleDniChange = ({target}) => setDni(target.value)
-    const handlePhoneChange = ({target}) => setPhone(target.value)
-    const handleEmailChange = ({target}) => setEmail(target.value)
-    const handleHorarioinicioChange = ({target}) => setHorarioinicio(target.value)
-    const handleHorariofinChange = ({target}) => setHorariofin(target.value)
-    const handlePasswordChange = ({target}) => setPassword(target.value)
-
     
-    const handleRegister = async (event) => {
-        event.preventDefault()
+    useEffect(() => {
+        guardService.setToken(usuario.token)
+        guardService.getGuard(usuario.id)
+            .then(initialGuards => {
+                setInfo(initialGuards)
+            })
+        
+    }, [])
 
+    const handleUpdate = async (event) => {
+        event.preventDefault()
+        
         try {
-            
-            
-            const guard = await guardService.register({
+            var name = nombre? nombre: info.name
+            var surnames = apellidos? apellidos: info.surnames
+            var phone = telef? telef: info.phone
+            var horarioinicio = horarioinic? horarioinic: info.horarioinicio
+            var horariofin = horariofinal? horariofinal: info.horariofin
+            var file = selectedFile? selectedFile: info.imgUrl
+            if(selectedFile !== null){
+                imageService.setToken(usuario.token)
+                const imgUrl = await imageService.subeImg(usuario.id, {
+                    file
+                })
+                const guard = await guardService.update(usuario.id, {
+                    name,
+                    surnames,
+                    phone,
+                    dias,
+                    horarioinicio,
+                    horariofin,
+                    imgUrl
+                })
+            }else{
+                const guard = await guardService.update(usuario.id, {
                 name,
                 surnames,
-                DNI,
-                email,
                 phone,
                 dias,
                 horarioinicio,
                 horariofin,
-                password
             })
-            console.log(guard)
-            
-            
+            }
             setGuard(guard)
-            setEmail('')
-            setPassword('')
-            setLoggedIn(true)
-            const logedguard = await guardService.login({
-                email,
-                password
-              })
-              console.log(logedguard)
-              window.localStorage.setItem(
-                'loggedNoteAppGuard', JSON.stringify(logedguard)
-              )
             navigate("/home/buscar", { replace: true });
         } catch(e) {
           setErrorMessage('Wrong credentials')
@@ -114,44 +118,36 @@ export default function GuardsRegister ({handleSubmit, ...props}) {
             setErrorMessage(null)
           }, 5000)
         }
-    
       }
-
+      useEffect(()=> {
+        if(info){
+            setDias(info.dias);
+        }
+      }, info)
+if(info){                          
   return (
         <section className='pop absolute'>
             <header>
-                <p>Flecha Atrás</p><h1 className='atras'>Iniciar sesión</h1>
             </header>
             <section className='body'>
                 <header>
-                    <Link to="/" >
-                        Inicio Sesión
-                    </Link>
-                    <h2>Registrarse como cuidador</h2>
+                <Link to="/home/perfil" >
+                        <img src="http://localhost:3000/img/back-arrow.svg" alt="" className='reloj pequenio'/>
+                </Link>
                 </header>
-                <form action="" className='login' onSubmit={handleRegister}>
+                <form action="" className='login' onSubmit={handleUpdate}>
                     <fieldset className='col-12'>
                         <label htmlFor="name" className='col-10'>Nombre</label>
-                        <input className="col-10" type="text" name="name" value={ name} placeholder="Introduzca su Nombre"  pattern="[^0-9\x22]+"  title="Solo se aceptan letras"  onChange={ handleNameChange} />
+                        <input className="col-10" type="text" name="name" defaultValue={info.name} placeholder="Introduzca su Nombre"  pattern="[^0-9\x22]+"  title="Solo se aceptan letras"  onChange={ e=> setName(e.target.value)} />
                     </fieldset>
                     <fieldset className='col-12'>
                         <label htmlFor="surnames" className='col-10'>Apellidos</label>
-                        <input className="col-10" type="text" name="surnames" value={ surnames} placeholder="Introduzca sus Apellidos"  pattern="[^0-9\x22]+"  title="Solo se aceptan letras"  onChange={ handleSurnamesChange} />
-                    </fieldset>
-                    <fieldset className='col-12'>
-                        <label htmlFor="dni" className='col-10'>DNI</label>
-                        <input className="col-10" type="text" name="dni" value={ DNI} placeholder="Introduzca su DNI" pattern="[0-9]{8}[A-Za-z]{1}" title="Debe poner 8 números y una letra"  onChange={ handleDniChange} />
+                        <input className="col-10" type="text" name="surnames" defaultValue={info.surnames} placeholder="Introduzca sus Apellidos"  pattern="[^0-9\x22]+"  title="Solo se aceptan letras"  onChange={ e=> setSurnames(e.target.value)} />
                     </fieldset>
                     <fieldset className='col-12'>
                         <label htmlFor="phone" className='col-10'>Télefono</label>
-                        <input className="col-10" type="number" name="phone" value={ phone} placeholder="Introduzca su teléfono" pattern="[0-9]{9}" title="Debe introducir su teléfono"  onChange={ handlePhoneChange} />
+                        <input className="col-10" type="number" name="phone" defaultValue={info.phone} placeholder="Introduzca su teléfono" pattern="[0-9]{9}" title="Debe introducir su teléfono"  onChange={e=> setPhone(e.target.value)} />
                     </fieldset>
-
-                    <fieldset className='col-12'>
-                        <label htmlFor="email" className='col-10'>Correo electrónico</label>
-                        <input className="col-10" type="email" name="email" value={ email} placeholder="Introduzca su correo electrónico" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"  onChange={ handleEmailChange} />
-                    </fieldset>
-
 
                     <fieldset className='col-12'>
                         {listadias.map(({ name, simple, id }, index) => {
@@ -162,8 +158,7 @@ export default function GuardsRegister ({handleSubmit, ...props}) {
                                         type="checkbox"
                                         id={`custom-checkbox-${index}`}
                                         name={name}
-                                        value={id}
-                                        checked={dias[index]}
+                                        defaultChecked={info.dias[index]}
                                         onChange={() => handleOnChange(index)}
                                       />
                                       <label htmlFor={`custom-checkbox-${index}`}>{name}</label>
@@ -174,20 +169,16 @@ export default function GuardsRegister ({handleSubmit, ...props}) {
                     </fieldset>
                     <fieldset className='col-12'>
                         <label htmlFor="timestamp" className='col-10'>Horario de comienzo</label>
-                        <input className="col-10" type="time" name="horarioinicio" value={ horarioinicio}  onChange={ handleHorarioinicioChange} />
+                        <input className="col-10" type="time" name="horarioinicio" defaultValue={info.horarioinicio}  onChange={ e=> setHorariofin(e.target.value) } />
                         <label htmlFor="timestamp" className='col-10'>Horario de fin</label>
-                        <input className="col-10" type="time" name="horariofin" value={ horariofin}  min={horarioinicio}  onChange={ handleHorariofinChange} />
+                        <input className="col-10" type="time" name="horariofin" defaultValue={info.horariofin}  onChange={ e=> setHorarioinicio(e.target.value) } />
                     </fieldset>
 
+                    <fieldset className='col-12'>
+                        <label htmlFor="file" className='col-10'>Foto de perfil (No es obligatorio)</label>
+                        <input className="col-10" type="file" name="file" placeholder="¿Quiere subir una imagen?" onChange={(e) => setSelectedFile(e.target.files[0])}  />
+                    </fieldset>
 
-                    <fieldset className='col-12'>
-                        <label htmlFor="Password" className='col-10'>Contraseña</label>
-                        <input className="col-10" type="password" value={ password} name="Password" placeholder="Introduzca contraseña de al menos 8 caracteres" pattern=".{8,}" title="Debe usar 8 o más caracteres" onChange={ handlePasswordChange} />
-                    </fieldset>
-                    <fieldset className='col-12'>
-                        <label htmlFor="PasswordConfirm" className='col-10'>Confirmación de la contraseña</label>
-                        <input className="col-10" type="password" placeholder="Repita la contraseña" name="PasswordConfirm"  />
-                    </fieldset>
                     <fieldset className='col-12'>
                         <label htmlFor="enviar" className='col-10'>Iniciar Sesion</label>
                         <button className="col-2 col-10" type="submit" name="enviar" value="Registrarse" id='form-register-button'> Iniciar Sesion</button>
@@ -202,5 +193,9 @@ export default function GuardsRegister ({handleSubmit, ...props}) {
         
         </section>
         
-  )
+  )}
+  else{
+    console.log('esperando')
+  }
+
 }

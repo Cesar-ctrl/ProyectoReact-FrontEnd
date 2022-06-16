@@ -14,7 +14,7 @@ const Guard = ({ guard, toggleFav }) => {
         <div className='foto'>
             {
                 newmode?<img src="../img/pepe-clown.gif" className='fotoestandar' alt="" /> :
-                <img src="../img/Prueba2.jpg" className='fotoestandar' alt="" />
+                <img src={"http://localhost:3001/api/img/public/"+guard.imgUrl} className='fotoestandar' alt="" />
             }
             
         </div>

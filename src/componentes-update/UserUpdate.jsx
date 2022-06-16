@@ -1,74 +1,61 @@
 import React, { useState, useEffect } from 'react'
-import registerService from '../services/register'
+import userService from '../services/users'
+import imageService from '../services/images'
 import { useNavigate,  Link } from "react-router-dom";
 
-export default function RegisterF ({handleSubmit, ...props}) {
+export default function UserUpdate ({handleSubmit, ...props}) {
     const [errorMessage, setErrorMessage] = useState(null)
-    const [name, setName] = useState('')
-    const [surnames, setSurnames] = useState('')
-    const [phone, setPhone] = useState('')
+    const [nombre, setName] = useState('')
+    const [apellidos, setSurnames] = useState('')
+    const [telef, setPhone] = useState('')
     const [selectedFile, setSelectedFile] = useState(null);
     const [user, setUser] = useState(null)
+    const [info, setInfo] = useState(null)
     const navigate = useNavigate();
 
-    const handleNameChange = ({target}) => setName(target.value)
-    const handleSurnamesChange = ({target}) => setSurnames(target.value)
-    const handleDniChange = ({target}) => setDni(target.value)
-    const handlePhoneChange = ({target}) => setPhone(target.value)
-    const handleEmailChange = ({target}) => setEmail(target.value)
-    const handlePasswordChange = ({target}) => setPassword(target.value)
+    const loggUserJSON = window.localStorage.getItem('loggedNoteAppUser')
+    const usuario = JSON.parse(loggUserJSON)
 
+    useEffect(() => {
+        userService.setToken(usuario.token)
+        userService.getUser(usuario.id)
+            .then(initialGuards => {
+                setInfo(initialGuards)
+            })
+     
+    }, [])
     
-    const handleRegister = async (event) => {
+    const handleUpdate = async (event) => {
         event.preventDefault()
 
         try {
-            
+            var name = nombre? nombre: info.name
+            var surnames = apellidos? apellidos: info.surnames
+            var phone = telef? telef: info.phone
+            var file = selectedFile? selectedFile: info.imgUrl
             if(selectedFile !== null){
-                console.log(name)
-                console.log(surnames)
-                console.log(DNI)
-                console.log(phone)
-                console.log(email)
-
-                const user = await registerService.register({
+                imageService.setToken(usuario.token)
+                const imgUrl = await imageService.subeImg(usuario.id, {
+                    file
+                }) 
+                await userService.setToken(usuario.token)
+                console.log(imgUrl)
+                const user = await userService.updateUser(usuario.id, {
                     name,
                     surnames,
-                    DNI,
                     phone,
-                    email,
-                    password,
-                    selectedFile
+                    imgUrl
                 })
-                console.log(user)
-                window.localStorage.setItem(
-                    'loggedNoteAppUser', JSON.stringify(user)
-                )
+                
             }else{
-                console.log(name)
-                console.log(surnames)
-                console.log(DNI)
-                console.log(phone)
-                console.log(email)
-                const user = await registerService.register({
+                userService.setToken(usuario.token)
+                const user = await userService.updateUser(usuario.id, {
                     name,
                     surnames,
-                    DNI,
-                    phone,
-                    email,
-                    password
+                    phone
                 })
-                console.log(user)
-                window.localStorage.setItem(
-                    'loggedNoteAppUser', JSON.stringify(user)
-                )
             }
-            
-          
           setUser(user)
-          setEmail('')
-          setPassword('')
-          setLoggedIn(true)
           navigate("/home/buscar", { replace: true });
         } catch(e) {
           setErrorMessage('Wrong credentials')
@@ -76,37 +63,37 @@ export default function RegisterF ({handleSubmit, ...props}) {
             setErrorMessage(null)
           }, 5000)
         }
-    
+        
       }
 
+if(info){
   return (
         <section className='pop absolute'>
             <header>
-                <p>Flecha Atrás</p><h1 className='atras'>Iniciar sesión</h1>
             </header>
             <section className='body'>
                 <header>
-                    <Link to="/" >
-                        Inicio Sesión
+                    <Link to="/home/perfil" >
+                        <img src="http://localhost:3000/img/back-arrow.svg" alt="" className='reloj pequenio'/>
                     </Link>
-                    <h2>Registrarse en BabyGuard</h2>
+                    <h2>Información Personal</h2>
                 </header>           
-                <form action="" className='login' onSubmit={handleRegister}>
+                <form action="" className='login' onSubmit={handleUpdate} encType="multipart/form-data">
                     <fieldset className='col-12'>
-                        <label htmlFor="name" className='col-10'>Nombre</label>
-                        <input className="col-10" type="text" name="name" defaultValue={name} value={ name} placeholder="Introduzca su Nombre"  pattern="[^0-9\x22]+"  title="Solo se aceptan letras"  onChange={ handleNameChange} />
+                        <label htmlFor="name" className='col-10'>Nombre</label> 
+                        <input className="col-10" type="text" name="name" defaultValue={info.name} placeholder="Introduzca su Nombre"  pattern="[^0-9\x22]+"  title="Solo se aceptan letras"  onChange={ e=> setName(e.target.value)} />
                     </fieldset>
                     <fieldset className='col-12'>
                         <label htmlFor="surnames" className='col-10'>Apellidos</label>
-                        <input className="col-10" type="text" name="surnames" value={ surnames} placeholder="Introduzca sus Apellidos"  pattern="[^0-9\x22]+"  title="Solo se aceptan letras"  onChange={ handleSurnamesChange} />
+                        <input className="col-10" type="text" name="surnames" defaultValue={ info.surnames} placeholder="Introduzca sus Apellidos"  pattern="[^0-9\x22]+"  title="Solo se aceptan letras"  onChange={ e=> setSurnames(e.target.value)} />
                     </fieldset>
                     <fieldset className='col-12'>
                         <label htmlFor="phone" className='col-10'>Télefono</label>
-                        <input className="col-10" type="number" name="phone" value={ phone} placeholder="Introduzca su teléfono" pattern="[0-9]{9}" title="Debe introducir su teléfono"  onChange={ handlePhoneChange} />
+                        <input className="col-10" type="number" name="phone" defaultValue={ info.phone} placeholder="Introduzca su teléfono" pattern="[0-9]{9}" title="Debe introducir su teléfono"  onChange={ e=> setPhone(e.target.value)} />
                     </fieldset>
                     <fieldset className='col-12'>
-                        <label htmlFor="imgUrl" className='col-10'>Foto de perfil (No es obligatorio)</label>
-                        <input className="col-10" type="file" name="imgUrl" placeholder="¿Quiere subir una imagen?" onChange={(e) => setSelectedFile(e.target.files[0])}  />
+                        <label htmlFor="file" className='col-10'>Foto de perfil (No es obligatorio)</label>
+                        <input className="col-10" type="file" name="file" placeholder="¿Quiere subir una imagen?" onChange={(e) => setSelectedFile(e.target.files[0])}  />
                     </fieldset>
                     <fieldset className='col-12'>
                         <label htmlFor="enviar" className='col-10'>Iniciar Sesion</label>
@@ -125,7 +112,10 @@ export default function RegisterF ({handleSubmit, ...props}) {
         
         </section>
         
-  )
+  )}
+  else{
+    console.log('esperando')
+  }
 }
 
 

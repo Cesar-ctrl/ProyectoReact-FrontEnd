@@ -6,6 +6,11 @@ import noteService from '../services/notes'
 
 const Miperfil = () => {
 
+    var loggUserJSON = window.localStorage.getItem('loggedNoteAppUser')
+    var usuario = JSON.parse(loggUserJSON)
+    var loggGuardJSON = window.localStorage.getItem('loggedNoteAppGuard')
+    var guard = JSON.parse(loggGuardJSON)
+
     const [user, setUser] = useState(null)
     const [loggedIn, setLoggedIn] = useState(null)
     const navigate = useNavigate();
@@ -14,6 +19,7 @@ const Miperfil = () => {
         setUser(null)
         noteService.setToken(null)
         window.localStorage.removeItem('loggedNoteAppUser')
+        window.localStorage.removeItem('loggedNoteAppGuard')
         setLoggedIn(false)
         navigate("/welcome", { replace: true });
       }
@@ -34,12 +40,25 @@ const Miperfil = () => {
         </section>
 
         <div className='cuidador flexea'>
+            
+            { usuario? 
+            <Link  to="/home/perfil/personal"className="flexea color">
+                <div className='foto'>
+                    <img src="../img/cuenta.svg" className='fotoestandar' alt="" />
+                </div>
+                <div className='nombreval flexea centertext'>
+                    <h3>Información personal</h3>
+                </div>
+            </Link> :
+            <Link  to="/home/perfil/guardpersonal"className="flexea color">
             <div className='foto'>
                 <img src="../img/cuenta.svg" className='fotoestandar' alt="" />
             </div>
             <div className='nombreval flexea centertext'>
                 <h3>Información personal</h3>
             </div>
+        </Link> 
+            } 
         </div>
         <div className='cuidador flexea'>
             <Link to="/home/perfil/ajustes" className="flexea color">

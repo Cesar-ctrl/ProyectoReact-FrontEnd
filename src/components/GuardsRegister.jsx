@@ -92,21 +92,17 @@ export default function GuardsRegister ({handleSubmit, ...props}) {
                 horariofin,
                 password
             })
-            console.log(guard)
             
             
             setGuard(guard)
-            setEmail('')
-            setPassword('')
-            setLoggedIn(true)
             const logedguard = await guardService.login({
                 email,
                 password
               })
-              console.log(logedguard)
               window.localStorage.setItem(
                 'loggedNoteAppGuard', JSON.stringify(logedguard)
               )
+            setLoggedIn(true)
             navigate("/home/buscar", { replace: true });
         } catch(e) {
           setErrorMessage('Wrong credentials')
@@ -173,9 +169,9 @@ export default function GuardsRegister ({handleSubmit, ...props}) {
                             })}
                     </fieldset>
                     <fieldset className='col-12'>
-                        <label htmlFor="timestamp" className='col-10'>Horario de comienzo</label>
+                        <label htmlFor="horarioinicio" className='col-10'>Horario de comienzo</label>
                         <input className="col-10" type="time" name="horarioinicio" value={ horarioinicio}  onChange={ handleHorarioinicioChange} />
-                        <label htmlFor="timestamp" className='col-10'>Horario de fin</label>
+                        <label htmlFor="horariofin" className='col-10'>Horario de fin</label>
                         <input className="col-10" type="time" name="horariofin" value={ horariofin}  min={horarioinicio}  onChange={ handleHorariofinChange} />
                     </fieldset>
 
