@@ -147,13 +147,13 @@ const PerfilGuard = ({ }) => {
                                 </tr>
                                 <tr>
 
-                                    <td>{guard.dias[0]? <img src="../../img/Light_green_check.svg" className="dias" alt="" /> : <img src="../../img/Red_x.svg" className="dias" alt="" />}</td>
-                                    <td>{guard.dias[1]? <img src="../../img/Light_green_check.svg" className="dias" alt="" /> : <img src="../../img/Red_x.svg" className="dias" alt="" />}</td>
-                                    <td>{guard.dias[2]? <img src="../../img/Light_green_check.svg" className="dias" alt="" /> : <img src="../../img/Red_x.svg" className="dias" alt="" />}</td>
-                                    <td>{guard.dias[3]? <img src="../../img/Light_green_check.svg" className="dias" alt="" /> : <img src="../../img/Red_x.svg" className="dias" alt="" />}</td>
-                                    <td>{guard.dias[4]? <img src="../../img/Light_green_check.svg" className="dias" alt="" /> : <img src="../../img/Red_x.svg" className="dias" alt="" />}</td>
-                                    <td>{guard.dias[5]? <img src="../../img/Light_green_check.svg" className="dias" alt="" /> : <img src="../../img/Red_x.svg" className="dias" alt="" />}</td>
-                                    <td>{guard.dias[6]? <img src="../../img/Light_green_check.svg" className="dias" alt="" /> : <img src="../../img/Red_x.svg" className="dias" alt="" />}</td>
+                                    <td>{guard.dias[0]? <img src="https://babyguard.vercel.app/img/Light_green_check.svg" className="dias" alt="" /> : <img src="https://babyguard.vercel.app/img/Red_x.svg" className="dias" alt="" />}</td>
+                                    <td>{guard.dias[1]? <img src="https://babyguard.vercel.app/img/Light_green_check.svg" className="dias" alt="" /> : <img src="https://babyguard.vercel.app/img/Red_x.svg" className="dias" alt="" />}</td>
+                                    <td>{guard.dias[2]? <img src="https://babyguard.vercel.app/img/Light_green_check.svg" className="dias" alt="" /> : <img src="https://babyguard.vercel.app/img/Red_x.svg" className="dias" alt="" />}</td>
+                                    <td>{guard.dias[3]? <img src="https://babyguard.vercel.app/img/Light_green_check.svg" className="dias" alt="" /> : <img src="https://babyguard.vercel.app/img/Red_x.svg" className="dias" alt="" />}</td>
+                                    <td>{guard.dias[4]? <img src="https://babyguard.vercel.app/img/Light_green_check.svg" className="dias" alt="" /> : <img src="https://babyguard.vercel.app/img/Red_x.svg" className="dias" alt="" />}</td>
+                                    <td>{guard.dias[5]? <img src="https://babyguard.vercel.app/img/Light_green_check.svg" className="dias" alt="" /> : <img src="https://babyguard.vercel.app/img/Red_x.svg" className="dias" alt="" />}</td>
+                                    <td>{guard.dias[6]? <img src="https://babyguard.vercel.app/img/Light_green_check.svg" className="dias" alt="" /> : <img src="https://babyguard.vercel.app/img/Red_x.svg" className="dias" alt="" />}</td>
                                 </tr>
                             </tbody>
                         </table>
