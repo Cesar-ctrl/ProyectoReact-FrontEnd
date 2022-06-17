@@ -121,7 +121,7 @@ const PerfilGuard = ({ }) => {
             </div>
                 <div className='cuidador flexea wrap'>
                     <div className='horadisp flexea column'>
-                        <img src="../../img/reloj-grande.png" className="reloj" alt="" />
+                        <img src="https://babyguard.vercel.app/img/reloj-grande.png" className="reloj" alt="" />
                         {user?<h3>{guard.horarioinicio}-{guard.horariofin}</h3> : guardian? guardian.id==guard.id?
                             <div>
                                 <input className="col-12" type="time" name="horarioinicio" defaultValue={ guard.horarioinicio} value={horarioinicio} onChange={ handleHorarioinicioChange} />
