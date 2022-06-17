@@ -132,7 +132,7 @@ if(info){
             <section className='body'>
                 <header>
                 <Link to="/home/perfil" >
-                        <img src="http://localhost:3000/img/back-arrow.svg" alt="" className='reloj pequenio'/>
+                        <img src="../img/back-arrow.svg" alt="" className='reloj pequenio'/>
                 </Link>
                 </header>
                 <form action="" className='login' onSubmit={handleUpdate}>

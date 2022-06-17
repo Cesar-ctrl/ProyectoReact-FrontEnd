@@ -76,7 +76,7 @@ if(info){
             <section className='body background2'>
                 <header>
                     <Link to="/home/perfil" state={state}>
-                        <img src="http://localhost:3000/img/back-arrow.svg" alt="" className='reloj pequenio'/>
+                        <img src="../img/back-arrow.svg" alt="" className='reloj pequenio'/>
                     </Link>
                     <h2>Información Personal</h2>
                 </header>           
