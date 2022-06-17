@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Redirect } from 'react-router-dom'
-import { BrowserRouter as Router, Routes, Switch, Route,  Link } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Switch, Route,  Link, useLocation  } from "react-router-dom";
 import Busqueda from './Busqueda';
 import Favoritos from './Favoritos';
 import Chat from './Chat';
@@ -15,7 +14,9 @@ import Ajustes from './Ajustes';
 import UserUpdate from '../componentes-update/UserUpdate'
 import GuardUpdate from '../componentes-update/GuardUpdate'
 
-function Home(Backgraound, ...props) {
+function Home(props) {
+    const location = useLocation();
+    const state = location.state;
     const [user, setUser] = useState(null)
     const modoEdicion = true
     const [container, setContainer] = useState('container')
@@ -28,7 +29,8 @@ function Home(Backgraound, ...props) {
           noteService.setToken(user.token)
           childService.setToken(user.token)
         }
-            console.log(Backgraound)
+        
+        
       }, [])
 
     const toggleback = () => {
@@ -40,7 +42,7 @@ function Home(Backgraound, ...props) {
     
     return(
         <div className={container} id="containermain">
-            <main className='main background1'>
+            <main className={state?'main '+state:'main background1'}>
             <Routes>
                 <Route path="/buscar" element={ <Busqueda />} />
                 <Route path="/favoritos" element={ <Favoritos /> }  />
@@ -62,23 +64,23 @@ function Home(Backgraound, ...props) {
             
             <footer className="footerhome">
             <hr onDoubleClick ={ () => toggleback() }/>
-                <Link className="nav footer" to="/home/buscar">
+                <Link className="nav footer" to="/home/buscar" state={state}>
                     <img src="http://localhost:3000/img/lupa.svg" alt="" className='icono'/>
                     Buscar
                 </Link>
-                <Link className="nav footer" to="/home/favoritos" >
+                <Link className="nav footer" to="/home/favoritos" state={state}>
                 <img src="http://localhost:3000/img/estrella.svg" alt="" className='icono'/>
                     Favoritos
                 </Link>
-                <Link className="nav footer" to="/home/chat">
+                <Link className="nav footer" to="/home/chat" state={state}>
                 <img src="http://localhost:3000/img/mensaje.svg" alt="" className='icono'/>
                     Chat
                 </Link>
-                <Link className="nav footer" to="/home/child">
+                <Link className="nav footer" to="/home/child" state={state}>
                 <img src="http://localhost:3000/img/child.svg" alt="" className='icono'/>
                     Niños
                 </Link>
-                <Link className="nav footer" to="/home/perfil">
+                <Link className="nav footer" to="/home/perfil" state={state}>
                 <img src="http://localhost:3000/img/cuenta.svg" alt="" className='icono'/>
                     Perfil
                 </Link>

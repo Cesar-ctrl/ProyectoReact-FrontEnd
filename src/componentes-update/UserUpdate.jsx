@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import userService from '../services/users'
 import imageService from '../services/images'
-import { useNavigate,  Link } from "react-router-dom";
+import { useNavigate,  Link, useLocation } from "react-router-dom";
 
 export default function UserUpdate ({handleSubmit, ...props}) {
+    const location = useLocation();
+    const state = location.state;
     const [errorMessage, setErrorMessage] = useState(null)
     const [nombre, setName] = useState('')
     const [apellidos, setSurnames] = useState('')
@@ -71,9 +73,9 @@ if(info){
         <section className='pop absolute'>
             <header>
             </header>
-            <section className='body'>
+            <section className='body background2'>
                 <header>
-                    <Link to="/home/perfil" >
+                    <Link to="/home/perfil" state={state}>
                         <img src="http://localhost:3000/img/back-arrow.svg" alt="" className='reloj pequenio'/>
                     </Link>
                     <h2>Información Personal</h2>
@@ -100,14 +102,7 @@ if(info){
                         <button className="col-2 col-10" type="submit" name="enviar" value="Registrarse" id='form-register-button'> Iniciar Sesion</button>
                     </fieldset>
                 </form>
-                <div >
-                    <Link to="/login">
-                        ¿Ya tienes una cuenta?
-                    </Link>
-                    <Link to="/guardregister">
-                        ¿Registrarse como cuidador?
-                    </Link>
-                </div>
+                
             </section>
         
         </section>

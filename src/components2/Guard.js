@@ -1,8 +1,10 @@
 import React from 'react'
 import Star from '../components/Star'
-import { useNavigate,  Link } from "react-router-dom";
+import { useNavigate,  Link, useLocation } from "react-router-dom";
 
 const Guard = ({ guard, toggleFav }) => {
+    const location = useLocation();
+    const state = location.state;
     const label = guard.disponible
     ? 'Guardar Favorito'
     : '';
@@ -23,6 +25,7 @@ const Guard = ({ guard, toggleFav }) => {
             <div className='nombreval flexea column'>
             <Link to={"/home/buscar/guard/"+guard.id}
             guardid={guard.id}
+            state={state}
             >
                 <h3>{guard.name} {guard.surnames}</h3>
             </Link>

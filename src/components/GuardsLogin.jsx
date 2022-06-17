@@ -52,13 +52,13 @@ export default function LoginF ({...props}) {
     
   return (
     
-        <section className=' main backgraund2'>
+        <section className=' pop absolute'>
             <header>
             </header>
-            <section className='body'>
+            <section className='body background2 formlogin'>
                 <header>
-                    <Link to="/" >
-                    <img src="../img/back-arrow.svg" alt="" className='reloj pequenio'/>
+                    <Link to="/"  className='flexea atras negro'>
+                        <img src="../img/back-arrow.svg" alt="" className='reloj maspequenio'/>
                         Atrás
                     </Link>
                     <h2>Iniciar sesión como cuidador</h2>
@@ -76,16 +76,16 @@ export default function LoginF ({...props}) {
                         <input className="col-10" type="password" value={password} name="Password" onChange={handlePasswordChange} />
                     </fieldset>
                     <fieldset className='col-12'>
-                        <label htmlFor="enviar" className='col-10'>Iniciar Sesion</label>
                         <button className="col-2 col-10" type="submit" name="enviar" value="Iniciar sesión" id='form-login-button'> Iniciar Sesion</button>
                     </fieldset>
+                    <div className='col-10'>
+                        <a href="">¿Has olvidado tu contraseña?</a>
+                        <Link to="/register">
+                            ¿Aún no tienes cuenta?
+                        </Link>
+                    </div>
                 </form>
-                <div >
-                    <a href="">¿Has olvidado tu contraseña?</a>
-                    <Link to="/register">
-                        ¿Aún no tienes cuenta?
-                    </Link>
-                </div>
+                
             </section>
             
         

@@ -8,7 +8,7 @@
 .pop{
     position: fixed;
     flex-direction: column;
-    background: white;
+    //background: white;
     height: 100vh;
     top: 0;
     bottom: 0;
@@ -17,7 +17,7 @@
     display: flex;
     justify-content: center;
     header, section{
-        background: white;
+        
         justify-content: auto;
         
     }
@@ -30,16 +30,47 @@
   display: block;
 }
 .body{
+  display: flex;  
+  align-items: center;
   flex-direction: column;
     header{
         flex-direction: column;
         align-items: center;
     }
 }
+
+.login{
+  width: 100%;
+  background: rgba(213, 245, 240, 0.46);
+  box-shadow: 0px 4px 4px rgb(0 0 0 / 25%);
+  border-radius: 25px;
+  margin-bottom: 10vh;
+  flex-direction: column;
+  align-items: center;
+  @include movile(){
+    width: 80%;
+  }
+  @include tablet(){
+    width: 60%;
+  }
+  @include desktop(){
+    width: 40%;
+  }
+}
+
 .atras{
     text-decoration: none;
     font-size: small;
     font-weight: normal;
+    align-items: center;
+    font-size: large;
+
+    &.blanco{
+      color: white;
+    } 
+    &.negro{
+      color: black;
+    } 
 }
 label{
     padding:15px;
@@ -64,6 +95,56 @@ button{
   color: #e70000;
   background-color: #ff00002b;
 }
+.body{
+  &.background1{
+    background-image: url('../img/backgraund-mobile-large.jpg');
+    background-size: cover;
+    @include movile {
+        background-image: url('../img/backgraund-tablet-large.jpg');
+    }
+    @include tablet() {
+        background-image: url('../img/backgraund-desktop-large.jpg');
+    }
+  }
+  &.background2{
+    background-image: url('../img/backgraund2-mobile-large.jpg');
+    background-size: cover;
+    height: auto;
+    @include movile() {
+        background-image: url('../img/backgraund2-tablet-large.png');
+    }
+    @include tablet() {
+        background-image: url('../img/backgraund2-desktop.png');
+    }
+    @include desktop() {
+        background-image: url('../img/backgraund2-desktop.png');
+    }
+    &.formlogin{
+      background-image: url('../img/backgraund2-mobile.png');
+      background-size: cover;
+      @include movile() {
+          background-image: url('../img/backgraund2-tablet.png');
+      }
+      height: 100%;
+    }
+  }
+  &.background3{
+    background-image: url('../img/backgraund3-mobile-large.jpg');
+    background-size: cover;
+    @include movile() {
+        background-image: url('../img/backgraund3-tablet-large.jpg');
+    }
+    @include tablet() {
+        background-image: url('../img/backgraund3-desktop-large.jpg');
+    }
+    @include desktop() {
+        background-image: url('../img/backgraund3-desktop-large.jpg');
+    }
+  }
+}
+
+
+
 @mixin movile {
     @media only screen and (min-width: 425px) {
       @content;

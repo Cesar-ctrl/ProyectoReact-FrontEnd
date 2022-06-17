@@ -87,16 +87,16 @@ export default function RegisterF ({handleSubmit, ...props}) {
         <section className='pop absolute'>
             <header>
             </header>
-            <section className='body'>
+            <section className='body background2'>
                 <header>
                 
-                    <Link to="/" >
-                    <img src="../img/back-arrow.svg" alt="" className='reloj pequenio'/>
+                    <Link to="/" className='flexea atras negro'>
+                    <img src="../img/back-arrow.svg" alt="" className='reloj maspequenio'/>
                         Inicio Sesión
                     </Link>
                     <h2>Registrarse en BabyGuard</h2>
                 </header>           
-                <form action="" className='login' onSubmit={handleRegister}>
+                <form action="" className='login flexea' onSubmit={handleRegister}>
                     <fieldset className='col-12'>
                         <label htmlFor="name" className='col-10'>Nombre</label>
                         <input className="col-10" type="text" name="name" value={ name} placeholder="Introduzca su Nombre"  pattern="[^0-9\x22]+"  title="Solo se aceptan letras"  onChange={ handleNameChange} />
@@ -128,18 +128,17 @@ export default function RegisterF ({handleSubmit, ...props}) {
                     </fieldset>
                     
                     <fieldset className='col-12'>
-                        <label htmlFor="enviar" className='col-10'>Iniciar Sesion</label>
-                        <button className="col-2 col-10" type="submit" name="enviar" value="Registrarse" id='form-register-button'> Iniciar Sesion</button>
+                        <button className="col-2 col-10" type="submit" name="enviar" value="Registrarse" id='form-register-button'>Registrarse</button>
                     </fieldset>
+                    <div className='col-10'>
+                        <Link to="/login">
+                            ¿Ya tienes una cuenta?
+                        </Link>
+                        <Link to="/guardregister">
+                            ¿Registrarse como cuidador?
+                        </Link>
+                    </div>
                 </form>
-                <div >
-                    <Link to="/login">
-                        ¿Ya tienes una cuenta?
-                    </Link>
-                    <Link to="/guardregister">
-                        ¿Registrarse como cuidador?
-                    </Link>
-                </div>
             </section>
         
         </section>

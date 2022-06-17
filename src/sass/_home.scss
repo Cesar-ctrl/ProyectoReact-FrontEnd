@@ -36,31 +36,31 @@
         
     }
     &.background2{
-        background-image: url('../img/backgraund-mobile2.png');
+        background-image: url('../img/backgraund2-mobile-large.jpg');
         height: 100vh;
         background-size: cover;
         @include movile() {
-            background-image: url('../img/backgraund-tablet2.png');
+            background-image: url('../img/backgraund2-tablet-large.png');
         }
         @include tablet() {
-            background-image: url('../img/backgraund-desktop2.png');
+            background-image: url('../img/backgraund2-desktop.png');
         }
         @include desktop() {
-            background-image: url('../img/backgraund-desktop2.png');
+            background-image: url('../img/backgraund2-desktop.png');
         }
     }
     &.background3{
-        background-image: url('../img/carrito-de-bebe-movil.jpg');
+        background-image: url('../img/backgraund3-mobile-large.jpg');
         height: 100vh;
         background-size: cover;
         @include movile() {
-            background-image: url('../img/carrito-de-bebe-tablet.jpg');
+            background-image: url('../img/backgraund3-tablet.jpg');
         }
         @include tablet() {
-            background-image: url('../img/carrito-de-bebe-desktop.jpg');
+            background-image: url('../img/backgraund3-desktop.jpg');
         }
         @include desktop() {
-            background-image: url('../img/carrito-de-bebé-trio-de-Asalvo_1.jpg');
+            background-image: url('../img/backgraund3-desktop.jpg');
         }
     }
     
@@ -79,31 +79,31 @@
         
     }
     &.background2{
-        background-image: url('../img/backgraund-mobile2.png');
+        background-image: url('../img/backgraund2-mobile-large.jpg');
         height: 100vh;
         background-size: cover;
         @include movile() {
-            background-image: url('../img/backgraund-tablet2.png');
+            background-image: url('../img/backgraund2-tablet-large.png');
         }
         @include tablet() {
-            background-image: url('../img/backgraund-desktop2.png');
+            background-image: url('../img/backgraund2-desktop.png');
         }
         @include desktop() {
-            background-image: url('../img/backgraund-desktop2.png');
+            background-image: url('../img/backgraund2-desktop.png');
         }
     }
     &.background3{
-        background-image: url('../img/backgraund-mobile3.png');
+        background-image: url('../img/backgraund3-mobile-large.jpg');
         height: 100vh;
         background-size: cover;
         @include movile() {
-            background-image: url('../img/backgraund-tablet3.jpg');
+            background-image: url('../img/backgraund3-tablet.jpg');
         }
         @include tablet() {
-            background-image: url('../img/backgraund-desktop3.jpg');
+            background-image: url('../img/backgraund3-desktop.jpg');
         }
         @include desktop() {
-            background-image: url('../img/backgraund-desktop3.jpg');
+            background-image: url('../img/backgraund3-desktop.jpg');
         }
     }
     
@@ -230,7 +230,7 @@ h2{
     display: block;
     width: 25vw;
     height: 40vh;
-    background-image: url('../img/backgraund-mobile-large.jpg') ;
+    background-image: url('../img/backgraund-mobile.jpg') ;
 }
 .box.flex{
     display: flex;

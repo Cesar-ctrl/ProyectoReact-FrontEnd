@@ -117,10 +117,10 @@ export default function GuardsRegister ({handleSubmit, ...props}) {
         <section className='pop absolute'>
             <header>
             </header>
-            <section className='body'>
+            <section className='body background2'>
                 <header>
-                    <Link to="/" >
-                    <img src="../img/back-arrow.svg" alt="" className='reloj pequenio'/>
+                    <Link to="/" className='flexea atras negro' >
+                        <img src="../img/back-arrow.svg" alt="" className='reloj maspequenio'/>
                         Atrás
                     </Link>
                     <h2>Registrarse como cuidador</h2>
@@ -185,15 +185,15 @@ export default function GuardsRegister ({handleSubmit, ...props}) {
                         <input className="col-10" type="password" placeholder="Repita la contraseña" name="PasswordConfirm"  />
                     </fieldset>
                     <fieldset className='col-12'>
-                        <label htmlFor="enviar" className='col-10'>Iniciar Sesion</label>
-                        <button className="col-2 col-10" type="submit" name="enviar" value="Registrarse" id='form-register-button'> Iniciar Sesion</button>
+                        <button className="col-2 col-10" type="submit" name="enviar" value="Registrarse" id='form-register-button'>Registrarse</button>
                     </fieldset>
+                    <div className='col-10'>
+                        <Link to="/guardlogin">
+                            ¿Ya tienes una cuenta?
+                        </Link>
+                    </div>
                 </form>
-                <div >
-                    <Link to="/guardlogin">
-                        ¿Ya tienes una cuenta?
-                    </Link>
-                </div>
+                
             </section>
         
         </section>

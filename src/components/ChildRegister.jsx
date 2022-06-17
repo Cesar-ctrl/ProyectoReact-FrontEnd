@@ -175,7 +175,7 @@ export default function RegisterF ({handleSubmit, ...props}) {
         <section className='pop absolute'>
             <header>
             </header>
-            <section className='body'>
+            <section className='body background2'>
                 <header>
                     <Link to="/home/child" >
                         <img src="..img/back-arrow.svg" alt="" />

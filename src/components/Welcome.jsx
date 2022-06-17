@@ -2,7 +2,6 @@ import React from 'react';
 import {useRef, useEffect, useState} from 'react';
 import { BrowserRouter as Router, Routes, Switch, Route,  Link } from "react-router-dom";
 
-
 function Welcome() {
 
     const [addClass,setAddClass] = useState(false)
@@ -55,7 +54,7 @@ return (
         <header className="header welcome">
           <div className="floatright"> 
             <h2 className='inicio-sesion '>
-              <Link to="/login" >
+              <Link to="/login" className='flexea atras blanco'>
                 Inicio Sesión
               </Link>
             </h2>
@@ -107,7 +106,6 @@ return (
             <Link to="/home">
               <button className='encuentra'>Encuentra niñeras</button>
             </Link>
-              
 
             <Link to="/register">
               <button className='registro'>Regístrate</button>
@@ -118,6 +116,11 @@ return (
       </div>
 
     </section>
+    <audio autoPlay loop preload="metadata" >
+      <source src="../img/welcome-music.mp3" type="audio/mpeg" /> 
+      <source src="../img/welcome-music.ogg" type="audio/ogg" /> 
+      <source src="../img/welcome-music.opus"  />
+    </audio>
     
   </main>
       

@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
-import userService from '../services/users'
-import Hijo from '../components2/Hijo'
-import { useNavigate,  Link } from "react-router-dom";
+import { useNavigate,  Link, useLocation } from "react-router-dom";
 import noteService from '../services/notes'
 
-const Miperfil = () => {
-
+const Miperfil = (props) => {
+    const location = useLocation();
+    const state = location.state;
     var loggUserJSON = window.localStorage.getItem('loggedNoteAppUser')
     var usuario = JSON.parse(loggUserJSON)
     var loggGuardJSON = window.localStorage.getItem('loggedNoteAppGuard')
@@ -23,7 +22,6 @@ const Miperfil = () => {
         setLoggedIn(false)
         navigate("/welcome", { replace: true });
       }
-
     return (
         
         <section className="home busqueda">
@@ -42,7 +40,7 @@ const Miperfil = () => {
         <div className='cuidador flexea'>
             
             { usuario? 
-            <Link  to="/home/perfil/personal"className="flexea color">
+            <Link  to="/home/perfil/personal" className="flexea color" state={state}>
                 <div className='foto'>
                     <img src="../img/cuenta.svg" className='fotoestandar' alt="" />
                 </div>
@@ -50,7 +48,7 @@ const Miperfil = () => {
                     <h3>Información personal</h3>
                 </div>
             </Link> :
-            <Link  to="/home/perfil/guardpersonal"className="flexea color">
+            <Link  to="/home/perfil/guardpersonal" className="flexea color" state={state}>
             <div className='foto'>
                 <img src="../img/cuenta.svg" className='fotoestandar' alt="" />
             </div>
@@ -61,7 +59,7 @@ const Miperfil = () => {
             } 
         </div>
         <div className='cuidador flexea'>
-            <Link to="/home/perfil/ajustes" className="flexea color">
+            <Link to="/home/perfil/ajustes" className="flexea color" state={state}>
                 <div className='foto'>
                     <img src="../img/settings.svg" className='fotoestandar' alt="" />
                 </div>
