@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const baseUrl = 'http://localhost:3001/api/img'
+const baseUrl = 'https://damp-temple-29994.herokuapp.com/api/img'
 
 let token = null
 
@@ -15,7 +15,7 @@ const subeImg = async (id, credentials) => {
     var response = {}
     const { data2 } = await axios({
         method: "post",
-        url:'http://localhost:3001/api/img', 
+        url:'https://damp-temple-29994.herokuapp.com/api/img', 
         data: credentials,
         headers: {
             "Content-Type": "multipart/form-data",
