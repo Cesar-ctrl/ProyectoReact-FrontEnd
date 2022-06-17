@@ -104,7 +104,7 @@ const PerfilGuard = ({ }) => {
     <section className="home">
         <header className='titulo main flexea perfil'>
             <div className='foto'>
-            <img src={"http://localhost:3001/api/img/public/"+guard.imgUrl} className='reloj' alt="" />
+            <img src={"https://damp-temple-29994.herokuapp.com/api/img/public/"+guard.imgUrl} className='reloj' alt="" />
             </div>
             <h2>{guard.name} {guard.surnames}</h2>
         </header>
@@ -121,7 +121,7 @@ const PerfilGuard = ({ }) => {
             </div>
                 <div className='cuidador flexea wrap'>
                     <div className='horadisp flexea column'>
-                        <img src="http://localhost:3000/img/reloj-grande.png" className="reloj" alt="" />
+                        <img src="../img/reloj-grande.png" className="reloj" alt="" />
                         {user?<h3>{guard.horarioinicio}-{guard.horariofin}</h3> : guardian? guardian.id==guard.id?
                             <div>
                                 <input className="col-12" type="time" name="horarioinicio" defaultValue={ guard.horarioinicio} value={horarioinicio} onChange={ handleHorarioinicioChange} />
@@ -147,13 +147,13 @@ const PerfilGuard = ({ }) => {
                                 </tr>
                                 <tr>
 
-                                    <td>{guard.dias[0]? <img src="http://localhost:3000/img/Light_green_check.svg" className="dias" alt="" /> : <img src="http://localhost:3000/img/Red_x.svg" className="dias" alt="" />}</td>
-                                    <td>{guard.dias[1]? <img src="http://localhost:3000/img/Light_green_check.svg" className="dias" alt="" /> : <img src="http://localhost:3000/img/Red_x.svg" className="dias" alt="" />}</td>
-                                    <td>{guard.dias[2]? <img src="http://localhost:3000/img/Light_green_check.svg" className="dias" alt="" /> : <img src="http://localhost:3000/img/Red_x.svg" className="dias" alt="" />}</td>
-                                    <td>{guard.dias[3]? <img src="http://localhost:3000/img/Light_green_check.svg" className="dias" alt="" /> : <img src="http://localhost:3000/img/Red_x.svg" className="dias" alt="" />}</td>
-                                    <td>{guard.dias[4]? <img src="http://localhost:3000/img/Light_green_check.svg" className="dias" alt="" /> : <img src="http://localhost:3000/img/Red_x.svg" className="dias" alt="" />}</td>
-                                    <td>{guard.dias[5]? <img src="http://localhost:3000/img/Light_green_check.svg" className="dias" alt="" /> : <img src="http://localhost:3000/img/Red_x.svg" className="dias" alt="" />}</td>
-                                    <td>{guard.dias[6]? <img src="http://localhost:3000/img/Light_green_check.svg" className="dias" alt="" /> : <img src="http://localhost:3000/img/Red_x.svg" className="dias" alt="" />}</td>
+                                    <td>{guard.dias[0]? <img src="../img/Light_green_check.svg" className="dias" alt="" /> : <img src="../img/Red_x.svg" className="dias" alt="" />}</td>
+                                    <td>{guard.dias[1]? <img src="../img/Light_green_check.svg" className="dias" alt="" /> : <img src="../img/Red_x.svg" className="dias" alt="" />}</td>
+                                    <td>{guard.dias[2]? <img src="../img/Light_green_check.svg" className="dias" alt="" /> : <img src="../img/Red_x.svg" className="dias" alt="" />}</td>
+                                    <td>{guard.dias[3]? <img src="../img/Light_green_check.svg" className="dias" alt="" /> : <img src="../img/Red_x.svg" className="dias" alt="" />}</td>
+                                    <td>{guard.dias[4]? <img src="../img/Light_green_check.svg" className="dias" alt="" /> : <img src="../img/Red_x.svg" className="dias" alt="" />}</td>
+                                    <td>{guard.dias[5]? <img src="../img/Light_green_check.svg" className="dias" alt="" /> : <img src="../img/Red_x.svg" className="dias" alt="" />}</td>
+                                    <td>{guard.dias[6]? <img src="../img/Light_green_check.svg" className="dias" alt="" /> : <img src="../img/Red_x.svg" className="dias" alt="" />}</td>
                                 </tr>
                             </tbody>
                         </table>
