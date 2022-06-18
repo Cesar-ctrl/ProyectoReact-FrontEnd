@@ -1,18 +1,18 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import registerService from '../services/register'
 import { useNavigate,  Link } from "react-router-dom";
 
 export default function RegisterF ({handleSubmit, ...props}) {
-    const [errorMessage, setErrorMessage] = useState(null)
+    const [ setErrorMessage] = useState(null)
     const [name, setName] = useState('')
     const [surnames, setSurnames] = useState('')
     const [DNI, setDni] = useState('')
     const [phone, setPhone] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-    const [selectedFile, setSelectedFile] = useState(null);
+    const [selectedFile] = useState(null);
     const [user, setUser] = useState(null)
-    const [loggedIn, setLoggedIn] = useState(null)
+    const [setLoggedIn] = useState(null)
     const navigate = useNavigate();
 
     const handleNameChange = ({target}) => setName(target.value)

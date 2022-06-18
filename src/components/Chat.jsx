@@ -1,6 +1,5 @@
 import React from "react";
-import Star from './Star'
-import {  Notification } from './Staricon'
+import {  Notification } from './Staricon';
 
 const Chat = () => {
     const newmode = window.localStorage.getItem('newmode')

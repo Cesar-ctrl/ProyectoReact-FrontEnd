@@ -1,7 +1,5 @@
 import axios from 'axios'
 
-const baseUrl = 'https://damp-temple-29994.herokuapp.com/api/img'
-
 let token = null
 
 const setToken = newToken => {

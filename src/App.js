@@ -7,7 +7,8 @@ import Login from './components/LoginF';
 import Register from './components/Register';
 import GuardsRegister from './components/GuardsRegister';
 import GuardsLogin from './components/GuardsLogin';
-import noteService from './services/notes'
+import guardService from './services/guards'
+import userService from './services/users'
 
 import Home from './components/Home'
 
@@ -23,7 +24,7 @@ const App = () => {
     if (loggedUserJSON) {
       const user = JSON.parse(loggedUserJSON)
       setUser(user)
-      noteService.setToken(user.token)
+      userService.setToken(user.token)
       setLoggedIn(true)
     }
   }, [])
@@ -32,7 +33,7 @@ const App = () => {
     if (loggedGuardJSON) {
       const guard = JSON.parse(loggedGuardJSON)
       setUser(guard)
-      noteService.setToken(guard.token)
+      guardService.setToken(guard.token)
       setLoggedIn(true)
     }
   }, [])

@@ -1,6 +1,5 @@
 import React from 'react'
-import Star from '../components/Star'
-import { BrowserRouter as Router, Routes, Switch, Route,  Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const BotonRegistro = () => {
 

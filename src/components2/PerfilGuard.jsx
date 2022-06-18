@@ -12,9 +12,9 @@ const PerfilGuard = ({ }) => {
     const guardian = JSON.parse(loggGuardJSON)
 
     const [guard, setGuards] = useState([]) 
-    const [Id, setId] = useState("")
-    const [name, setName] = useState('')
-    const [surnames, setSurnames] = useState('')
+    const [setId] = useState("")
+    const [setName] = useState('')
+    const [setSurnames] = useState('')
     const [horariofin, setHorariofin] = useState('')
     const [horarioinicio, setHorarioinicio] = useState('')
     const [descr, setDesc] = useState(guard.descripcion)
@@ -84,7 +84,7 @@ const PerfilGuard = ({ }) => {
         var changedGuard1 = { ...guardd, horarioinicio: horarioinicio }
         var changedGuard2 = { ...guardd, horariofin: horariofin }
         if(horarioinicio == undefined){
-            changedGuard1 ={ ...guardd, horarioinicio:  guard.horarioinicio }
+            changedGuard1 = { ...guardd, horarioinicio:  guard.horarioinicio }
         } if(horariofin == undefined){
             changedGuard2 = { ...guardd, horariofin:  guard.horariofin }
         }

@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import Star from './Star'
 import guardService from '../services/guards'
 import userService from '../services/users'
 import Guard from '../components2/Guard'
@@ -8,8 +7,6 @@ const Busqueda = () => {
 
     const [guards, setGuards] = useState([]) 
     const [showAll, setShowAll] = useState(true)
-    const [errorMessage, setErrorMessage] = useState(null)
-    const [onlyguard, setOnlyguard] = useState(null)
     const loggeUserJSON = window.localStorage.getItem('loggedNoteAppUser')
     const usuario = JSON.parse(loggeUserJSON)
 
@@ -33,14 +30,6 @@ const Busqueda = () => {
                 .then(returnedGuard => {
                     setGuards(guards.map(guardd => guardd.id !== id ? guardd : guard))
                 })
-                .catch(error => {
-                    setErrorMessage(
-                    `Note '${guard.content}' was already removed from server`
-                    )
-                    setTimeout(() => {
-                        setErrorMessage(null)
-                    }, 5000)   
-                })
                 var parsedObject = usuario
                 // Modificar el objeto para ahora guardarlo en el localStorage
                 parsedObject.guards = parsedObject.guards.filter(item => item !== id)
@@ -57,14 +46,6 @@ const Busqueda = () => {
             .postfav(usuario.id, guard.id)
             .then(returnedGuard => {
                 setGuards(guards.map(guardd => guardd.id !== id ? guardd : guard))
-            })
-            .catch(error => {
-            setErrorMessage(
-                `Note '${guard.content}' was already removed from server`
-            )
-            setTimeout(() => {
-                setErrorMessage(null)
-            }, 5000)   
             })
             const parsedObject = usuario
             // Modificar el objeto para ahora guardarlo en el localStorage

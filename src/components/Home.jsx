@@ -1,18 +1,17 @@
 import React, { useState, useEffect } from 'react'
-import { BrowserRouter as Router, Routes, Switch, Route,  Link, useLocation  } from "react-router-dom";
+import { Routes,  Route,  Link, useLocation  } from "react-router-dom";
 import Busqueda from './Busqueda';
 import Favoritos from './Favoritos';
 import Chat from './Chat';
 import Child from './Child';
 import Miperfil from './Miperfil';
-import ChildRegister from './ChildRegister'
-import noteService from '../services/notes'
-import childService from '../services/childs'
-import userService from '../services/users'
+import ChildRegister from './ChildRegister';
+import childService from '../services/childs';
+import userService from '../services/users';
 import PerfilGuard from '../components2/PerfilGuard';
 import Ajustes from './Ajustes';
-import UserUpdate from '../componentes-update/UserUpdate'
-import GuardUpdate from '../componentes-update/GuardUpdate'
+import UserUpdate from '../componentes-update/UserUpdate';
+import GuardUpdate from '../componentes-update/GuardUpdate';
 
 function Home(props) {
     const location = useLocation();
@@ -26,7 +25,6 @@ function Home(props) {
           const user = JSON.parse(loggedUserJSON)
           setUser(user)
           userService.setToken(user.token)
-          noteService.setToken(user.token)
           childService.setToken(user.token)
         }
         

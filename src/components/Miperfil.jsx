@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useNavigate,  Link, useLocation } from "react-router-dom";
-import noteService from '../services/notes'
+import userService from '../services/users';
 
-const Miperfil = (props) => {
+const Miperfil = () => {
     const location = useLocation();
     const state = location.state;
     var loggUserJSON = window.localStorage.getItem('loggedNoteAppUser')
@@ -16,7 +16,7 @@ const Miperfil = (props) => {
 
     const handleLogout = () => {
         setUser(null)
-        noteService.setToken(null)
+        userService.setToken(null)
         window.localStorage.removeItem('loggedNoteAppUser')
         window.localStorage.removeItem('loggedNoteAppGuard')
         setLoggedIn(false)
@@ -48,14 +48,17 @@ const Miperfil = (props) => {
                     <h3>Información personal</h3>
                 </div>
             </Link> :
-            <Link  to="/home/perfil/guardpersonal" className="flexea color" state={state}>
-            <div className='foto'>
-                <img src="../img/cuenta.svg" className='fotoestandar' alt="" />
-            </div>
-            <div className='nombreval flexea centertext'>
-                <h3>Información personal</h3>
-            </div>
-        </Link> 
+            guard?
+                <Link  to="/home/perfil/guardpersonal" className="flexea color" state={state}>
+                    <div className='foto'>
+                        <img src="../img/cuenta.svg" className='fotoestandar' alt="" />
+                    </div>
+                    <div className='nombreval flexea centertext'>
+                        <h3>Información personal</h3>
+                    </div>
+                </Link> 
+                :
+                alert('No has iniciado sesión')
             } 
         </div>
         <div className='cuidador flexea'>
@@ -90,7 +93,14 @@ const Miperfil = (props) => {
                     <img src="../img/logout.svg" className='fotoestandar' alt="" />
                 </div>
                 <div className='nombreval flexea centertext'onClick={handleLogout} >
-                    <h3>Cerrar sesión</h3>
+                    {
+                        usuario?
+                            <h3>Cerrar sesión</h3>
+                            : guard?
+                            <h3>Cerrar sesión</h3>
+                            :
+                            <h3>Volver al Registro</h3>
+                    }
                 </div>
         </div>
 

@@ -1,14 +1,14 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react';
 import {  Link, useNavigate } from "react-router-dom";
-import Notification from '../components2/Notification'
-import loginService from '../services/login'
-import noteService from '../services/notes'
+import Notification from '../components2/Notification';
+import loginService from '../services/login';
+import userService from '../services/users';
 
-export default function LoginF ({...props}) {
-    const [user, setUser] = useState(null)
+export default function LoginF ({}) {
+    const [setUser] = useState(null)
     const [password, setPassword] = useState('')
     const [email, setEmail] = useState('')
-    const [loggedIn, setLoggedIn] = useState(null)
+    const [setLoggedIn] = useState(null)
     const [errorMessage, setErrorMessage] = useState(null)
     const navigate = useNavigate();
 
@@ -26,7 +26,7 @@ export default function LoginF ({...props}) {
           window.localStorage.setItem(
             'loggedNoteAppUser', JSON.stringify(user)
           )
-          noteService.setToken(user.token)
+          userService.setToken(user.token)
           setUser(user)
           setEmail('')
           setPassword('')

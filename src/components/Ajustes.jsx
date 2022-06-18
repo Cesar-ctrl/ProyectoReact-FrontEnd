@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useRef } from "react";
-import { useNavigate,  Link, useLocation } from "react-router-dom";
+import React, { useState, useRef } from "react";
+import {  Link, useLocation } from "react-router-dom";
 
 const Ajustes = (props) => {
     const location = useLocation();
@@ -9,9 +9,6 @@ const Ajustes = (props) => {
     const  back1 = useRef(null);
     const  back2 = useRef(null);
     const  back3 = useRef(null);
-    const [user, setUser] = useState(null)
-    const [loggedIn, setLoggedIn] = useState(null)
-    const navigate = useNavigate();
 
     
     const changeBack1 = () => {

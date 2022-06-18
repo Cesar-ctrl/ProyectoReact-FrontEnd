@@ -16,7 +16,7 @@ export default function RegisterF ({handleSubmit, ...props}) {
     const [edad, setEdad] = useState(props.modoEdicion? childs.edad:0)
     const [DNI, setDni] = useState(props.modoEdicion? childs.DNI:'')
     const [necesidadesesp, setNecesidadesesp] = useState(props.modoEdicion? childs.necesidadesesp:'')
-    const [child, setChild] = useState(null)
+    const [setChild] = useState(null)
     const navigate = useNavigate();
 
     const handleNameChange = ({target}) => setName(target.value)
@@ -139,17 +139,8 @@ export default function RegisterF ({handleSubmit, ...props}) {
             setAlergenos('')
             setNecesidadesesp('')
             navigate("/home/child", { replace: true });
-        } catch(e) {
-
-        }
-    
+        } catch(e) {}
       }
-    const activarModoEdicion = () => {
-
-        console.log(childs)
-        setmodoEdicion(true)
-
-    }
 
     const editarHijo = async(e) =>{
         e.preventDefault()

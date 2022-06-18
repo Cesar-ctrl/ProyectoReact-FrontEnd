@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import guardService from '../services/guards'
 import { useNavigate,  Link } from "react-router-dom";
 
 export default function GuardsRegister ({handleSubmit, ...props}) {
-    const [errorMessage, setErrorMessage] = useState(null)
+    const [setErrorMessage] = useState(null)
     const [name, setName] = useState('')
     const [surnames, setSurnames] = useState('')
     const [DNI, setDni] = useState('')
@@ -12,8 +12,8 @@ export default function GuardsRegister ({handleSubmit, ...props}) {
     const [horariofin, setHorariofin] = useState('')
     const [horarioinicio, setHorarioinicio] = useState('')
     const [password, setPassword] = useState('')
-    const [guard, setGuard] = useState(null)
-    const [loggedIn, setLoggedIn] = useState(null)
+    const [setGuard] = useState(null)
+    const [setLoggedIn] = useState(null)
     const navigate = useNavigate();
 
     const listadias = [

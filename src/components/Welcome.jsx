@@ -1,6 +1,6 @@
 import React from 'react';
-import {useRef, useEffect, useState} from 'react';
-import { BrowserRouter as Router, Routes, Switch, Route,  Link } from "react-router-dom";
+import { useEffect, useState } from 'react';
+import { Link } from "react-router-dom";
 
 function Welcome() {
 

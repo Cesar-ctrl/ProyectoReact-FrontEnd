@@ -1,14 +1,13 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import {  Link, useNavigate } from "react-router-dom";
 import Notification from '../components2/Notification'
 import guardService from '../services/guards'
-import noteService from '../services/notes'
 
-export default function LoginF ({...props}) {
-    const [user, setUser] = useState(null)
+export default function LoginF () {
+    const [setUser] = useState(null)
     const [password, setPassword] = useState('')
     const [email, setEmail] = useState('')
-    const [loggedIn, setLoggedIn] = useState(null)
+    const [setLoggedIn] = useState(null)
     const [errorMessage, setErrorMessage] = useState(null)
     const navigate = useNavigate();
 
@@ -29,9 +28,8 @@ export default function LoginF ({...props}) {
           )
     
           
-          noteService.setToken(user.token)
-        
-          
+          guardService.setToken(user.token)
+
           setUser(user)
           setEmail('')
           setPassword('')

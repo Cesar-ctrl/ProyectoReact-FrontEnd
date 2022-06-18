@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import userService from '../services/users'
 import Hijo from '../components2/Hijo'
-import { useNavigate,  Link } from "react-router-dom";
+import {  Link } from "react-router-dom";
 import BotonRegistro from './BotonRegistro'
 
 const Child = () => {
