@@ -9,7 +9,7 @@ const Busqueda = () => {
     const [guards, setGuards] = useState([]) 
     const [showAll, setShowAll] = useState(true)
     const [errorMessage, setErrorMessage] = useState(null)
-
+    const [onlyguard, setOnlyguard] = useState(null)
     const loggeUserJSON = window.localStorage.getItem('loggedNoteAppUser')
     const usuario = JSON.parse(loggeUserJSON)
 
@@ -30,11 +30,12 @@ const Busqueda = () => {
         var encontrado = false
         for (let index = 0; index < favoritos.length; index++) {
             const element = favoritos[index];
+            console.log(element)
             if (element == id) {
                 userService
                 .putfav(usuario.id, guard.id)
                 .then(returnedGuard => {
-                    setGuards(guards.map(guard => guard.id !== id ? guard : returnedGuard))
+                    setGuards(guards.map(guardd => guardd.id !== id ? guardd : guard))
                 })
                 .catch(error => {
                     setErrorMessage(
@@ -44,7 +45,16 @@ const Busqueda = () => {
                         setErrorMessage(null)
                     }, 5000)   
                 })
-
+                console.log(onlyguard)
+                console.log(guards)
+                var parsedObject = usuario
+                console.log(id)
+                // Modifies the object, converts it to a string and replaces the existing `ship` in LocalStorage
+                parsedObject.guards = parsedObject.guards.filter(item => item !== id)
+                console.log(parsedObject)
+                const modifiedndstrigifiedForStorage = JSON.stringify(parsedObject);
+                console.log(modifiedndstrigifiedForStorage)
+                window.localStorage.setItem("loggedNoteAppUser", modifiedndstrigifiedForStorage);
                 encontrado = true
                 break
             }
@@ -55,7 +65,7 @@ const Busqueda = () => {
             userService
             .postfav(usuario.id, guard.id)
             .then(returnedGuard => {
-                setGuards(guards.map(guard => guard.id !== id ? guard : returnedGuard))
+                setGuards(guards.map(guardd => guardd.id !== id ? guardd : guard))
             })
             .catch(error => {
             setErrorMessage(
@@ -65,11 +75,16 @@ const Busqueda = () => {
                 setErrorMessage(null)
             }, 5000)   
             })
+            const parsedObject = usuario
+            // Modifies the object, converts it to a string and replaces the existing `ship` in LocalStorage
+            parsedObject.guards.push(guard.id)
+            const modifiedndstrigifiedForStorage = JSON.stringify(parsedObject);
+            console.log(modifiedndstrigifiedForStorage)
+            window.localStorage.setItem("loggedNoteAppUser", modifiedndstrigifiedForStorage);
         }
         
         
     }
-    console.log(guards)
 
     const guardsToShow = showAll
     ? guards
@@ -98,13 +113,25 @@ const Busqueda = () => {
         </section>
         <section className='flexea column'>
             <div className='col-10 column listado'>
-            {guardsToShow.map((guard, i) => 
+            {usuario?
+            guardsToShow.map((guard, i) => 
                 <Guard
                     key={i}
+                    favs={usuario.guards}
                     guard={guard}
                     toggleFav={() => toggleFav(guard.id)}
                 />
-            )}
+            )
+            :guardsToShow.map((guard, i) => 
+            <Guard
+                key={i}
+                favs={[]}
+                guard={guard}
+                toggleFav={() => toggleFav(guard.id)}
+            />
+            )
+
+            }
                 
             </div>
         </section>

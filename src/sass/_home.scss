@@ -23,6 +23,9 @@
         height: 20px;
     }
 }
+.estrella{
+    fill: yellow;
+}
 
 .main{
     &.background1{
@@ -175,14 +178,22 @@ h2{
         padding: {
             top: 10px;
             bottom: 10px;
-            right: 20px;
-            left: 20px;
+            right: 10px;
+            left: 10px;
         }
         margin-top: 10px;
         background: #FFFFFF;
         box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
         border-radius: 12px;
         @include movile() {
+            padding: {
+                top: 12px;
+                bottom: 12px;
+                right: 25px;
+                left: 25px;
+            }
+        }
+        @include tablet() {
             padding: {
                 top: 15px;
                 bottom: 15px;
@@ -237,7 +248,7 @@ h2{
 .box.flex{
     display: flex;
    .cursor-pointer{
-       .w-6.h-6{
+        .w-6.h-6{
            $size: 15px;
            width: 11px;
            height: 11px;
@@ -261,6 +272,31 @@ h2{
                 width: $size;
                 height: $size;
             }
-       }
+        }
+        .w-7.h-7{
+            $size: 30px;
+            width: 20px;
+            height: 20px;
+            @include movileS(){
+                width: 25px;
+                height: 25px;
+            }
+            @include movileM(){
+                width: $size;
+                height: $size;
+            }
+            @include movile(){
+                width: $size ;
+                height: $size ;
+            }
+            @include tablet(){
+                width: $size;
+                height: $size;
+            }
+            @include desktop(){
+                width: $size;
+                height: $size;
+            }
+        }
    }
 }

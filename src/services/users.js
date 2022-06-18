@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const baseUrl = 'https://damp-temple-29994.herokuapp.com/api/users'
+const baseUrl = 'http://localhost:3001/api/users'
 
 let token = null
 
@@ -25,8 +25,11 @@ const postfav = (id, newObject) => {
       Authorization: token
       }
   }
-
-  const request = axios.post(`${baseUrl}/fav/${id}`, newObject, config)
+  const info ={
+    guards:newObject
+  }
+  console.log(info)
+  const request = axios.post(`${baseUrl}/fav/${id}`, info, config)
   return request.then(response => response.data)
 }
 
@@ -36,8 +39,11 @@ const putfav = (id, newObject) => {
       Authorization: token
       }
   }
-
-  const request = axios.post(`${baseUrl}/fav/${id}`, newObject, config)
+  const info ={
+    guards:newObject
+  }
+  console.log(info)
+  const request = axios.put(`${baseUrl}/fav/${id}`, info, config)
   return request.then(response => response.data)
 }
 

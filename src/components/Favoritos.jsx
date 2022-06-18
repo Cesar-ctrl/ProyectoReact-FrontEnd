@@ -5,21 +5,13 @@ import Star from './Star'
 import BotonRegistro from './BotonRegistro'
 
 const Favoritos = () => {
-
     const [guards, setGuards] = useState([]) 
     const [showAll, setShowAll] = useState(true)
     const [errorMessage, setErrorMessage] = useState(null)
     const loggeUserJSON = window.localStorage.getItem('loggedNoteAppUser')
     const usuario = JSON.parse(loggeUserJSON)
-    //useEffect(() => {
-    //    guardService
-    //      .getAll()
-    //      .then(initialGuards => {
-    //        setGuards(initialGuards)
-    //      })
-    //  }, [])
+
     useEffect(() => {
-        const loggUserJSON = window.localStorage.getItem('loggedNoteAppUser')
         if(loggUserJSON){
             const usuario = JSON.parse(loggUserJSON)
             userService
@@ -28,43 +20,84 @@ const Favoritos = () => {
                 setGuards(initialGuards)
             })
         }
-      }, [])
+    }, [])
 
-
-    //useEffect(() => {
-    //    const loggedUserJSON = window.localStorage.getItem('loggedNoteAppUser')
-    //    const user = JSON.parse(loggedUserJSON)
-    //    guardService.getFav(user.guards)
-    //})
-
-    // TODO: CONSEGUIR QUE ESTO FUNCIONE
+    
     const toggleFav = (id) => {
-        const user = user.find(n => n.id === usuario.id)
-        
-        userService
-          .getFavUser(id)
-          .then(returnedGuard => {
-            setGuards(guards.map(guard => guard.id !== id ? guard : returnedGuard))
-          })
-          .catch(error => {
+        console.log(guards)
+        const guard = guards.guards.find(n => n.id === id)
+        console.log(guard)
+        var favoritos = usuario.guards
+        console.log(id)
+        console.log(favoritos)
+        var encontrado = false
+        for (let index = 0; index < favoritos.length; index++) {
+            const element = favoritos[index];
+            console.log(element)
+            if (element == id) {
+                userService
+                .putfav(usuario.id, guard.id)
+                .then(returnedGuard => {
+                    setGuards(guards.map(guardd => guardd.id !== id ? guardd : guard))
+                })
+                .catch(error => {
+                    setErrorMessage(
+                    `Note '${guard.content}' was already removed from server`
+                    )
+                    setTimeout(() => {
+                        setErrorMessage(null)
+                    }, 5000)   
+                })
+                console.log(guards)
+                var parsedObject = usuario
+                console.log(id)
+                // Modifies the object, converts it to a string and replaces the existing `ship` in LocalStorage
+                parsedObject.guards = parsedObject.guards.filter(item => item !== id)
+                console.log(parsedObject)
+                const modifiedndstrigifiedForStorage = JSON.stringify(parsedObject);
+                console.log(modifiedndstrigifiedForStorage)
+                window.localStorage.setItem("loggedNoteAppUser", modifiedndstrigifiedForStorage);
+                encontrado = true
+                break
+            }
+            
+        }
+
+        if (!(encontrado)) {
+            userService
+            .postfav(usuario.id, guard.id)
+            .then(returnedGuard => {
+                setGuards(guards.map(guardd => guardd.id !== id ? guardd : guard))
+            })
+            .catch(error => {
             setErrorMessage(
-              `Note  was already removed from server`
+                `Note '${guard.content}' was already removed from server`
             )
             setTimeout(() => {
-              setErrorMessage(null)
+                setErrorMessage(null)
             }, 5000)   
-          })
-      }
+            })
+            const parsedObject = usuario
+            // Modifies the object, converts it to a string and replaces the existing `ship` in LocalStorage
+            parsedObject.guards.push(guard.id)
+            const modifiedndstrigifiedForStorage = JSON.stringify(parsedObject);
+            console.log(modifiedndstrigifiedForStorage)
+            window.localStorage.setItem("loggedNoteAppUser", modifiedndstrigifiedForStorage);
+        }
+        
+        
+    }
     
     const newmode = window.localStorage.getItem('newmode')
+      console.log(guards)
     const guardsToShow = showAll
     ? guards.guards
     : guards.guards.filter(guard => guard.disponible)
+    
     const loggUserJSON = window.localStorage.getItem('loggedNoteAppUser')
     return (
         <section className="home">
             <header className='titulo main'>
-
                 <h2>Favoritos</h2>
             </header>
             <section className='buscador'>
@@ -81,65 +114,26 @@ const Favoritos = () => {
             <section className='flexea column'>
                 {
                 loggUserJSON? 
-                
                 <div className='col-10 column listado'>
-
-                {
-                guardsToShow? guardsToShow.map((guard, i) => 
-                <Guard
-                    key={i}
-                    guard={guard} 
-                    toggleDisponible={() => toggleFav(guard.id)}
-                    
-                />)
-                :console.log("esperando")
-                }
-
-                    <div className='cuidador flexea roww'>
-                        <div className='foto'>
-                        {
-                        newmode?<img src="../img/pepe-clown.gif" className='fotoestandar' alt="" /> :
-                        <img src="../img/Prueba2.jpg" className='fotoestandar' alt="" />
-                        }
-                        </div>
-                        <div>
-                            <div className='nombreval flexea column'>
-                                <h3>NOMBRE APELLIDO</h3>
-                                <div className="flexea roww">
-                                    {<Star />}
-
-                                    <h3>4.8</h3>
-                                </div>
-                            </div>
-                        </div>
-                        <div className='horadisp flexea column'>
-                            <img src="../img/reloj-pequenio.png" className="reloj pequenio" alt="" />
-                            <h3>12:00-18:00</h3>
-                        </div>
-                    </div>
-                    
-                    <div className='cuidador flexea roww indispuesto'>
-                        <div className='foto'>
-                            {
-                                newmode?<img src="../img/pepe-clown.gif" className='fotoestandar' alt="" /> :
-                                <img src="../img/Prueba2.jpg" className='fotoestandar' alt="" />
-                            }
-                        </div>
-                        <div>
-                            <div className='nombreval flexea column'>
-                                <h3>NOMBRE APELLIDO</h3>
-                                <div className="flexea roww">
-                                    {<Star />}
-
-                                    <h3>4.8</h3>
-                                </div>
-                            </div>
-                        </div>
-                        <div className='horadisp flexea column'>
-                            <img src="../img/reloj-pequenio.png" className="reloj pequenio" alt="" />
-                            <h3>12:00-18:00</h3>
-                        </div>
-                    </div>
+                    {guardsToShow?
+                    usuario?
+                        guardsToShow.map((guard, i) => 
+                            <Guard
+                                key={i}
+                                favs={usuario.guards}
+                                guard={guard}
+                                toggleFav={() => toggleFav(guard.id)}
+                            />
+                        )
+                        :guardsToShow.map((guard, i) => 
+                        <Guard
+                            key={i}
+                            favs={[]}
+                            guard={guard}
+                            toggleFav={() => toggleFav(guard.id)}
+                        />)
+                    : console.log('esperando')
+                    }
                 </div>
                 :<BotonRegistro />
                 }
