@@ -20,8 +20,8 @@ const PerfilGuard = ({ }) => {
     const [descr, setDesc] = useState(guard.descripcion)
 
     const label = guard.disponible
-    ? 'make not disponible'
-    : 'make disponible';
+    ? 'Make Not available'
+    : 'Make available';
 
 
     useEffect(() => {
