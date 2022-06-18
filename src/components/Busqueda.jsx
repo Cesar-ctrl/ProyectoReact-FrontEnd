@@ -24,10 +24,38 @@ const Busqueda = () => {
     const toggleFav = (id) => {
         const guard = guards.find(n => n.id === id)
         console.log(guard)
-        userService
+        var favoritos = usuario.guards
+        console.log(id)
+        console.log(favoritos)
+        var encontrado = false
+        for (let index = 0; index < favoritos.length; index++) {
+            const element = favoritos[index];
+            if (element == id) {
+                userService
+                .putfav(usuario.id, guard.id)
+                .then(returnedGuard => {
+                    setGuards(guards.map(guard => guard.id !== id ? guard : returnedGuard))
+                })
+                .catch(error => {
+                    setErrorMessage(
+                    `Note '${guard.content}' was already removed from server`
+                    )
+                    setTimeout(() => {
+                        setErrorMessage(null)
+                    }, 5000)   
+                })
+
+                encontrado = true
+                break
+            }
+            
+        }
+
+        if (!(encontrado)) {
+            userService
             .postfav(usuario.id, guard.id)
             .then(returnedGuard => {
-            setGuards(guards.map(guard => guard.id !== id ? guard : returnedGuard))
+                setGuards(guards.map(guard => guard.id !== id ? guard : returnedGuard))
             })
             .catch(error => {
             setErrorMessage(
@@ -37,6 +65,9 @@ const Busqueda = () => {
                 setErrorMessage(null)
             }, 5000)   
             })
+        }
+        
+        
     }
     console.log(guards)
 
