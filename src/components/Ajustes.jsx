@@ -9,7 +9,6 @@ const Ajustes = (props) => {
     const  back1 = useRef(null);
     const  back2 = useRef(null);
     const  back3 = useRef(null);
-    console.log(myContainer.current);
     const [user, setUser] = useState(null)
     const [loggedIn, setLoggedIn] = useState(null)
     const navigate = useNavigate();
@@ -25,7 +24,6 @@ const Ajustes = (props) => {
         setBackgr('background3')
     }
 
-    console.log(backgr)
 
     return (
         

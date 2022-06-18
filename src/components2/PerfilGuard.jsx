@@ -68,7 +68,6 @@ const PerfilGuard = ({ }) => {
     const toggleDisponible = () => {
         const guardd = guard
         const changedGuard = { ...guardd, disponible: !guardd.disponible }
-        console.log(changedGuard)
         guardService
             .updateDisp(guardd.id, changedGuard.disponible)
             .then(returnedGuard => {

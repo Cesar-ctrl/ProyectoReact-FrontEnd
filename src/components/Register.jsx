@@ -29,11 +29,6 @@ export default function RegisterF ({handleSubmit, ...props}) {
         try {
             
             if(selectedFile !== null){
-                console.log(name)
-                console.log(surnames)
-                console.log(DNI)
-                console.log(phone)
-                console.log(email)
 
                 const user = await registerService.register({
                     name,
@@ -44,16 +39,10 @@ export default function RegisterF ({handleSubmit, ...props}) {
                     password,
                     selectedFile
                 })
-                console.log(user)
                 window.localStorage.setItem(
                     'loggedNoteAppUser', JSON.stringify(user)
                 )
             }else{
-                console.log(name)
-                console.log(surnames)
-                console.log(DNI)
-                console.log(phone)
-                console.log(email)
                 const user = await registerService.register({
                     name,
                     surnames,
@@ -62,7 +51,6 @@ export default function RegisterF ({handleSubmit, ...props}) {
                     email,
                     password
                 })
-                console.log(user)
                 window.localStorage.setItem(
                     'loggedNoteAppUser', JSON.stringify(user)
                 )

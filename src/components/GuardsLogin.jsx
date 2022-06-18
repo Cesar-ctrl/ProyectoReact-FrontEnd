@@ -24,7 +24,6 @@ export default function LoginF ({...props}) {
             email,
             password
           })
-          console.log(user)
           window.localStorage.setItem(
             'loggedNoteAppGuard', JSON.stringify(user)
           )

@@ -23,14 +23,10 @@ const Busqueda = () => {
       
     const toggleFav = (id) => {
         const guard = guards.find(n => n.id === id)
-        console.log(guard)
         var favoritos = usuario.guards
-        console.log(id)
-        console.log(favoritos)
         var encontrado = false
         for (let index = 0; index < favoritos.length; index++) {
             const element = favoritos[index];
-            console.log(element)
             if (element == id) {
                 userService
                 .putfav(usuario.id, guard.id)
@@ -45,15 +41,10 @@ const Busqueda = () => {
                         setErrorMessage(null)
                     }, 5000)   
                 })
-                console.log(onlyguard)
-                console.log(guards)
                 var parsedObject = usuario
-                console.log(id)
-                // Modifies the object, converts it to a string and replaces the existing `ship` in LocalStorage
+                // Modificar el objeto para ahora guardarlo en el localStorage
                 parsedObject.guards = parsedObject.guards.filter(item => item !== id)
-                console.log(parsedObject)
                 const modifiedndstrigifiedForStorage = JSON.stringify(parsedObject);
-                console.log(modifiedndstrigifiedForStorage)
                 window.localStorage.setItem("loggedNoteAppUser", modifiedndstrigifiedForStorage);
                 encontrado = true
                 break
@@ -76,10 +67,9 @@ const Busqueda = () => {
             }, 5000)   
             })
             const parsedObject = usuario
-            // Modifies the object, converts it to a string and replaces the existing `ship` in LocalStorage
+            // Modificar el objeto para ahora guardarlo en el localStorage
             parsedObject.guards.push(guard.id)
             const modifiedndstrigifiedForStorage = JSON.stringify(parsedObject);
-            console.log(modifiedndstrigifiedForStorage)
             window.localStorage.setItem("loggedNoteAppUser", modifiedndstrigifiedForStorage);
         }
         

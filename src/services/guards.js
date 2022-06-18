@@ -15,7 +15,6 @@ const register = async credentials => {
 }
 //Este sirve para hacer log in de cuidador
 const login = async credentials => {
-  console.log(credentials)
   const { data } = await axios.post('https://damp-temple-29994.herokuapp.com/api/loginguards', credentials)
   return data
 }
@@ -67,8 +66,6 @@ const update = (id, newObject) => {
       Authorization: token
       }
   }
-  console.log(id)
-  console.log(newObject)
   const request = axios.put(`${baseUrl}/${id}`, newObject, config)
   return request.then(response => response.data)
 }

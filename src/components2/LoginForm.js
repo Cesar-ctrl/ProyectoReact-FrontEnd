@@ -21,7 +21,6 @@ export default function LoginForm ({...props}) {
         email,
         password
       })
-      console.log(user)
       window.localStorage.setItem(
         'loggedNoteAppUser', JSON.stringify(user)
       )

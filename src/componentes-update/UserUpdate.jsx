@@ -41,7 +41,6 @@ export default function UserUpdate ({handleSubmit, ...props}) {
                     file
                 }) 
                 await userService.setToken(usuario.token)
-                console.log(imgUrl)
                 const user = await userService.updateUser(usuario.id, {
                     name,
                     surnames,

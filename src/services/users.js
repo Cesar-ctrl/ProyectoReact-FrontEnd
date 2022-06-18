@@ -28,7 +28,6 @@ const postfav = (id, newObject) => {
   const info ={
     guards:newObject
   }
-  console.log(info)
   const request = axios.post(`${baseUrl}/fav/${id}`, info, config)
   return request.then(response => response.data)
 }
@@ -42,7 +41,6 @@ const putfav = (id, newObject) => {
   const info ={
     guards:newObject
   }
-  console.log(info)
   const request = axios.put(`${baseUrl}/fav/${id}`, info, config)
   return request.then(response => response.data)
 }

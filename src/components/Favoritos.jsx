@@ -24,16 +24,11 @@ const Favoritos = () => {
 
     
     const toggleFav = (id) => {
-        console.log(guards)
         const guard = guards.guards.find(n => n.id === id)
-        console.log(guard)
         var favoritos = usuario.guards
-        console.log(id)
-        console.log(favoritos)
         var encontrado = false
         for (let index = 0; index < favoritos.length; index++) {
             const element = favoritos[index];
-            console.log(element)
             if (element == id) {
                 userService
                 .putfav(usuario.id, guard.id)
@@ -48,14 +43,10 @@ const Favoritos = () => {
                         setErrorMessage(null)
                     }, 5000)   
                 })
-                console.log(guards)
                 var parsedObject = usuario
-                console.log(id)
-                // Modifies the object, converts it to a string and replaces the existing `ship` in LocalStorage
+                // Modificar el objeto para ahora guardarlo en el localStorage
                 parsedObject.guards = parsedObject.guards.filter(item => item !== id)
-                console.log(parsedObject)
                 const modifiedndstrigifiedForStorage = JSON.stringify(parsedObject);
-                console.log(modifiedndstrigifiedForStorage)
                 window.localStorage.setItem("loggedNoteAppUser", modifiedndstrigifiedForStorage);
                 encontrado = true
                 break
@@ -81,7 +72,6 @@ const Favoritos = () => {
             // Modifies the object, converts it to a string and replaces the existing `ship` in LocalStorage
             parsedObject.guards.push(guard.id)
             const modifiedndstrigifiedForStorage = JSON.stringify(parsedObject);
-            console.log(modifiedndstrigifiedForStorage)
             window.localStorage.setItem("loggedNoteAppUser", modifiedndstrigifiedForStorage);
         }
         
@@ -89,7 +79,6 @@ const Favoritos = () => {
     }
     
     const newmode = window.localStorage.getItem('newmode')
-      console.log(guards)
     const guardsToShow = showAll
     ? guards.guards
     : guards.guards.filter(guard => guard.disponible)
