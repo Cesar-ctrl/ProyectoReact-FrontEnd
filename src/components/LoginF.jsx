@@ -4,11 +4,11 @@ import Notification from '../components2/Notification';
 import loginService from '../services/login';
 import userService from '../services/users';
 
-export default function LoginF ({}) {
-    const [setUser] = useState(null)
+export default function LoginF ({...props}) {
+    const [user, setUser] = useState(null)
     const [password, setPassword] = useState('')
     const [email, setEmail] = useState('')
-    const [setLoggedIn] = useState(null)
+    const [loggedIn, setLoggedIn] = useState(null)
     const [errorMessage, setErrorMessage] = useState(null)
     const navigate = useNavigate();
 

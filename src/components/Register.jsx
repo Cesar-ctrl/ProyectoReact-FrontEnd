@@ -1,18 +1,19 @@
-import React, { useState } from 'react'
-import registerService from '../services/register'
+import React, { useState } from 'react';
+import registerService from '../services/register';
 import { useNavigate,  Link } from "react-router-dom";
+import loginService from '../services/login'
 
 export default function RegisterF ({handleSubmit, ...props}) {
-    const [ setErrorMessage] = useState(null)
+    const [errorMessage, setErrorMessage] = useState(null)
     const [name, setName] = useState('')
     const [surnames, setSurnames] = useState('')
     const [DNI, setDni] = useState('')
     const [phone, setPhone] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-    const [selectedFile] = useState(null);
+    const [selectedFile, setSelectedFile] = useState(null);
     const [user, setUser] = useState(null)
-    const [setLoggedIn] = useState(null)
+    const [loggedIn, setLoggedIn] = useState(null)
     const navigate = useNavigate();
 
     const handleNameChange = ({target}) => setName(target.value)
@@ -25,38 +26,23 @@ export default function RegisterF ({handleSubmit, ...props}) {
     
     const handleRegister = async (event) => {
         event.preventDefault()
-
         try {
-            
-            if(selectedFile !== null){
+            const user = await registerService.register({
+                name,
+                surnames,
+                DNI,
+                phone,
+                email,
+                password
+            })
+            const userlogin = await loginService.login({
+                email,
+                password
+            })
+            window.localStorage.setItem(
+                'loggedNoteAppUser', JSON.stringify(userlogin)
+            )
 
-                const user = await registerService.register({
-                    name,
-                    surnames,
-                    DNI,
-                    phone,
-                    email,
-                    password,
-                    selectedFile
-                })
-                window.localStorage.setItem(
-                    'loggedNoteAppUser', JSON.stringify(user)
-                )
-            }else{
-                const user = await registerService.register({
-                    name,
-                    surnames,
-                    DNI,
-                    phone,
-                    email,
-                    password
-                })
-                window.localStorage.setItem(
-                    'loggedNoteAppUser', JSON.stringify(user)
-                )
-            }
-            
-          
           setUser(user)
           setEmail('')
           setPassword('')

@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react'
-import guardService from '../services/guards'
-import userService from '../services/users'
-import Guard from '../components2/Guard'
+import React, { useState, useEffect } from 'react';
+import guardService from '../services/guards';
+import userService from '../services/users';
+import Guard from '../components2/Guard';
 
 const Busqueda = () => {
 
