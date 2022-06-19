@@ -40,8 +40,8 @@ export default function Contacts({ contacts, changeChat }) {
   return (
         <Container>
           <div className="brand">
-            <img src={`https://damp-temple-29994.herokuapp.com/api/img/public/Logo.png`} alt="logo" />
-            <h3>Bbabyguard</h3>
+            <img src='https://babyguard.vercel.app/img/Logo.png' alt="logo" />
+            <h3>Babyguard</h3>
           </div>
           <div className="contacts">
             {contacts.map((contact, index) => {
