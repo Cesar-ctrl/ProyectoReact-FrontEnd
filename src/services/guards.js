@@ -84,11 +84,23 @@ const updateDisp = (id, newObject) => {
   return request.then(response => response.data)
 }
 
-
 const getChatGuard = (id) => {
   const request = axios.get(`${baseUrl}/chat/${id}`)
   return request.then(response => response.data)
 }
 
+const postChat = (id, newObject) => {
+  const config = {
+      headers: {
+      Authorization: token
+      }
+  }
+  const info ={
+    chats:newObject
+  }
+  const request = axios.post(`${baseUrl}/chat/${id}`, info, config)
+  return request.then(response => response.data)
+}
 
-export default { login, register, putdesc, getAll, update, updateDisp, setToken, getGuard, puthorario, getChatGuard }
+
+export default { login, register, putdesc, getAll, update, updateDisp, setToken, getGuard, puthorario, getChatGuard, postChat }

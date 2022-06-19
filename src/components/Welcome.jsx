@@ -62,11 +62,8 @@ return (
         </header>
         <section className='flexea columncenter'>
           <div className='col-10'>
-            <div className="col-3">
-              <img src="" alt="" className='welcomeimg'/>
-            </div>
-            <div className="flexea">
-              <img src="https://babyguard.vercel.app/img/Logo.png" alt="" />
+            <div className="flexea supercentertext">
+              <img src="https://babyguard.vercel.app/img/Logo.png" alt="" className='reloj sinredondeado' />
               <h1 className='titulo'>BabyGuard</h1>
             </div>
           </div>

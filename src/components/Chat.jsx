@@ -7,7 +7,7 @@ import guardService from '../services/guards';
 import userService from '../services/users';
 import ChatContainer from './ChatContainer';
 import Contacts from './Contacts';
-//import BotonRegistro from './BotonRegistro';
+import BotonRegistro from './BotonRegistro';
 import Welcome from './WelcomeChat';
 
 export default function Chat() {
@@ -16,6 +16,10 @@ export default function Chat() {
   const [contacts, setContacts] = useState([]);
   const [currentChat, setCurrentChat] = useState(undefined);
   const [currentUser, setCurrentUser] = useState(undefined);
+  const loggeUserJSON = window.localStorage.getItem('loggedNoteAppUser')
+  const usuario = JSON.parse(loggeUserJSON)
+  const loggeGuardJSON = window.localStorage.getItem('loggedNoteAppGuard')
+  const guard = JSON.parse(loggeGuardJSON)
   
   useEffect(() => {
     if (!(localStorage.getItem("loggedNoteAppUser") || localStorage.getItem("loggedNoteAppGuard"))) {
@@ -66,6 +70,7 @@ export default function Chat() {
   };
   return (
     <>
+      {usuario?
       <Container>
         <div className="container">
           <Contacts contacts={contacts} changeChat={handleChatChange} />
@@ -76,6 +81,20 @@ export default function Chat() {
           )}
         </div>
       </Container>
+      :guard?
+        <Container>
+          <div className="container">
+            <Contacts contacts={contacts} changeChat={handleChatChange} />
+            {currentChat === undefined ? (
+              <Welcome />
+            ) : (
+              <ChatContainer currentChat={currentChat} socket={socket} />
+            )}
+          </div>
+        </Container>
+      :<BotonRegistro />
+      
+      }
     </>
   );
 }
@@ -88,11 +107,11 @@ const Container = styled.div`
   justify-content: center;
   gap: 1rem;
   align-items: center;
-  background-color: #131324;
+  background-color: rgb(19 19 36 / 0%);
   .container {
     height: 85vh;
     width: 85vw;
-    background-color: #00000076;
+    background-color: rgb(111 186 164 / 82%);
     display: grid;
     grid-template-columns: 25% 75%;
     @media screen and (min-width: 720px) and (max-width: 1080px) {

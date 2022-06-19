@@ -70,4 +70,17 @@ const getChatUser = (id) => {
   return request.then(response => response.data)
 }
 
-export default { users, getAll, postfav, putfav, getUser, setToken, getFavUser, updateUser, getChatUser }
+const postChat = (id, newObject) => {
+  const config = {
+      headers: {
+      Authorization: token
+      }
+  }
+  const info ={
+    chats:newObject
+  }
+  const request = axios.post(`${baseUrl}/chat/${id}`, info, config)
+  return request.then(response => response.data)
+}
+
+export default { users, getAll, postfav, putfav, getUser, setToken, getFavUser, updateUser, getChatUser, postChat }

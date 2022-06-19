@@ -159,7 +159,7 @@ const PerfilGuard = ({ }) => {
                     </div>
                     <div>
                         <div className='nombreval flexea column'>
-                            
+                            <img src="https://babyguard.vercel.app/img/Chat.png" className  ="reloj" alt="" />
                         </div>
                     </div>
                     {
