@@ -24,7 +24,7 @@ export default function Welcome() {
     <Container>
         {
             newmode?
-            <img src="http://localhost:3000/img/pepe-clown.gif" alt="" />
+            <img src="https://babyguard.vercel.app/img/pepe-clown.gif" alt="" />
             :<br />
         }
       
