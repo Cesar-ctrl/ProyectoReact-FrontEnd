@@ -49,7 +49,6 @@ export default function ChatContainer({ currentChat, socket }) {
           ).id;
       }
     };
-    console.log(currentChat)
     if (usuario) {
         getCurrentChat();
     }else{
@@ -106,7 +105,6 @@ export default function ChatContainer({ currentChat, socket }) {
   useEffect(() => {
     scrollRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
-  console.log(messages)
 
   return (
     <Container>

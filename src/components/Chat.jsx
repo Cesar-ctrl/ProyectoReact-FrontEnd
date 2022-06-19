@@ -43,8 +43,8 @@ export default function Chat() {
   }, []);
   useEffect(() => {
     if (currentUser) {
-      socket.current = io('http://localhost:3000');
-      socket.current.emit("add-user", currentUser._id);
+      socket.current = io('http://localhost:3001');
+      socket.current.emit("add-user", currentUser.id);
     }
   }, [currentUser]);
 

@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import guardService from '../services/guards'
+import userService from '../services/users'
 import Star from '../components/Star'
-
+import { useNavigate } from "react-router-dom";
 
 const PerfilGuard = ({ }) => {
 
     const loggUserJSON = window.localStorage.getItem('loggedNoteAppUser')
-    const user = JSON.parse(loggUserJSON)
+    const usuario = JSON.parse(loggUserJSON)
 
     const loggGuardJSON = window.localStorage.getItem('loggedNoteAppGuard')
     const guardian = JSON.parse(loggGuardJSON)
@@ -18,7 +19,8 @@ const PerfilGuard = ({ }) => {
     const [horariofin, setHorariofin] = useState('')
     const [horarioinicio, setHorarioinicio] = useState('')
     const [descr, setDesc] = useState(guard.descripcion)
-
+    const navigate = useNavigate();
+    
     const label = guard.disponible
     ? 'Make Not available'
     : 'Make available';
@@ -28,8 +30,8 @@ const PerfilGuard = ({ }) => {
         const path = window.location.pathname
         const arr = path.split("/")
         setId(arr[4])
-        if(user){
-            guardService.setToken(user.token)
+        if(usuario){
+            guardService.setToken(usuario.token)
         }if(guardian){
             guardService.setToken(guardian.token)
         }
@@ -98,6 +100,19 @@ const PerfilGuard = ({ }) => {
             }, 5000)   
             })
     }
+
+    const handleChat = async(chats) => {
+        try{
+            const user = await userService.postChat(usuario.id, chats)
+            var userid = usuario.id
+            const guard = await guardService.postChat(chats, userid)
+            navigate("/home/chat", { replace: true });
+        }catch(e){
+
+        }
+    }
+
+
     if( guard.dias){
   return (
     <section className="home">
@@ -110,7 +125,7 @@ const PerfilGuard = ({ }) => {
         <section className='flexea column'>
             <div className='col-10 column listado deperfil'>
             <div className='cuidador flexea roww'>
-                {user?  <p>{guard.descripcion}</p> : guardian?  guardian.id==guard.id? 
+                {usuario?  <p>{guard.descripcion}</p> : guardian?  guardian.id==guard.id? 
                 <div>
                     <textarea name="descripcion" id="descr" cols="30" rows="5" defaultValue={descr} onChange={handleDescrChange} >{guard.descripcion}</textarea> 
                     <input type="button" value="Guardar" onClick={() => changeDesc()} />
@@ -121,7 +136,7 @@ const PerfilGuard = ({ }) => {
                 <div className='cuidador flexea wrap'>
                     <div className='horadisp flexea column'>
                         <img src="https://babyguard.vercel.app/img/reloj-grande.png" className="reloj" alt="" />
-                        {user?<h3>{guard.horarioinicio}-{guard.horariofin}</h3> : guardian? guardian.id==guard.id?
+                        {usuario?<h3>{guard.horarioinicio}-{guard.horariofin}</h3> : guardian? guardian.id==guard.id?
                             <div>
                                 <input className="col-12" type="time" name="horarioinicio" defaultValue={ guard.horarioinicio} value={horarioinicio} onChange={ handleHorarioinicioChange} />
                                 <input className="col-12" type="time" name="horariofin" defaultValue={ guard.horariofin} value={horariofin}  min={horarioinicio}  onChange={ handleHorariofinChange} />
@@ -159,11 +174,16 @@ const PerfilGuard = ({ }) => {
                     </div>
                     <div>
                         <div className='nombreval flexea column'>
-                            <img src="https://babyguard.vercel.app/img/Chat.png" className  ="reloj" alt="" />
+                            {
+                                usuario?
+                                <img src="https://babyguard.vercel.app/img/Chat.png" className  ="reloj" alt="" onClick={() => handleChat(guard.id)} />
+                                :
+                                <img src="https://babyguard.vercel.app/img/Chat.png" className  ="reloj" alt="" />
+                            }
                         </div>
                     </div>
                     {
-                       user? <br /> : guardian? guardian.id==guard.id?
+                       usuario? <br /> : guardian? guardian.id==guard.id?
                        <button onClick={toggleDisponible}>{label}</button>
                        : <br />:<br />
                     }

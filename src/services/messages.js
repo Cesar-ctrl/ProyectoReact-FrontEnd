@@ -15,7 +15,6 @@ const sendMessageRoute = async credentials => {
             Authorization: token
         }
     }
-    console.log(credentials)
     const { data } = await axios.post(`${baseUrl}/addmsg`, credentials, config)
     return data
 }
@@ -26,7 +25,6 @@ const recieveMessageRoute  = async credentials => {
             Authorization: token
         }
     }
-    console.log(credentials)
     const { data } = await axios.post(`${baseUrl}/getmsg`, credentials, config)
     return data
 }

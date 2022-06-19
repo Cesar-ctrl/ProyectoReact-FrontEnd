@@ -79,6 +79,7 @@ const postChat = (id, newObject) => {
   const info ={
     chats:newObject
   }
+  console.log(info)
   const request = axios.post(`${baseUrl}/chat/${id}`, info, config)
   return request.then(response => response.data)
 }

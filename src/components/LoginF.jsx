@@ -39,13 +39,9 @@ export default function LoginF ({...props}) {
             setErrorMessage(null)
           }, 5000)
         }
-    
       }
-      
-      
-    
+
   return (
-    
         <section className='pop absolute'>
             <header>
             </header>
