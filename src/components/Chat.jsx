@@ -1,49 +1,102 @@
-import React from "react";
-import {  Notification } from './Staricon';
+import React, { useEffect, useState, useRef } from 'react';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import { io } from 'socket.io-client';
+import styled from 'styled-components';
+import guardService from '../services/guards';
+import userService from '../services/users';
+import ChatContainer from './ChatContainer';
+import Contacts from './Contacts';
+//import BotonRegistro from './BotonRegistro';
+import Welcome from './WelcomeChat';
 
-const Chat = () => {
-    const newmode = window.localStorage.getItem('newmode')
-    return (
-        <section className="home">
-            <header className='titulo main'>
+export default function Chat() {
+  const navigate = useNavigate();
+  const socket = useRef();
+  const [contacts, setContacts] = useState([]);
+  const [currentChat, setCurrentChat] = useState(undefined);
+  const [currentUser, setCurrentUser] = useState(undefined);
+  
+  useEffect(() => {
+    if (!(localStorage.getItem("loggedNoteAppUser") || localStorage.getItem("loggedNoteAppGuard"))) {
+      navigate("/login");
+    } else {
+      if(localStorage.getItem("loggedNoteAppUser")){
+        setCurrentUser(
+           JSON.parse(
+            localStorage.getItem("loggedNoteAppUser")
+          )
+        );
+      }else{
+        setCurrentUser(
+           JSON.parse(
+            localStorage.getItem("loggedNoteAppGuard")
+          )
+        );
+      }
+      
+    }
+  }, []);
+  useEffect(() => {
+    if (currentUser) {
+      socket.current = io('http://localhost:3000');
+      socket.current.emit("add-user", currentUser._id);
+    }
+  }, [currentUser]);
 
-                <h2>Mensajes</h2>
-            </header>
-            <section className='buscador'>
-                <div className='barra'>
-                    
-                    <input type="text" className='barra col-8' />
-                    <div className='imgbuscar'>
-                        <img src="../img/lupa-busqueda.png" alt="" className='lupa'/>
-                    </div>
-                    
-                </div>
-                <div className='filtros'>
-
-                </div>
-            </section>
-            <section className='flexea column'>
-                <div className='col-10 column listado'>
-                    <div className='cuidador flexea roww'>
-                        <div className='foto'>
-                            {
-                            newmode?<img src="../img/pepe-clown.gif" className='fotoestandar' alt="" /> :
-                            <img src="../img/Prueba2.jpg" className='fotoestandar' alt="" />
-                            }
-                        </div>
-                        <div>
-                            <div className='nombreval flexea column'>
-                                <h3>NOMBRE APELLIDO</h3>
-                            </div>
-                        </div>
-                        <div className='flexea column'>
-                            {<Notification />}
-                            <h3>18:00</h3>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </section>
-    )
+  useEffect(() => {
+    if (currentUser) {
+      if (localStorage.getItem("loggedNoteAppGuard")) {
+          guardService 
+            .getChatGuard(currentUser.id)
+            .then(initialGuards => {
+                setContacts(initialGuards.chats)
+            })
+      } else {
+          userService
+            .getChatUser(currentUser.id)
+            .then(initialGuards => {
+                setContacts(initialGuards.chats)
+            })
+      }
+    }
+  }, [currentUser]);
+  const handleChatChange = (chat) => {
+    setCurrentChat(chat);
+  };
+  return (
+    <>
+      <Container>
+        <div className="container">
+          <Contacts contacts={contacts} changeChat={handleChatChange} />
+          {currentChat === undefined ? (
+            <Welcome />
+          ) : (
+            <ChatContainer currentChat={currentChat} socket={socket} />
+          )}
+        </div>
+      </Container>
+    </>
+  );
 }
-export default Chat
+
+const Container = styled.div`
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1rem;
+  align-items: center;
+  background-color: #131324;
+  .container {
+    height: 85vh;
+    width: 85vw;
+    background-color: #00000076;
+    display: grid;
+    grid-template-columns: 25% 75%;
+    @media screen and (min-width: 720px) and (max-width: 1080px) {
+      grid-template-columns: 35% 65%;
+    }
+  }
+`;

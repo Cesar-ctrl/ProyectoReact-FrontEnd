@@ -4,10 +4,10 @@ import Notification from '../components2/Notification'
 import guardService from '../services/guards'
 
 export default function LoginF () {
-    const [setUser] = useState(null)
+    const [user, setUser] = useState(null)
     const [password, setPassword] = useState('')
     const [email, setEmail] = useState('')
-    const [setLoggedIn] = useState(null)
+    const [LoggedIn, setLoggedIn] = useState(null)
     const [errorMessage, setErrorMessage] = useState(null)
     const navigate = useNavigate();
 

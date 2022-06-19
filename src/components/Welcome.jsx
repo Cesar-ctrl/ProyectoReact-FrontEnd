@@ -66,6 +66,7 @@ return (
               <img src="" alt="" className='welcomeimg'/>
             </div>
             <div className="flexea">
+              <img src="https://damp-temple-29994.herokuapp.com/api/img/public/Logo.png" alt="" />
               <h1 className='titulo'>BabyGuard</h1>
             </div>
           </div>

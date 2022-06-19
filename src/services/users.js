@@ -65,4 +65,9 @@ const getFavUser = (id) => {
   return request.then(response => response.data)
 }
 
-export default { users, getAll, postfav, putfav, getUser, setToken, getFavUser, updateUser }
+const getChatUser = (id) => {
+  const request = axios.get(`${baseUrl}/chat/${id}`)
+  return request.then(response => response.data)
+}
+
+export default { users, getAll, postfav, putfav, getUser, setToken, getFavUser, updateUser, getChatUser }
