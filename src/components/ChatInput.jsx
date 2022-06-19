@@ -53,7 +53,7 @@ const Container = styled.div`
   align-items: center;
   grid-template-columns: 5% 95%;
   background-color: rgb(23 99 96);
-  padding: 0 2rem;
+  
   @media screen and (min-width: 720px) and (max-width: 1080px) {
     padding: 0 1rem;
     gap: 1rem;
