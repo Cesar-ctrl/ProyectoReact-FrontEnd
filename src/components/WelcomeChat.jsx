@@ -6,6 +6,8 @@ export default function Welcome() {
     const usuario = JSON.parse(loggeUserJSON)
     const loggeGuardJSON = window.localStorage.getItem('loggedNoteAppGuard')
     const guard = JSON.parse(loggeGuardJSON)
+    const mode = window.localStorage.getItem('newmode')
+    const newmode = JSON.parse(mode)
   useEffect( () => {
     if(usuario){
         setName(
@@ -20,7 +22,12 @@ export default function Welcome() {
   }, []);
   return (
     <Container>
-      <img src="http://localhost:3000/img/pepe-clown.gif" alt="" />
+        {
+            newmode?
+            <img src="http://localhost:3000/img/pepe-clown.gif" alt="" />
+            :<br />
+        }
+      
       <h1>
         Welcome, <span>{name}!</span>
       </h1>
