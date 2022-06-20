@@ -6,6 +6,7 @@ import Chat from './Chat';
 import Child from './Child';
 import Miperfil from './Miperfil';
 import ChildRegister from './ChildRegister';
+import ChildUpdate from '../componentes-update/ChildUpdate';
 import childService from '../services/childs';
 import userService from '../services/users';
 import PerfilGuard from '../components2/PerfilGuard';
@@ -50,9 +51,7 @@ function Home(props) {
                 <Route path="/child/signup" element={ <ChildRegister 
                     modoEdicion={false}
                 /> } />
-                <Route path="/child/change/*" element={ <ChildRegister 
-                    modoEdicion={modoEdicion}
-                /> } />
+                <Route path="/child/change/*" element={ <ChildUpdate /> } />
                 <Route path="/perfil" element={ <Miperfil /> } />
                 <Route path="/perfil/ajustes" element={ <Ajustes /> } />
                 <Route path="/perfil/personal" element={ <UserUpdate /> } />

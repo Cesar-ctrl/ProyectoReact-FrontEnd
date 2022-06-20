@@ -26,6 +26,7 @@ const subeImg = async (id, credentials) => {
         return res.data.filename
     })
     console.warn(data2);
+    console.warn(response);
     return response
 }
 
