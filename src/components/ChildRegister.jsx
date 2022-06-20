@@ -16,6 +16,7 @@ export default function RegisterF ({handleSubmit, ...props}) {
     const [edad, setEdad] = useState(props.modoEdicion? childs.edad:0)
     const [DNI, setDni] = useState(props.modoEdicion? childs.DNI:'')
     const [necesidadesesp, setNecesidadesesp] = useState(props.modoEdicion? childs.necesidadesesp:'')
+    const [imgUrl, setImgUrl] = useState(null)
     const [setChild] = useState(null)
     const navigate = useNavigate();
 
@@ -152,7 +153,7 @@ export default function RegisterF ({handleSubmit, ...props}) {
                 DNI,
                 alergenos,
                 necesidadesesp,
-                user:user.id
+                user:user.id,
               })
             
             setmodoEdicion(false)
