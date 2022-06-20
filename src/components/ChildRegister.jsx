@@ -83,8 +83,6 @@ export default function RegisterF ({handleSubmit, ...props}) {
             name:"Moluscos",
             id:14
         }
-        
-
     ]
     const [alergenos, setAlergenos] = useState(
         new Array(listaalergenos.length).fill(false)
@@ -193,8 +191,6 @@ export default function RegisterF ({handleSubmit, ...props}) {
                         <label htmlFor="edad" className='col-10'>Edad</label>
                         <input className="col-10" type="number" name="edad" value={ childs.edad} placeholder="Introduzca su edad" pattern="[0-9]{2}" title="Debe introducir su edad 2 cifras"  onChange={ handleEdadChange} />
                     </fieldset>
-
-
                     <fieldset className='col-12' id='alergenos'>
                         {listaalergenos.map(({ name, id }, index) => {
                             return (
