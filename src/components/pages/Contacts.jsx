@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { Notification } from './Staricon';
-import guardService from '../services/guards';
-import userService from '../services/users';
+import guardService from '../../services/guards';
+import userService from '../../services/users';
 
 export default function Contacts({ contacts, changeChat }) {
     const [currentName, setCurrentName] = useState(undefined);

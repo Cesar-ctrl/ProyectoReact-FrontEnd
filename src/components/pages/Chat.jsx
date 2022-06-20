@@ -1,13 +1,12 @@
 import React, { useEffect, useState, useRef } from 'react';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { io } from 'socket.io-client';
 import styled from 'styled-components';
-import guardService from '../services/guards';
-import userService from '../services/users';
+import guardService from '../../services/guards';
+import userService from '../../services/users';
 import ChatContainer from './ChatContainer';
 import Contacts from './Contacts';
-import BotonRegistro from './BotonRegistro';
+import BotonRegistro from '../utils/BotonRegistro';
 import Welcome from './WelcomeChat';
 
 export default function Chat() {

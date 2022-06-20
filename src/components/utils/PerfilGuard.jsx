@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react'
-import guardService from '../services/guards'
-import userService from '../services/users'
-import Star from '../components/Star'
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
+import guardService from '../../services/guards';
+import userService from '../../services/users';
+import Star from '../utils/Star';
 
 const PerfilGuard = ({ }) => {
 

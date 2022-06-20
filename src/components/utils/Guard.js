@@ -1,6 +1,6 @@
-import React from 'react'
-import Star from '../components/Star'
-import { useNavigate,  Link, useLocation } from "react-router-dom";
+import React from 'react';
+import {  Link, useLocation } from "react-router-dom";
+import Star from '../utils/Star';
 
 const Guard = ({ favs, guard, toggleFav }) => {
     const location = useLocation();

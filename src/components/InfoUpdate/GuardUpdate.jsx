@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react'
-import guardService from '../services/guards'
-import imageService from '../services/images'
+import React, { useState, useEffect } from 'react';
 import { useNavigate,  Link } from "react-router-dom";
+import guardService from '../../services/guards';
+import imageService from '../../services/images';
+
 
 export default function GuardsUpdate ({handleSubmit, ...props}) {
 

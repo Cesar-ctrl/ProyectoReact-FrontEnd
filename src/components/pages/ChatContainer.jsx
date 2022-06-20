@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
-import ChatInput from "./ChatInput";
 import { v4 as uuidv4 } from "uuid";
-import axios from "axios";
-import messageService from '../services/messages'
 import { Link } from "react-router-dom";
+import ChatInput from "./ChatInput";
+import messageService from '../../services/messages';
+
 
 export default function ChatContainer({ currentChat, socket }) {
     const [messages, setMessages] = useState([]);

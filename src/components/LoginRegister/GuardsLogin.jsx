@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
 import {  Link, useNavigate } from "react-router-dom";
-import Notification from '../components2/Notification';
-import loginService from '../services/login';
-import userService from '../services/users';
+import Notification from '../utils/Notification';
+import guardService from '../../services/guards';
 
-export default function LoginF ({...props}) {
+export default function LoginF () {
     const [user, setUser] = useState(null)
     const [password, setPassword] = useState('')
     const [email, setEmail] = useState('')
-    const [loggedIn, setLoggedIn] = useState(null)
+    const [LoggedIn, setLoggedIn] = useState(null)
     const [errorMessage, setErrorMessage] = useState(null)
     const navigate = useNavigate();
 
@@ -18,15 +17,19 @@ export default function LoginF ({...props}) {
     
     const handleLogin = async (event) => {
         event.preventDefault()
+
         try {
-          const user = await loginService.login({
+          const user = await guardService.login({
             email,
             password
           })
           window.localStorage.setItem(
-            'loggedNoteAppUser', JSON.stringify(user)
+            'loggedNoteAppGuard', JSON.stringify(user)
           )
-          userService.setToken(user.token)
+    
+          
+          guardService.setToken(user.token)
+
           setUser(user)
           setEmail('')
           setPassword('')
@@ -39,19 +42,23 @@ export default function LoginF ({...props}) {
             setErrorMessage(null)
           }, 5000)
         }
+    
       }
-
+      
+      
+    
   return (
-        <section className='pop absolute'>
+    
+        <section className=' pop absolute'>
             <header>
             </header>
             <section className='body background2 formlogin'>
                 <header>
-                    <Link to="/" className='flexea atras negro' >
+                    <Link to="/"  className='flexea atras negro'>
                         <img src="../img/back-arrow.svg" alt="" className='reloj maspequenio'/>
                         Atrás
                     </Link>
-                    <h2>Iniciar sesión en BabyGuard</h2>
+                    <h2>Iniciar sesión como cuidador</h2>
                 </header>
                 <span className=''>
                     <Notification  message={errorMessage} />

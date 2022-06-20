@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import registerService from '../services/register';
 import { useNavigate,  Link } from "react-router-dom";
-import loginService from '../services/login'
+import loginService from '../../services/login';
+import registerService from '../../services/register';
 
 export default function RegisterF ({handleSubmit, ...props}) {
     const [errorMessage, setErrorMessage] = useState(null)
@@ -11,7 +11,6 @@ export default function RegisterF ({handleSubmit, ...props}) {
     const [phone, setPhone] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-    const [selectedFile, setSelectedFile] = useState(null);
     const [user, setUser] = useState(null)
     const [loggedIn, setLoggedIn] = useState(null)
     const navigate = useNavigate();

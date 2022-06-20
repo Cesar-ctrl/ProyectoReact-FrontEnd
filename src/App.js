@@ -2,15 +2,14 @@ import React, { useState, useEffect } from 'react'
 import { BrowserRouter as Router, Routes, Switch, Route,  Navigate } from "react-router-dom";
 
 import './sass/app.scss';
-import Welcome from './components/Welcome';
-import Login from './components/LoginF';
-import Register from './components/Register';
-import GuardsRegister from './components/GuardsRegister';
-import GuardsLogin from './components/GuardsLogin';
+import Welcome from './components/pages/Welcome';
+import Login from './components/LoginRegister/LoginF';
+import Register from './components/LoginRegister/Register';
+import GuardsRegister from './components/LoginRegister/GuardsRegister';
+import GuardsLogin from './components/LoginRegister/GuardsLogin';
 import guardService from './services/guards'
 import userService from './services/users'
-
-import Home from './components/Home'
+import Home from './components/pages/Home'
 
 
 const App = () => {

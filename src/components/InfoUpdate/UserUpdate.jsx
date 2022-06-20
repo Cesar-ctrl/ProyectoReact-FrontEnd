@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react'
-import userService from '../services/users'
-import imageService from '../services/images'
+import React, { useState, useEffect } from 'react';
 import { useNavigate,  Link, useLocation } from "react-router-dom";
+import userService from '../../services/users';
+import imageService from '../../services/images';
+
 
 export default function UserUpdate ({handleSubmit, ...props}) {
     const location = useLocation();

@@ -1,20 +1,13 @@
-import React, { useState, useEffect } from 'react'
-import guardService from '../services/guards'
-import userService from '../services/users'
-import Star from '../components/Star'
-import { useNavigate, Link, useParams } from "react-router-dom";
+import React, { useState, useEffect } from 'react';
+import { useParams } from "react-router-dom";
+import userService from '../../services/users';
 
 const PerfilUser = (props) => {
     const params = useParams();
     const usuario = params.userid;
 
     const [user, setUser] = useState([]) 
-    const [Id, setId] = useState("")
-    const [name, setName] = useState('')
-    const [surnames, setSurnames] = useState('')
-    const [horariofin, setHorariofin] = useState('')
-    const [horarioinicio, setHorarioinicio] = useState('')
-    const navigate = useNavigate();
+
     console.log(usuario)
     useEffect(() => {
         userService

@@ -5,22 +5,27 @@ import Favoritos from './Favoritos';
 import Chat from './Chat';
 import Child from './Child';
 import Miperfil from './Miperfil';
-import ChildRegister from './ChildRegister';
-import ChildUpdate from '../componentes-update/ChildUpdate';
-import childService from '../services/childs';
-import userService from '../services/users';
-import PerfilGuard from '../components2/PerfilGuard';
+import ChildRegister from '../LoginRegister/ChildRegister';
+import ChildUpdate from '../InfoUpdate/ChildUpdate';
+import childService from '../../services/childs';
+import userService from '../../services/users';
+import PerfilGuard from '../utils/PerfilGuard';
 import Ajustes from './Ajustes';
-import UserUpdate from '../componentes-update/UserUpdate';
-import GuardUpdate from '../componentes-update/GuardUpdate';
-import PerfilUsuario from '../components2/PerfilUsuario';
+import UserUpdate from '../InfoUpdate/UserUpdate';
+import GuardUpdate from '../InfoUpdate/GuardUpdate';
+import PerfilUsuario from '../utils/PerfilUsuario';
+//Todas las importaciones necesarias
 
-function Home(props) {
+
+function Home() {
+    //Uso el Uselocation para que se pueda cambiar el fondo de la aplicación
+    //se envía a través de los Link 
     const location = useLocation();
     const state = location.state;
+    // Declaración de variables de estado
     const [user, setUser] = useState(null)
-    const modoEdicion = true
     const [container, setContainer] = useState('container')
+    //usamos useEffect para ejecutar tareas secundarias como declarar los token en los services 
     useEffect(() => {
         const loggedUserJSON = window.localStorage.getItem('loggedNoteAppUser')
         if (loggedUserJSON) {
@@ -28,11 +33,10 @@ function Home(props) {
           setUser(user)
           userService.setToken(user.token)
           childService.setToken(user.token)
-        }
-        
-        
+        }  
       }, [])
 
+    //Esto es un Easteregg
     const toggleback = () => {
         setContainer('container backunder')
         window.localStorage.setItem(
@@ -40,6 +44,7 @@ function Home(props) {
           )
     }
     
+    //El router de la aplicación, aquí declaro todas las rutas de los componentes que estén después del registro y el welcome
     return(
         <div className={container} id="containermain">
             <main className={state?'main '+state:'main background1'}>

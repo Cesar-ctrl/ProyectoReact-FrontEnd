@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import userService from '../services/users';
-import Guard from '../components2/Guard';
-import BotonRegistro from './BotonRegistro';
+import userService from '../../services/users';
+import Guard from '../utils/Guard';
+import BotonRegistro from '../utils/BotonRegistro';
 
 const Favoritos = () => {
     const [guards, setGuards] = useState([]) 
