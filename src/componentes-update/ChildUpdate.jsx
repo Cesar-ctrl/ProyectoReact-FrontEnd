@@ -118,7 +118,6 @@ export default function RegisterF ({...props}) {
                 const imgUrl = await imageService.subeImg(childs.id, {
                     file
                 })
-                console.log(imgUrl)
                 const child = await childService.update(childs.id, {
                     name,
                     surnames,
@@ -157,7 +156,6 @@ export default function RegisterF ({...props}) {
       }, childs)
 
     if(childs){
-    console.log(childs)
   return (
         <section className='pop absolute'>
             <header>

@@ -101,7 +101,7 @@ return (
         <section className='flexea columncenter'>
           <div className='col-11 flexea column'>
 
-            <Link to="/home">
+            <Link to="/home/buscar">
               <button className='encuentra'>Encuentra niñeras</button>
             </Link>
 

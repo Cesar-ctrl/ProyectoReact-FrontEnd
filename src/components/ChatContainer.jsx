@@ -36,7 +36,7 @@ export default function ChatContainer({ currentChat, socket }) {
                 })
         }
         
-  }, [currentChat]);
+    }, [currentChat]);
 
   useEffect(() => {
     const getCurrentChat = async () => {
@@ -107,21 +107,36 @@ export default function ChatContainer({ currentChat, socket }) {
     scrollRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
   var userid = currentChat
-  console.log(userid)
   return (
     <Container>
       <div className="chat-header">
-        <Link to={"/home/buscar/user/"+currentChat.id} params={{ userid:userid }}>
-          <div className="user-details">
-            <div className="avatar">
-              <img
-                src={`https://damp-temple-29994.herokuapp.com/api/img/public/${currentChat.imgUrl}`} alt=""/>
+        {
+          guard?
+          <Link to={"/home/buscar/user/"+currentChat.id} params={{ userid:userid }}>
+            <div className="user-details">
+              <div className="avatar">
+                <img
+                  src={`https://damp-temple-29994.herokuapp.com/api/img/public/${currentChat.imgUrl}`} alt=""/>
+              </div>
+              <div className="username">
+                <h3>{currentChat.name}</h3>
+              </div>
             </div>
-            <div className="username">
-              <h3>{currentChat.name}</h3>
+          </Link>
+          :
+          <Link to={"/home/buscar/guard/"+currentChat.id}>
+            <div className="user-details">
+              <div className="avatar">
+                <img
+                  src={`https://damp-temple-29994.herokuapp.com/api/img/public/${currentChat.imgUrl}`} alt=""/>
+              </div>
+              <div className="username">
+                <h3>{currentChat.name}</h3>
+              </div>
             </div>
-          </div>
-        </Link>
+          </Link>
+        }
+        
       </div>
       <div className="chat-messages">
         {messages.map((message) => {

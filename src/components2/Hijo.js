@@ -2,7 +2,6 @@ import React from 'react'
 import { useNavigate,  Link } from "react-router-dom";
 
 const Hijo = ({ child }) => {
-  console.log(child)
   return (
     <Link to={'/home/child/change/'+child.id}>
       <div className= 'cuidador flexea roww' >

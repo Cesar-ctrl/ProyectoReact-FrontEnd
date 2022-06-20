@@ -13,6 +13,7 @@ const PerfilGuard = ({ }) => {
     const guardian = JSON.parse(loggGuardJSON)
 
     const [guard, setGuards] = useState([]) 
+    const [contacts, setContacts] = useState([]) 
     const [Id, setId] = useState("")
     const [name, setName] = useState('')
     const [surnames, setSurnames] = useState('')
@@ -31,7 +32,11 @@ const PerfilGuard = ({ }) => {
         const arr = path.split("/")
         setId(arr[4])
         if(usuario){
-            guardService.setToken(usuario.token)
+            guardService.setToken(usuario.token);
+            userService.getChatUser(usuario.id)
+                .then(initialGuards => {
+                    setContacts(initialGuards.chats)
+                })
         }if(guardian){
             guardService.setToken(guardian.token)
         }
@@ -41,6 +46,7 @@ const PerfilGuard = ({ }) => {
             })
         setName(guard.name)
         setSurnames(guard.surnames)
+        
         
     }, [])
     useEffect(() => {
@@ -103,10 +109,15 @@ const PerfilGuard = ({ }) => {
 
     const handleChat = async(chats) => {
         try{
-            const user = await userService.postChat(usuario.id, chats)
-            var userid = usuario.id
-            const guard = await guardService.postChat(chats, userid)
-            navigate("/home/chat", { replace: true });
+            
+            const contacto = contacts.find(n => n.id === chats)
+            if(!(contacto)){
+                const user = await userService.postChat(usuario.id, chats)
+                var userid = usuario.id
+                const guard = await guardService.postChat(chats, userid)
+            }
+            navigate("/home/chat", { replace: true })
+            
         }catch(e){
 
         }
