@@ -22,11 +22,6 @@ const Child = () => {
         }
     }, [])
 
-
-
-    const childsToShow = showAll
-    ? childs.hijos
-    : childs.hijos.filter(guard => guard.disponible)
     return (
         
         <section className="home busqueda">
@@ -45,7 +40,7 @@ const Child = () => {
             loggUserJSON? 
             
             <div className='col-10 column listado'>
-                {childsToShow? childsToShow.map((child, i) =>
+                {childs.hijos? childs.hijos.map((child, i) =>
                     <Hijo
                         key={i}
                         child={child}

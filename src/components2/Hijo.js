@@ -2,12 +2,12 @@ import React from 'react'
 import { useNavigate,  Link } from "react-router-dom";
 
 const Hijo = ({ child }) => {
-
+  console.log(child)
   return (
     <Link to={'/home/child/change/'+child.id}>
       <div className= 'cuidador flexea roww' >
           <div className='foto'>
-              <img src="../img/Prueba2.jpg" className='fotoestandar' alt="" />
+              <img src={"https://damp-temple-29994.herokuapp.com/api/img/public/"+child.imgUrl} className='fotoestandar' alt="" />
           </div>
           
           <div>
