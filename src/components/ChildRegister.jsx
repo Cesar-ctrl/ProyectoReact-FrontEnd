@@ -5,7 +5,6 @@ import { useNavigate,  Link } from "react-router-dom";
 
 export default function RegisterF ({handleSubmit, ...props}) {
     
-    const [childs, setChilds] = useState([]) 
     const [Id, setId] = useState("")
 
     const loggUserJSON = window.localStorage.getItem('loggedNoteAppUser')
@@ -17,7 +16,6 @@ export default function RegisterF ({handleSubmit, ...props}) {
     const [DNI, setDni] = useState('')
     const [necesidadesesp, setNecesidadesesp] = useState('')
     const [file, setImgUrl] = useState(null)
-    const [setChild] = useState(null)
     const navigate = useNavigate();
 
     const handleDniChange = ({target}) => setDni(target.value)
@@ -95,7 +93,7 @@ export default function RegisterF ({handleSubmit, ...props}) {
     const handleRegisterChild = async (event) => {
         event.preventDefault()
         try {
-            const imgUrl = await imageService.subeImg(childs.id, {
+            const imgUrl = await imageService.subeImg(user.id, {
                 file
             })
             console.log(imgUrl)
@@ -110,7 +108,6 @@ export default function RegisterF ({handleSubmit, ...props}) {
                 imgUrl
                 })
             
-            setChild(child)
             setEdad('')
             setDni('')
             setAlergenos('')
@@ -119,15 +116,7 @@ export default function RegisterF ({handleSubmit, ...props}) {
         } catch(e) {}
       }
 
-    
-    useEffect(()=> {
-        if(childs){
-            setAlergenos(childs.alergenos);
-        }
-      }, childs)
 
-    if(childs){
-    console.log(childs)
   return (
         <section className='pop absolute'>
             <header>
@@ -144,19 +133,19 @@ export default function RegisterF ({handleSubmit, ...props}) {
                 <form action="" className='login' onSubmit={handleRegisterChild}>
                     <fieldset className='col-12'>
                         <label htmlFor="name" className='col-10'>Nombre</label>
-                        <input className="col-10" type="text" name="name" defaultValue={childs.name} placeholder="Introduzca su Nombre"  pattern="[^0-9\x22]+"  title="Solo se aceptan letras"  onChange={ e=> setName(e.target.value)} />
+                        <input className="col-10" type="text" name="name" value={name} placeholder="Introduzca su Nombre"  pattern="[^0-9\x22]+"  title="Solo se aceptan letras"  onChange={ e=> setName(e.target.value)} required />
                     </fieldset>
                     <fieldset className='col-12'>
                         <label htmlFor="surnames" className='col-10'>Apellidos</label>
-                        <input className="col-10" type="text" name="surnames" defaultValue={childs.surnames} placeholder="Introduzca sus Apellidos"  pattern="[^0-9\x22]+"  title="Solo se aceptan letras"  onChange={ e=> setSurnames(e.target.value)} />
+                        <input className="col-10" type="text" name="surnames" value={surnames} placeholder="Introduzca sus Apellidos"  pattern="[^0-9\x22]+"  title="Solo se aceptan letras"  onChange={ e=> setSurnames(e.target.value)} required />
                     </fieldset>
                     <fieldset className='col-12'>
                         <label htmlFor="dni" className='col-10'>DNI</label>
-                        <input className="col-10" type="text" name="dni" defaultValue={ childs.DNI} placeholder="Introduzca su DNI" pattern="[0-9]{8}[A-Za-z]{1}" title="Debe poner 8 números y una letra"  onChange={ handleDniChange} />
+                        <input className="col-10" type="text" name="dni" value={DNI} placeholder="Introduzca su DNI" pattern="[0-9]{8}[A-Za-z]{1}" title="Debe poner 8 números y una letra"  onChange={ handleDniChange} required />
                     </fieldset>
                     <fieldset className='col-12'>
                         <label htmlFor="edad" className='col-10'>Edad</label>
-                        <input className="col-10" type="number" name="edad" defaultValue={ childs.edad} placeholder="Introduzca su edad" pattern="[0-9]{2}" title="Debe introducir su edad 2 cifras"  onChange={ e=> setEdad(e.target.value)} />
+                        <input className="col-10" type="number" name="edad" value={edad} placeholder="Introduzca su edad" pattern="[0-9]{2}" title="Debe introducir su edad 2 cifras"  onChange={ e=> setEdad(e.target.value)} required />
                     </fieldset>
                     <fieldset className='col-12' id='alergenos'>
                         {listaalergenos.map(({ name, id }, index) => {
@@ -167,7 +156,7 @@ export default function RegisterF ({handleSubmit, ...props}) {
                                         type="checkbox"
                                         id={`custom-checkbox-${index}`}
                                         name={name}
-                                        defaultChecked={childs.alergenos[index]}
+                                        defaultChecked={alergenos[index]}
                                         onChange={() => handleOnChange(index)}
                                       />
                                       <label htmlFor={`custom-checkbox-${index}`}>{name}</label>
@@ -180,12 +169,12 @@ export default function RegisterF ({handleSubmit, ...props}) {
 
                     <fieldset className='col-12'>
                         <label htmlFor="necesidadesesp" className='col-10'>Necesidades Especiales</label>
-                        <input className="col-10" type="text" defaultValue={ childs.necesidadesesp} name="necesidadesesp" placeholder="Escriba el niño/a tiene alguna necesidad especial" pattern="[^0-9\x22]+" onChange={ e=> setNecesidadesesp(e.target.value)} />
+                        <input className="col-10" type="text" value={ necesidadesesp} name="necesidadesesp" placeholder="Escriba el niño/a tiene alguna necesidad especial" pattern="[^0-9\x22]+" onChange={ e=> setNecesidadesesp(e.target.value)} />
                     </fieldset>
 
                     <fieldset className='col-12'>
                         <label htmlFor="file" className='col-10'>Foto del niño</label>
-                        <input className="col-10" type="file" name="file" placeholder="¿Quiere subir una imagen?" onChange={(e) => setImgUrl(e.target.files[0])}  />
+                        <input className="col-10" type="file" name="file" placeholder="¿Quiere subir una imagen?" onChange={(e) => setImgUrl(e.target.files[0])} required  />
                     </fieldset>
 
                     <fieldset className='col-12 end'>
@@ -198,9 +187,6 @@ export default function RegisterF ({handleSubmit, ...props}) {
         </section>
         
   )
-}else{
-    console.log("esperando")
-}
 }
 
 
