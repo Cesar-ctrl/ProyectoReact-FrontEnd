@@ -3,11 +3,12 @@ import { useEffect, useState } from 'react';
 import { Link } from "react-router-dom";
 
 function Welcome() {
+  //Página de bienvenida, acceso a los login, registro y la aplicación
 
     const [addClass,setAddClass] = useState(false)
     
   //---------------------------------
-
+//Tres botones en escucha de click para esconderse y mostrar información
 document.addEventListener('load', function(){
   var slide1 = document.getElementById("slide1")
   var slide2 = document.getElementById("slide2")
@@ -28,6 +29,8 @@ document.addEventListener('load', function(){
       }
   })
 })
+
+//Función con tiempo para que vaya cambiando el fondo de la página de bienvenida cada 7 segundos
 function startTime() {
   switch (document.getElementById("contenedor").classList.value){
     case 'background1':

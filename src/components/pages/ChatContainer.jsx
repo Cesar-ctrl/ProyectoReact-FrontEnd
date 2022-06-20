@@ -15,8 +15,9 @@ export default function ChatContainer({ currentChat, socket }) {
     const loggeGuardJSON = window.localStorage.getItem('loggedNoteAppGuard')
     const guard = JSON.parse(loggeGuardJSON)
 
+    //Aquí es donde se van a ver los mensajes, tambien donde va a actuar el socket
     useEffect(() => {
-        if(usuario){
+        if(usuario){  // distingue si es un usuario o una niñera para ver que mensajes son recibidos o enviados
             const response = messageService.recieveMessageRoute({
                 from: usuario.id,
                 to: currentChat.id,
@@ -38,7 +39,7 @@ export default function ChatContainer({ currentChat, socket }) {
         
     }, [currentChat]);
 
-  useEffect(() => {
+  useEffect(() => {//Trae los mensajes del chat actual
     const getCurrentChat = async () => {
       if (usuario) {
         await JSON.parse(
@@ -57,13 +58,13 @@ export default function ChatContainer({ currentChat, socket }) {
     }
   }, [currentChat]);
 
-  const handleSendMsg = async (msg) => {
+  const handleSendMsg = async (msg) => {  //Llama el socket para recibir los mensajes de manera dinamica
     if(usuario){
         socket.current.emit("send-msg", {
         to: currentChat.id,
         from: usuario.id,
         msg,
-        });
+        });//Lo mismo para enviarlos
         const sendmessage = await messageService.sendMessageRoute({
             from: usuario.id,
             to: currentChat.id,

@@ -10,6 +10,7 @@ const Favoritos = () => {
     const loggeUserJSON = window.localStorage.getItem('loggedNoteAppUser')
     const usuario = JSON.parse(loggeUserJSON)
 
+    //Comprueba que el usuario está logeado
     useEffect(() => {
         if(loggUserJSON){
             const usuario = JSON.parse(loggUserJSON)
@@ -21,17 +22,17 @@ const Favoritos = () => {
         }
     }, [])
 
-    
+    //toggleFav recojo la id de el usuario que he pinchado,  
     const toggleFav = (id) => {
-        const guard = guards.guards.find(n => n.id === id)
-        var favoritos = usuario.guards
+        const guard = guards.guards.find(n => n.id === id)//busco y declaro la niñera que he pinchado
+        var favoritos = usuario.guards//traigo la lista completa de favoritos
         var encontrado = false
-        for (let index = 0; index < favoritos.length; index++) {
+        for (let index = 0; index < favoritos.length; index++) {//hago un bucle para recorrer la lista favoritos
             const element = favoritos[index];
-            if (element == id) {
-                userService
+            if (element == id) {// Si encuentra la misma id de la niñera que he pinchado
+                userService     //llama a los services para eliminarlo de la lista
                 .putfav(usuario.id, guard.id)
-                .then(returnedGuard => {
+                .then(returnedGuard => {    //actualiza la lista
                     setGuards(guards.map(guardd => guardd.id !== id ? guardd : guard))
                 })
                 .catch(error => {
@@ -45,6 +46,7 @@ const Favoritos = () => {
                 var parsedObject = usuario
                 // Modificar el objeto para ahora guardarlo en el localStorage
                 parsedObject.guards = parsedObject.guards.filter(item => item !== id)
+                //actualizamos el elemento del localstorage
                 const modifiedndstrigifiedForStorage = JSON.stringify(parsedObject);
                 window.localStorage.setItem("loggedNoteAppUser", modifiedndstrigifiedForStorage);
                 encontrado = true
@@ -53,23 +55,16 @@ const Favoritos = () => {
             
         }
 
-        if (!(encontrado)) {
-            userService
+        if (!(encontrado)) {    //si no encuentra la niñera en la lista de favoritos
+            userService         //llama a los services para haver una peticion post a la api para añadir la niñera a favoritos
             .postfav(usuario.id, guard.id)
-            .then(returnedGuard => {
+            .then(returnedGuard => {//actualiza la lista
                 setGuards(guards.map(guardd => guardd.id !== id ? guardd : guard))
-            })
-            .catch(error => {
-            setErrorMessage(
-                `Note '${guard.content}' was already removed from server`
-            )
-            setTimeout(() => {
-                setErrorMessage(null)
-            }, 5000)   
             })
             const parsedObject = usuario
             // Modifies the object, converts it to a string and replaces the existing `ship` in LocalStorage
             parsedObject.guards.push(guard.id)
+            //actualizamos el elemento del localstorage
             const modifiedndstrigifiedForStorage = JSON.stringify(parsedObject);
             window.localStorage.setItem("loggedNoteAppUser", modifiedndstrigifiedForStorage);
         }
@@ -78,6 +73,8 @@ const Favoritos = () => {
     }
     
     const newmode = window.localStorage.getItem('newmode')
+
+    //Filtro para ocultar las niñeras que no están disponibles en este momento
     const guardsToShow = showAll
     ? guards.guards
     : guards.guards.filter(guard => guard.disponible)

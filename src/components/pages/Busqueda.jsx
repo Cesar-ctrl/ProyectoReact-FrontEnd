@@ -16,23 +16,25 @@ const Busqueda = () => {
           .then(initialGuards => {
             setGuards(initialGuards)
           })
-      }, [])
-      
+    }, [])
+    
+    //toggleFav recojo la id de el usuario que he pinchado,  
     const toggleFav = (id) => {
-        const guard = guards.find(n => n.id === id)
-        var favoritos = usuario.guards
+        const guard = guards.find(n => n.id === id)//busco y declaro la niñera que he pinchado
+        var favoritos = usuario.guards//traigo la lista completa de favoritos
         var encontrado = false
-        for (let index = 0; index < favoritos.length; index++) {
+        for (let index = 0; index < favoritos.length; index++) {//hago un bucle para recorrer la lista favoritos
             const element = favoritos[index];
-            if (element == id) {
-                userService
+            if (element == id) {// Si encuentra la misma id de la niñera que he pinchado
+                userService     //llama a los services para eliminarlo de la lista
                 .putfav(usuario.id, guard.id)
-                .then(returnedGuard => {
+                .then(returnedGuard => {    //actualiza la lista
                     setGuards(guards.map(guardd => guardd.id !== id ? guardd : guard))
                 })
                 var parsedObject = usuario
                 // Modificar el objeto para ahora guardarlo en el localStorage
                 parsedObject.guards = parsedObject.guards.filter(item => item !== id)
+                //actualizamos el elemento del localstorage
                 const modifiedndstrigifiedForStorage = JSON.stringify(parsedObject);
                 window.localStorage.setItem("loggedNoteAppUser", modifiedndstrigifiedForStorage);
                 encontrado = true
@@ -41,26 +43,23 @@ const Busqueda = () => {
             
         }
 
-        if (!(encontrado)) {
-            userService
+        if (!(encontrado)) {    //si no encuentra la niñera en la lista de favoritos
+            userService         //llama a los services para haver una peticion post a la api para añadir la niñera a favoritos
             .postfav(usuario.id, guard.id)
-            .then(returnedGuard => {
+            .then(returnedGuard => {//actualiza la lista
                 setGuards(guards.map(guardd => guardd.id !== id ? guardd : guard))
             })
             const parsedObject = usuario
             // Modificar el objeto para ahora guardarlo en el localStorage
             parsedObject.guards.push(guard.id)
+            //actualizamos el elemento del localstorage
             const modifiedndstrigifiedForStorage = JSON.stringify(parsedObject);
             window.localStorage.setItem("loggedNoteAppUser", modifiedndstrigifiedForStorage);
         }
         
         
     }
-
-    const guardsToShow = showAll
-    ? guards
-    : guards.filter(guard => guard.disponible)
-
+    const guardsToShow = guards
 
     return (
       <section className="home busqueda">

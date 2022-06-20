@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
+
+
 export default function Welcome() {
+
+    //Página de bienvenida al chat
     const [name, setName] = useState("");
     const loggeUserJSON = window.localStorage.getItem('loggedNoteAppUser')
     const usuario = JSON.parse(loggeUserJSON)
@@ -8,6 +12,7 @@ export default function Welcome() {
     const guard = JSON.parse(loggeGuardJSON)
     const mode = window.localStorage.getItem('newmode')
     const newmode = JSON.parse(mode)
+
   useEffect( () => {
     if(usuario){
         setName(

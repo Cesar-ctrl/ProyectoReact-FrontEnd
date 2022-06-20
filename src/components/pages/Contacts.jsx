@@ -12,10 +12,11 @@ export default function Contacts({ contacts, changeChat }) {
     const loggeGuardJSON = window.localStorage.getItem('loggedNoteAppGuard')
     const guard = JSON.parse(loggeGuardJSON)
 
+    //Comprueba quien está logeado 
     useEffect(() => {
         if(usuario){
             userService
-            .getFavUser(usuario.id)
+            .getUser(usuario.id)
             .then(initialGuards => {
                 setCurrentName(initialGuards.name);
                 setCurrentUserImage(initialGuards.imgUrl);
@@ -31,6 +32,8 @@ export default function Contacts({ contacts, changeChat }) {
         }
     
     }, []);
+
+    //Cambiar el chat
     const changeCurrentChat = (index, contact) => {
         setCurrentSelected(index);
         changeChat(contact);

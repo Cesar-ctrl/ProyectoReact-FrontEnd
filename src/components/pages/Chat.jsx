@@ -20,7 +20,7 @@ export default function Chat() {
   const loggeGuardJSON = window.localStorage.getItem('loggedNoteAppGuard')
   const guard = JSON.parse(loggeGuardJSON)
   
-  useEffect(() => {
+  useEffect(() => { //Comprobamos si el que está logeado es un usuario o una niñera
     if (!(localStorage.getItem("loggedNoteAppUser") || localStorage.getItem("loggedNoteAppGuard"))) {
       navigate("/login");
     } else {
@@ -40,7 +40,7 @@ export default function Chat() {
       
     }
   }, []);
-  useEffect(() => {
+  useEffect(() => { //utilizamos socket para que los mensajes se envien y reciban de forma dinamica sin tener que recargar la página
     if (currentUser) {
       // cambiar a http://localhost:3001 Si se quiere probar en local 
       // Y en el servidor tambén pondré un comentario de que cambiar para que funcione en local 
@@ -52,13 +52,13 @@ export default function Chat() {
   useEffect(() => {
     if (currentUser) {
       if (localStorage.getItem("loggedNoteAppGuard")) {
-          guardService 
+          guardService  //si es una niñera trae los contactos de la niñera
             .getChatGuard(currentUser.id)
             .then(initialGuards => {
                 setContacts(initialGuards.chats)
             })
       } else {
-          userService
+          userService // y si es un usuario pues trae los contactos activos del usuario
             .getChatUser(currentUser.id)
             .then(initialGuards => {
                 setContacts(initialGuards.chats)
@@ -66,6 +66,7 @@ export default function Chat() {
       }
     }
   }, [currentUser]);
+  //control de evento para cembiar de chat y se vean los nuevos mensajes
   const handleChatChange = (chat) => {
     setCurrentChat(chat);
   };
@@ -75,7 +76,8 @@ export default function Chat() {
       <Container>
         <div className="container">
           <Contacts contacts={contacts} changeChat={handleChatChange} />
-          {currentChat === undefined ? (
+          {//Al entrar en el chat no estará abierto ninguna conversación así que mostrará una página de bienvenida
+          currentChat === undefined ? (
             <Welcome />
           ) : (
             <ChatContainer currentChat={currentChat} socket={socket} />

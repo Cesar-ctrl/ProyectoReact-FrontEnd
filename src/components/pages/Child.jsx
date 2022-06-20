@@ -10,7 +10,7 @@ const Child = () => {
     const loggUserJSON = window.localStorage.getItem('loggedNoteAppUser')
     const usuario = JSON.parse(loggUserJSON)
 
-
+    //comprueba si el usuario esta logeado y llama a la api para traer los niños iniciados por el usuario
     useEffect(() => {
         if(loggUserJSON){
         userService
@@ -20,6 +20,7 @@ const Child = () => {
             })
         }
     }, [])
+    //Si no está logueado mostrará BotonRegistro que es una página con un botón para ir al login
 
     return (
         

@@ -13,7 +13,7 @@ const Miperfil = () => {
     const [user, setUser] = useState(null)
     const [loggedIn, setLoggedIn] = useState(null)
     const navigate = useNavigate();
-
+    //Evento para cerrar la sesión y borrar todo lo guardado en el localstorage
     const handleLogout = () => {
         setUser(null)
         userService.setToken(null)
