@@ -43,7 +43,7 @@ export default function Chat() {
   }, []);
   useEffect(() => {
     if (currentUser) {
-      socket.current = io('https://damp-temple-29994.herokuapp.com');
+      socket.current = io('http://localhost:3000');// cambiar a https://damp-temple-29994.herokuapp.com
       socket.current.emit("add-user", currentUser.id);
     }
   }, [currentUser]);

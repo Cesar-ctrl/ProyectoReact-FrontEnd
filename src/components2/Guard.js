@@ -23,7 +23,6 @@ const Guard = ({ favs, guard, toggleFav }) => {
         <div>
             <div className='nombreval flexea column'>
             <Link to={"/home/buscar/guard/"+guard.id}
-            guardid={guard.id}
             state={state}
             >
                 <h3>{guard.name} {guard.surnames}</h3>

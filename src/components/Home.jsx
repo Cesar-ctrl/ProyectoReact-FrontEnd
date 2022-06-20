@@ -12,6 +12,7 @@ import PerfilGuard from '../components2/PerfilGuard';
 import Ajustes from './Ajustes';
 import UserUpdate from '../componentes-update/UserUpdate';
 import GuardUpdate from '../componentes-update/GuardUpdate';
+import PerfilUsuario from '../components2/PerfilUsuario';
 
 function Home(props) {
     const location = useLocation();
@@ -57,6 +58,7 @@ function Home(props) {
                 <Route path="/perfil/personal" element={ <UserUpdate /> } />
                 <Route path="/perfil/guardpersonal" element={ <GuardUpdate /> } />
                 <Route path="/buscar/guard/*" element={ <PerfilGuard /> } />
+                <Route path="/buscar/user/:userid" element={ <PerfilUsuario /> } />
             </Routes>
             </main>
             

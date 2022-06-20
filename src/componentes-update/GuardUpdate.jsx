@@ -129,10 +129,11 @@ if(info){
         <section className='pop absolute'>
             <header>
             </header>
-            <section className='body'>
+            <section className='body background2'>
                 <header>
-                <Link to="/home/perfil" >
-                        <img src="../img/back-arrow.svg" alt="" className='reloj pequenio'/>
+                <Link to="/home/perfil" className='flexea atras negro'>
+                        <img src="https://babyguard.vercel.app/img/back-arrow.svg" alt="" className='reloj pequenio'/>
+                        Atrás
                 </Link>
                 </header>
                 <form action="" className='login' onSubmit={handleUpdate}>
@@ -175,20 +176,16 @@ if(info){
                     </fieldset>
 
                     <fieldset className='col-12'>
+                        <label htmlFor="imagen" className='col-10'>Foto actual</label>
+                        <img src={"https://damp-temple-29994.herokuapp.com/api/img/public/"+info.imgUrl} alt="" name="image" className='reloj grande'/>
                         <label htmlFor="file" className='col-10'>Foto de perfil (No es obligatorio)</label>
                         <input className="col-10" type="file" name="file" placeholder="¿Quiere subir una imagen?" onChange={(e) => setSelectedFile(e.target.files[0])}  />
                     </fieldset>
 
                     <fieldset className='col-12'>
-                        <label htmlFor="enviar" className='col-10'>Iniciar Sesion</label>
-                        <button className="col-2 col-10" type="submit" name="enviar" value="Registrarse" id='form-register-button'> Iniciar Sesion</button>
+                        <button className="col-2 col-10" type="submit" name="enviar" value="Registrarse" id='form-register-button'>Guardar información</button>
                     </fieldset>
                 </form>
-                <div >
-                    <Link to="/guardlogin">
-                        ¿Ya tienes una cuenta?
-                    </Link>
-                </div>
             </section>
         
         </section>

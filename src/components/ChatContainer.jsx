@@ -4,6 +4,7 @@ import ChatInput from "./ChatInput";
 import { v4 as uuidv4 } from "uuid";
 import axios from "axios";
 import messageService from '../services/messages'
+import { Link } from "react-router-dom";
 
 export default function ChatContainer({ currentChat, socket }) {
     const [messages, setMessages] = useState([]);
@@ -105,19 +106,22 @@ export default function ChatContainer({ currentChat, socket }) {
   useEffect(() => {
     scrollRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
-
+  var userid = currentChat
+  console.log(userid)
   return (
     <Container>
       <div className="chat-header">
-        <div className="user-details">
-          <div className="avatar">
-            <img
-              src={`https://damp-temple-29994.herokuapp.com/api/img/public/${currentChat.imgUrl}`} alt=""/>
+        <Link to={"/home/buscar/user/"+currentChat.id} params={{ userid:userid }}>
+          <div className="user-details">
+            <div className="avatar">
+              <img
+                src={`https://damp-temple-29994.herokuapp.com/api/img/public/${currentChat.imgUrl}`} alt=""/>
+            </div>
+            <div className="username">
+              <h3>{currentChat.name}</h3>
+            </div>
           </div>
-          <div className="username">
-            <h3>{currentChat.name}</h3>
-          </div>
-        </div>
+        </Link>
       </div>
       <div className="chat-messages">
         {messages.map((message) => {
@@ -153,7 +157,7 @@ const Container = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 2rem;
+    
     .user-details {
       display: flex;
       align-items: center;

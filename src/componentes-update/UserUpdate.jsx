@@ -74,8 +74,9 @@ if(info){
             </header>
             <section className='body background2'>
                 <header>
-                    <Link to="/home/perfil" state={state}>
-                        <img src="../img/back-arrow.svg" alt="" className='reloj pequenio'/>
+                    <Link to="/home/perfil" state={state} className='flexea atras negro'>
+                        <img src="https://babyguard.vercel.app/img/back-arrow.svg" alt="" className='reloj pequenio'/>
+                        Atrás
                     </Link>
                     <h2>Información Personal</h2>
                 </header>           
@@ -93,12 +94,13 @@ if(info){
                         <input className="col-10" type="number" name="phone" defaultValue={ info.phone} placeholder="Introduzca su teléfono" pattern="[0-9]{9}" title="Debe introducir su teléfono"  onChange={ e=> setPhone(e.target.value)} />
                     </fieldset>
                     <fieldset className='col-12'>
+                        <label htmlFor="imagen" className='col-10'>Foto actual</label>
+                        <img src={"https://damp-temple-29994.herokuapp.com/api/img/public/"+info.imgUrl} alt="" name="image" className='reloj grande' />
                         <label htmlFor="file" className='col-10'>Foto de perfil (No es obligatorio)</label>
                         <input className="col-10" type="file" name="file" placeholder="¿Quiere subir una imagen?" onChange={(e) => setSelectedFile(e.target.files[0])}  />
                     </fieldset>
                     <fieldset className='col-12'>
-                        <label htmlFor="enviar" className='col-10'>Iniciar Sesion</label>
-                        <button className="col-2 col-10" type="submit" name="enviar" value="Registrarse" id='form-register-button'> Iniciar Sesion</button>
+                        <button className="col-2 col-10" type="submit" name="enviar" value="Registrarse" id='form-register-button'>Guardar Información</button>
                     </fieldset>
                 </form>
                 

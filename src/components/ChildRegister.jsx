@@ -168,7 +168,7 @@ export default function RegisterF ({handleSubmit, ...props}) {
             </header>
             <section className='body background2'>
                 <header>
-                    <Link to="/home/child" >
+                    <Link to="/home/child" className='flexea atras negro'>
                         <img src="..img/back-arrow.svg" alt="" />
                         Atrás
                     </Link>

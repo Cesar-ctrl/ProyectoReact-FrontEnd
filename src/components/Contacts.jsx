@@ -157,7 +157,7 @@ const Container = styled.div`
         color: white;
       }
     }
-    @media screen and (min-width: 720px) and (max-width: 1080px) {
+    @media screen and (min-width: 300px) and (max-width: 720px) {
       gap: 0.5rem;
       .name {
         h2 {
@@ -165,5 +165,6 @@ const Container = styled.div`
         }
       }
     }
+    
   }
 `;
