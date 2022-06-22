@@ -128,7 +128,7 @@ const PerfilUser = (props) => {
                             }
                             
                             <p>Foto: </p>
-                            <img src={"https://damp-temple-29994.herokuapp.com/api/img/public/"+user.imgUrl} className='reloj grande' alt="" />
+                            <img src={"https://damp-temple-29994.herokuapp.com/api/img/public/"+child.imgUrl} className='reloj grande' alt="" />
                         </div>
                         )
                         :

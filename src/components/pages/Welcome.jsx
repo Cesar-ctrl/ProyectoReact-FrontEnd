@@ -84,7 +84,7 @@ return (
               </li>
               <li id="slide3" className="col-10">
                 <h3  >Podrás estar en contacto</h3>
-                <p>La app permite que puedas hablar con cualquier niñera llendo al perfil y dandole al botón de mensaje. Mantente conectado con los cuidadores.</p>
+                <p>La app permite que puedas hablar con cualquier niñera pinchando en su nombre y dandole al botón de mensaje. Mantente conectado con los cuidadores.</p>
               </li>
             </ul>
             <ul className="menu">
