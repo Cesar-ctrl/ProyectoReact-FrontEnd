@@ -216,7 +216,7 @@ export default function RegisterF ({...props}) {
                         <label htmlFor="imagen" className='col-10'>Foto actual</label>
                         <img src={"https://damp-temple-29994.herokuapp.com/api/img/public/"+childs.imgUrl} alt="" name="image" className='reloj grande'/>
                         <label htmlFor="file" className='col-10'>Foto del niño</label>
-                        <input className="col-10" type="file" name="file" placeholder="¿Quiere subir una imagen?" onChange={(e) => setImgUrl(e.target.files[0])}  />
+                        <input className="col-10" type="file" accept="image/png, image/gif, image/jpeg" name="file" placeholder="¿Quiere subir una imagen?" onChange={(e) => setImgUrl(e.target.files[0])}  />
                     </fieldset>
 
                     <fieldset className='col-12 end'>

@@ -180,7 +180,7 @@ if(info){
                         <label htmlFor="imagen" className='col-10'>Foto actual</label>
                         <img src={"https://damp-temple-29994.herokuapp.com/api/img/public/"+info.imgUrl} alt="" name="image" className='reloj grande'/>
                         <label htmlFor="file" className='col-10'>Foto de perfil (No es obligatorio)</label>
-                        <input className="col-10" type="file" name="file" placeholder="¿Quiere subir una imagen?" onChange={(e) => setSelectedFile(e.target.files[0])}  />
+                        <input className="col-10" type="file" accept="image/png, image/gif, image/jpeg" name="file" placeholder="¿Quiere subir una imagen?" onChange={(e) => setSelectedFile(e.target.files[0])}  />
                     </fieldset>
 
                     <fieldset className='col-12'>

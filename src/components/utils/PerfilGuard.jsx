@@ -135,7 +135,7 @@ const PerfilGuard = ({ }) => {
         </header>
         <section className='flexea column'>
             <div className='col-10 column listado deperfil'>
-            <div className='cuidador flexea roww'>
+            <div className='cuidador'>
                 {usuario?  <p>{guard.descripcion}</p> : guardian?  guardian.id==guard.id? 
                 <div>
                     <textarea name="descripcion" id="descr" cols="30" rows="5" defaultValue={descr} onChange={handleDescrChange} >{guard.descripcion}</textarea> 
@@ -183,27 +183,101 @@ const PerfilGuard = ({ }) => {
                             </tbody>
                         </table>
                     </div>
-                    <div>
-                        <div className='nombreval flexea column'>
+                    {
+                       usuario?
+                       
+                        <div className='horadisp flexea column'>
                             {
                                 usuario?
                                 <img src="https://babyguard.vercel.app/img/Chat.png" className  ="reloj" alt="" onClick={() => handleChat(guard.id)} />
                                 :
                                 <img src="https://babyguard.vercel.app/img/Chat.png" className  ="reloj" alt="" />
                             }
+                            <h3>Chatear</h3>
                         </div>
-                    </div>
-                    {
-                       usuario? <br /> : guardian? guardian.id==guard.id?
+                    
+                     : guardian? guardian.id==guard.id?
                        <button onClick={toggleDisponible}>{label}</button>
-                       : <br />:<br />
+                       : null:null
                     }
                     
                 </div>
-                <div className="flexea roww evenly">
-                    {<Star />}
+                <div className="flexea cuidador column notcenter">
+                    <h4>Valoraciones y reseñas</h4>
+                    <section className='flexea column notcenter'>
+                        <div className='flexea roww evenly'>
+                            <div>
+                                <h5 className='media'>4.8</h5>
+                                {<Star />}
+                            </div>
+                            <div className='col-12'>
+                                <div className='flexea perfil'>
+                                    <h3>5</h3>
+                                    <div className="progress">
+                                        
+                                        <div className="progress-bar" style={{width: '75%' }} ></div>
+                                    </div>
+                                </div>
+                                <div className='flexea perfil'>
+                                    <h3>4</h3>
+                                    <div className="progress">
+                                        
+                                        <div className="progress-bar" ></div>
+                                    </div>
+                                </div><div className='flexea perfil'>
+                                    <h3>3</h3>
+                                    <div className="progress">
+                                        
+                                        <div className="progress-bar" ></div>
+                                    </div>
+                                </div><div className='flexea perfil'>
+                                    <h3>2</h3>
+                                    <div className="progress">
+                                        
+                                        <div className="progress-bar" ></div>
+                                    </div>
+                                </div><div className='flexea perfil'>
+                                    <h3>1</h3>
+                                    <div className="progress">
+                                        
+                                        <div className="progress-bar" ></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </section>
 
-                    <h3>4.8</h3>
+                    <section>
+                        <header className='flexea perfil comentario'>
+                            <div className='flexea perfil'>
+                                <img src="https://damp-temple-29994.herokuapp.com/api/img/public/1655398811921.jpg" alt="" className='fotocomentario '/>
+                                <h3>César Amado</h3>
+                            </div>
+                            <div className='flexea perfil'>
+                                {<Star />}
+                            </div>
+                        </header>
+                        <article>
+                            Funciona muy mal. Desde que he descargado dos o tres vídeos para verlos en vacaciones, tarda mucho en cargar o directamente no carga. Ya he probado a borrar la caché, los datos de la aplicación, desinstalado la aplicación y nada.
+                        </article>
+                    </section>
+                    <section className='comentario'>
+                        <header className='flexea perfil comentario'>
+                            <div className='flexea perfil'>
+                                <img src="https://damp-temple-29994.herokuapp.com/api/img/public/1655398811921.jpg" alt="" className='fotocomentario '/>
+                                <h3>César Amado</h3>
+                            </div>
+                            <div className='flexea perfil'>
+                                {<Star />}
+                            </div>
+                        </header>
+                        <article>
+                            Funciona muy mal. Desde que he descargado dos o tres vídeos para verlos en vacaciones, tarda mucho en cargar o directamente no carga. Ya he probado a borrar la caché, los datos de la aplicación, desinstalado la aplicación y nada.
+                        </article>
+                    </section>
+                    
+
                 </div>
 
             </div>

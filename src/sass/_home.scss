@@ -300,3 +300,24 @@ h2{
         }
    }
 }
+.media{
+    font-size: 3.5rem;
+    line-height: 4rem;
+    margin: 0;
+}
+.progress{
+    height: 12px;
+    width: 95%;
+    border: 1px solid #428bca;
+    border-radius: 5px;
+    background-color: #e6f3fa;
+    margin: 5px;
+}
+.progress-bar{
+    height: 100%;
+    background: #eeee2c;
+    display: flex;
+    align-items: center;
+    transition: width 0.25s;
+    border-radius: 5px;
+}

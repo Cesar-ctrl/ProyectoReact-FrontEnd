@@ -175,7 +175,7 @@ export default function RegisterF ({handleSubmit, ...props}) {
 
                     <fieldset className='col-12'>
                         <label htmlFor="file" className='col-10'>Foto del niño</label>
-                        <input className="col-10" type="file" name="file" placeholder="¿Quiere subir una imagen?" onChange={(e) => setImgUrl(e.target.files[0])} required  />
+                        <input className="col-10" type="file" accept="image/png, image/gif, image/jpeg" name="file" placeholder="¿Quiere subir una imagen?" onChange={(e) => setImgUrl(e.target.files[0])} required  />
                     </fieldset>
 
                     <fieldset className='col-12 end'>

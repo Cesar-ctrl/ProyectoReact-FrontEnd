@@ -2,7 +2,7 @@ import React from 'react';
 import {  Link, useLocation } from "react-router-dom";
 import Star from '../utils/Star';
 
-const Guard = ({ favs, guard, toggleFav }) => {
+const Comentario = ({ favs, guard, toggleFav }) => {
     const location = useLocation();
     const state = location.state;
     const resultado = favs.find(cuidador=> cuidador == guard.id)
@@ -45,4 +45,4 @@ const Guard = ({ favs, guard, toggleFav }) => {
 }
 
 
-export default Guard
+export default Comentario
