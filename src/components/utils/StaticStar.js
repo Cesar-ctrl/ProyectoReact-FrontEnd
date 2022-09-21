@@ -15,8 +15,6 @@ function RatingIcon(props) {
       index,
       rating,
       hoverRating,
-      onMouseEnter,
-      onMouseLeave,
       onSaveRating,
     } = props;
     const fill = React.useMemo(() => {
@@ -29,45 +27,36 @@ function RatingIcon(props) {
         }, [rating, hoverRating, index]);
     return (
             <div 
-            className="cursor-pointer"
-            onMouseEnter={() => onMouseEnter(index)} 
-            onMouseLeave={() => onMouseLeave()} 
-            onClick={() => onSaveRating(index)}>
+            className="cursor-pointer">
+                {onSaveRating(index)}
             <StarIcon fill={fill} />
             </div>
         )
   }
 
-const Star = () => {
-    const [rating, setRating] = React.useState(0);
-    const [hoverRating, setHoverRating] = React.useState(0);
-    const onMouseEnter = (index) => {
-      setHoverRating(index);
-    };
-    const onMouseLeave = () => {
-      setHoverRating(0);
-    };
-    const onSaveRating = (index) => {
-      console.log(index)
-      setRating(index);
-    };
-    console.log(rating)
-    console.log(hoverRating)
-    return(
-      <div className="box flex">
-        {[1, 2, 3, 4, 5].map((index) => {
-          return (
-            <RatingIcon 
-              index={index} 
-              rating={rating} 
-              hoverRating={hoverRating} 
-              onMouseEnter={onMouseEnter} 
-              onMouseLeave={onMouseLeave} 
-              onSaveRating={onSaveRating} />
-          )
-        })}
-      </div>
-    );
-  }
+const StaticStar = (value) => {
+    console.log(value)
+      const [rating, setRating] = React.useState(0);
   
-export default Star
+      const onSaveRating = (index) => {
+        console.log(index)
+        if(value.value){
+          setRating(value.value);
+        }else{
+          setRating(index);
+        }
+      };
+      return(
+        <div className="box flex">
+          {[1, 2, 3, 4, 5].map((index) => {
+            return (
+              <RatingIcon 
+                index={index} 
+                rating={rating} 
+                onSaveRating={onSaveRating} />
+            )
+          })}
+        </div>
+      );
+    } 
+export default StaticStar

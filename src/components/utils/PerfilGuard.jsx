@@ -2,7 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 import guardService from '../../services/guards';
 import userService from '../../services/users';
-import Star from '../utils/Star';
+import commentService from '../../services/comments';
+import Star from './Star';
+import Comentario from './Comentario';
 
 const PerfilGuard = ({ }) => {
 
@@ -14,6 +16,7 @@ const PerfilGuard = ({ }) => {
 
     const [guard, setGuards] = useState([]) 
     const [contacts, setContacts] = useState([]) 
+    const [comments, setComments] = useState([])
     const [Id, setId] = useState("")
     const [name, setName] = useState('')
     const [surnames, setSurnames] = useState('')
@@ -37,6 +40,7 @@ const PerfilGuard = ({ }) => {
                 .then(initialGuards => {
                     setContacts(initialGuards.chats)
                 })
+            
         }if(guardian){
             guardService.setToken(guardian.token)
         }
@@ -46,14 +50,19 @@ const PerfilGuard = ({ }) => {
             })
         setName(guard.name)
         setSurnames(guard.surnames)
-        
-        
-    }, [])
-    useEffect(() => {
+        setId(guard.id)
         setDesc(guard.descripcion)
         setHorarioinicio(guard.horarioinicio)
         setHorariofin(guard.horariofin)
-    }, [])
+        commentService.recieveCommentRoute(guard.id)
+            .then(initialGuards => {
+                setComments(initialGuards)//Cambiar, hacer un setcomments 
+            }) 
+    }, [guard.name])
+
+
+    
+
     const handleDescrChange = ({target}) => setDesc(target.value)
 
     const handleHorarioinicioChange = ({target}) => setHorarioinicio(target.value)
@@ -124,8 +133,9 @@ const PerfilGuard = ({ }) => {
     }
 
 
-    if( guard.dias){
-  return (
+    if(guard.dias){
+    return (
+
     <section className="home">
         <header className='titulo main flexea perfil'>
             <div className='foto'>
@@ -204,6 +214,7 @@ const PerfilGuard = ({ }) => {
                 </div>
                 <div className="flexea cuidador column notcenter">
                     <h4>Valoraciones y reseñas</h4>
+                    
                     <section className='flexea column notcenter'>
                         <div className='flexea roww evenly'>
                             <div>
@@ -247,35 +258,15 @@ const PerfilGuard = ({ }) => {
                         </div>
                         
                     </section>
-
-                    <section>
-                        <header className='flexea perfil comentario'>
-                            <div className='flexea perfil'>
-                                <img src="https://damp-temple-29994.herokuapp.com/api/img/public/1655398811921.jpg" alt="" className='fotocomentario '/>
-                                <h3>César Amado</h3>
-                            </div>
-                            <div className='flexea perfil'>
-                                {<Star />}
-                            </div>
-                        </header>
-                        <article>
-                            Funciona muy mal. Desde que he descargado dos o tres vídeos para verlos en vacaciones, tarda mucho en cargar o directamente no carga. Ya he probado a borrar la caché, los datos de la aplicación, desinstalado la aplicación y nada.
-                        </article>
-                    </section>
-                    <section className='comentario'>
-                        <header className='flexea perfil comentario'>
-                            <div className='flexea perfil'>
-                                <img src="https://damp-temple-29994.herokuapp.com/api/img/public/1655398811921.jpg" alt="" className='fotocomentario '/>
-                                <h3>César Amado</h3>
-                            </div>
-                            <div className='flexea perfil'>
-                                {<Star />}
-                            </div>
-                        </header>
-                        <article>
-                            Funciona muy mal. Desde que he descargado dos o tres vídeos para verlos en vacaciones, tarda mucho en cargar o directamente no carga. Ya he probado a borrar la caché, los datos de la aplicación, desinstalado la aplicación y nada.
-                        </article>
-                    </section>
+                    {
+                        comments.map((comments, i) => //Buscar en comments
+                        <Comentario
+                            key={i}
+                            comments={comments}
+                        />
+                        )
+                    
+                    }
                     
 
                 </div>
