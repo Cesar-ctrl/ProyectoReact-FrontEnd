@@ -28,5 +28,14 @@ const recieveCommentRoute  = async credentials => {
     return data
 }
 
+const recieveValRoute  = async credentials => {
 
-export default { sendCommentRoute, recieveCommentRoute, setToken }
+    const recive = {
+        to:credentials
+    }
+    const { data } = await axios.post(`${baseUrl}/getval`, recive)
+    return data
+}
+
+
+export default { sendCommentRoute, recieveCommentRoute, recieveValRoute, setToken }

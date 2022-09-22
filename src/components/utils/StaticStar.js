@@ -10,7 +10,7 @@ function StarIcon(props) {
 
 
 function RatingIcon(props) {
-  console.log(props)
+  //console.log(props)
     const {
       index,
       rating,
@@ -35,11 +35,11 @@ function RatingIcon(props) {
   }
 
 const StaticStar = (value) => {
-    console.log(value)
+    //console.log(value)
       const [rating, setRating] = React.useState(0);
   
       const onSaveRating = (index) => {
-        console.log(index)
+        //console.log(index)
         if(value.value){
           setRating(value.value);
         }else{

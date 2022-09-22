@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {  Link, useLocation } from "react-router-dom";
-import Star from '../utils/Star';
+import StaticStar from './StaticStar';
+import commentService from '../../services/comments';
 
 const Guard = ({ favs, guard, toggleFav }) => {
     const location = useLocation();
@@ -9,6 +10,24 @@ const Guard = ({ favs, guard, toggleFav }) => {
         ? <div className='cursor-pointer'><svg className="w-7 h-7" fill="#3ed400" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path></svg></div>
         : <div className='cursor-pointer'><svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path></svg></div>
     const newmode = window.localStorage.getItem('newmode')
+
+    const [val, setVal] = useState([])
+
+    useEffect(() => { 
+        commentService.recieveValRoute(guard.id)
+            .then(point => {
+                setVal(point)
+            })
+    }, [])
+    var total = 0
+    var lengt = 0
+    if(val){
+        val.map((comment, i) =>
+            total += comment.valoracion
+        )
+        lengt = val.length
+    }
+
   return (
     
     <div className={guard.disponible ? 'cuidador flexea roww' : 'cuidador flexea roww indispuesto'}>
@@ -28,9 +47,9 @@ const Guard = ({ favs, guard, toggleFav }) => {
                     <h3>{guard.name} {guard.surnames}</h3>
                 </Link>
                 <div className="flexea roww">
-                    {<Star />}
+                    {<StaticStar value={total?Math.round(total/lengt):'none'} />}
 
-                    <h3>4.8</h3>
+                    <h3>{total?total/lengt:0}</h3>
                 </div>
             </div>
         </div>

@@ -10,7 +10,7 @@ function StarIcon(props) {
 
 
 function RatingIcon(props) {
-  console.log(props)
+  //console.log(props)
     const {
       index,
       rating,
@@ -48,11 +48,11 @@ const Star = () => {
       setHoverRating(0);
     };
     const onSaveRating = (index) => {
-      console.log(index)
+      //console.log(index)
       setRating(index);
     };
-    console.log(rating)
-    console.log(hoverRating)
+    //console.log(rating)
+    //console.log(hoverRating)
     return(
       <div className="box flex">
         {[1, 2, 3, 4, 5].map((index) => {

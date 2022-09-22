@@ -5,6 +5,7 @@ import userService from '../../services/users';
 import commentService from '../../services/comments';
 import Star from './Star';
 import Comentario from './Comentario';
+import Puntuacion from './Puntuacion';
 
 const PerfilGuard = ({ }) => {
 
@@ -132,8 +133,9 @@ const PerfilGuard = ({ }) => {
         }
     }
 
-
+    var leng = comments.length
     if(guard.dias){
+        
     return (
 
     <section className="home">
@@ -216,49 +218,15 @@ const PerfilGuard = ({ }) => {
                     <h4>Valoraciones y reseñas</h4>
                     
                     <section className='flexea column notcenter'>
-                        <div className='flexea roww evenly'>
-                            <div>
-                                <h5 className='media'>4.8</h5>
-                                {<Star />}
-                            </div>
-                            <div className='col-12'>
-                                <div className='flexea perfil'>
-                                    <h3>5</h3>
-                                    <div className="progress">
-                                        
-                                        <div className="progress-bar" style={{width: '75%' }} ></div>
-                                    </div>
-                                </div>
-                                <div className='flexea perfil'>
-                                    <h3>4</h3>
-                                    <div className="progress">
-                                        
-                                        <div className="progress-bar" ></div>
-                                    </div>
-                                </div><div className='flexea perfil'>
-                                    <h3>3</h3>
-                                    <div className="progress">
-                                        
-                                        <div className="progress-bar" ></div>
-                                    </div>
-                                </div><div className='flexea perfil'>
-                                    <h3>2</h3>
-                                    <div className="progress">
-                                        
-                                        <div className="progress-bar" ></div>
-                                    </div>
-                                </div><div className='flexea perfil'>
-                                    <h3>1</h3>
-                                    <div className="progress">
-                                        
-                                        <div className="progress-bar" ></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
+                    {
+                        <Puntuacion
+                            comments={comments}
+                            lengt={leng}
+                        />
+                    }
                     </section>
                     {
+                        
                         comments.map((comments, i) => //Buscar en comments
                         <Comentario
                             key={i}

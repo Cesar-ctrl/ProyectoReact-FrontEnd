@@ -11,7 +11,6 @@ const Comentario = ({ comments }) => {
     const state = location.state;
     const newmode = window.localStorage.getItem('newmode')
 
-    console.log(comments.valoracion)
 
   return (
     <section>
