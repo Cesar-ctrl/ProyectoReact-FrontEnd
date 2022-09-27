@@ -7,8 +7,10 @@ const Busqueda = () => {
 
     const [guards, setGuards] = useState([]) 
     const [showAll, setShowAll] = useState(true)
+    const [busqueda, setBusqueda] = useState('') 
     const loggeUserJSON = window.localStorage.getItem('loggedNoteAppUser')
     const usuario = JSON.parse(loggeUserJSON)
+
 
     useEffect(() => {
         guardService
@@ -57,9 +59,12 @@ const Busqueda = () => {
             window.localStorage.setItem("loggedNoteAppUser", modifiedndstrigifiedForStorage);
         }
         
-        
+
     }
-    const guardsToShow = guards
+
+    const handleSearchChange = ({target}) => setBusqueda(target.value)
+    var search = guards.filter(guard => guard.name.includes(busqueda))
+    const guardsToShow = search
 
     return (
       <section className="home busqueda">
@@ -71,7 +76,7 @@ const Busqueda = () => {
         <section className='buscador'>
             <div className='barra'>
                 
-                <input type="text" className='barra col-8' />
+                <input type="text" className='barra col-8' onChange={handleSearchChange} />
                 <div className='imgbuscar'>
                     <img src="../img/lupa-busqueda.png" alt="" className='lupa'/>
                 </div>

@@ -49,7 +49,7 @@ const Guard = ({ favs, guard, toggleFav }) => {
                 <div className="flexea roww">
                     {<StaticStar value={total?Math.round(total/lengt):'none'} />}
 
-                    <h3>{total?total/lengt:0}</h3>
+                    <h3>{total?Math.round(total/lengt*10)/10:0}</h3>
                 </div>
             </div>
         </div>

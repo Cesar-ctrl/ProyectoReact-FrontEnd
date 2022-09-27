@@ -1,0 +1,137 @@
+//Css de Chat
+.home.chat{
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1rem;
+    align-items: center;
+    background-color: rgb(19 19 36 / 0%);
+    .container{
+        height: 85vh;
+        width: 85vw;
+        background-color: rgba(65, 152, 126, 0.82);
+        display: grid;
+        grid-template-columns: 25% 75%;
+        @media screen and (min-width: 300px) and (max-width: 768px) {
+            grid-template-columns: 100% 0%;
+            //Hay que poner un 10% 90% para añadir el botón
+            }
+        @media screen and (min-width: 768px) and (max-width: 1080px) {
+        grid-template-columns: 35% 65%;
+        }
+    }
+    
+}
+
+.welcomechat{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    flex-direction: column;
+    img {
+        height: 20rem;
+    }
+    span {
+        color: #4e0eff;
+    }
+}
+
+.contactos{
+    
+    display: grid;
+    grid-template-rows: 10% 75% 15%;
+    overflow: hidden;
+    background-color: rgb(23 99 96);
+
+    @media screen and (min-width: 300px) and (max-width: 768px) {
+        height: 100%; /* 100% Full-height */
+        width: 0; /* 0 width - change this with JavaScript */
+        position: fixed; /* Stay in place */
+        z-index: 1; /* Stay on top */
+        top: 0;
+        left: 0;
+      }
+
+    .brand {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        justify-content: center;
+        img {
+          height: 2rem;
+        }
+        h3 {
+          color: white;
+          text-transform: uppercase;
+        }
+    }
+    .contacts {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        overflow: auto;
+        gap: 0.8rem;
+        &::-webkit-scrollbar {
+          width: 0.2rem;
+          &-thumb {
+            background-color: #ffffff39;
+            width: 0.1rem;
+            border-radius: 1rem;
+          }
+        }
+        .contact {
+            background-color: rgb(56 179 195);
+            min-height: 5rem;
+            cursor: pointer;
+            width: 90%;
+            border-radius: 0.2rem;
+            padding: 0.4rem;
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            transition: 0.5s ease-in-out;
+            .avatar {
+                img {
+                    height: 3rem;
+                }
+            }
+            .name {
+                h3 {
+                    color: white;
+                }
+            }
+        }
+        .selected {
+          background-color: rgb(121 191 200);
+        }
+    }
+    .current-user {
+        background-color: rgb(13 135 131);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 1rem;
+        .avatar {
+            img {
+                height: 4rem;
+                max-inline-size: 100%;
+            }
+        }
+        .name {
+            h2 {
+                color: white;
+            }
+        }
+        @media screen and (min-width: 300px) and (max-width: 768px) {
+            gap: 0.5rem;
+            .name {
+                h2 {
+                font-size: 1rem;
+                }
+            }
+        }
+    }
+}

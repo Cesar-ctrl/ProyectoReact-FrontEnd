@@ -25,6 +25,8 @@ const PerfilGuard = ({ }) => {
     const [horarioinicio, setHorarioinicio] = useState('')
     const [descr, setDesc] = useState(guard.descripcion)
     const navigate = useNavigate();
+    const [rating, setRating] = React.useState(0);
+    const [comentario, setComentario] = useState('')
     
     const label = guard.disponible
     ? 'Make Not available'
@@ -37,6 +39,7 @@ const PerfilGuard = ({ }) => {
         setId(arr[4])
         if(usuario){
             guardService.setToken(usuario.token);
+            commentService.setToken(usuario.token);
             userService.getChatUser(usuario.id)
                 .then(initialGuards => {
                     setContacts(initialGuards.chats)
@@ -69,18 +72,21 @@ const PerfilGuard = ({ }) => {
     const handleHorarioinicioChange = ({target}) => setHorarioinicio(target.value)
     const handleHorariofinChange = ({target}) => setHorariofin(target.value)
 
+    const handleComentarioChange = ({target}) => setComentario(target.value)
+
     const changeDesc = () => {
         const guardd = guard.id
-        const changedGuard = { ...guardd, descripcion: descr }
+        const changedGuard = { guardd, descripcion: descr }
         guardService
             .putdesc(guard.id, changedGuard.descripcion)
             .then(returnedGuard => {
-            setGuards(returnedGuard)
+                setRating(0)
             })
             .catch(error => {
-            setTimeout(() => {
+                setTimeout(() => {
             }, 5000)   
             })
+           
     }
     
     const toggleDisponible = () => {
@@ -109,10 +115,10 @@ const PerfilGuard = ({ }) => {
         guardService
             .puthorario(guard.id, changedGuard1.horarioinicio, changedGuard2.horariofin)
             .then(returnedGuard => {
-            setGuards(returnedGuard)
+                setGuards(returnedGuard)
             })
             .catch(error => {
-            setTimeout(() => {
+                setTimeout(() => {
             }, 5000)   
             })
     }
@@ -131,6 +137,27 @@ const PerfilGuard = ({ }) => {
         }catch(e){
 
         }
+    }
+
+    const addComment = () => {
+        const guardd = guard.id
+        const userid = usuario.id
+        const changedGuard = {
+             from:userid,
+             to:guardd,
+             contenido: comentario,
+             valoracion: rating
+            }
+        commentService
+            .sendCommentRoute(changedGuard)
+            .then(returnedGuard => {
+                setGuards(returnedGuard)
+                })
+            .catch(error => {
+            setTimeout(() => {
+            }, 5000)   
+            })
+        alert("Comentario añadido")
     }
 
     var leng = comments.length
@@ -225,6 +252,18 @@ const PerfilGuard = ({ }) => {
                         />
                     }
                     </section>
+                    {
+                        usuario?
+
+                        //onClick={() => addComment()}
+                        <section>
+                            <Star size={"w-7 h-7"} rating={rating} setRating={setRating} />    
+                            <textarea name="contenido" id="contenido" cols="20" rows="5"  onChange={handleComentarioChange} >  </textarea> 
+                            <input type="button" value="Guardar" onClick={() => addComment()} />
+                            
+                        </section>:null
+                    }
+                    
                     {
                         
                         comments.map((comments, i) => //Buscar en comments

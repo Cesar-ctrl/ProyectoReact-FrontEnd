@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { io } from 'socket.io-client';
-import styled from 'styled-components';
 import guardService from '../../services/guards';
 import userService from '../../services/users';
 import ChatContainer from './ChatContainer';
@@ -73,7 +72,7 @@ export default function Chat() {
   return (
     <>
       {usuario?
-      <Container>
+      <section className='home chat'>
         <div className="container">
           <Contacts contacts={contacts} changeChat={handleChatChange} />
           {//Al entrar en el chat no estará abierto ninguna conversación así que mostrará una página de bienvenida
@@ -83,9 +82,9 @@ export default function Chat() {
             <ChatContainer currentChat={currentChat} socket={socket} />
           )}
         </div>
-      </Container>
+      </section>
       :guard?
-        <Container>
+        <section className='home chat'>
           <div className="container">
             <Contacts contacts={contacts} changeChat={handleChatChange} />
             {currentChat === undefined ? (
@@ -94,31 +93,10 @@ export default function Chat() {
               <ChatContainer currentChat={currentChat} socket={socket} />
             )}
           </div>
-        </Container>
+        </section>
       :<BotonRegistro />
       
       }
     </>
   );
 }
-
-const Container = styled.div`
-  height: 100vh;
-  width: 100vw;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 1rem;
-  align-items: center;
-  background-color: rgb(19 19 36 / 0%);
-  .container {
-    height: 85vh;
-    width: 85vw;
-    background-color: rgb(111 186 164 / 82%);
-    display: grid;
-    grid-template-columns: 25% 75%;
-    @media screen and (min-width: 720px) and (max-width: 1080px) {
-      grid-template-columns: 35% 65%;
-    }
-  }
-`;

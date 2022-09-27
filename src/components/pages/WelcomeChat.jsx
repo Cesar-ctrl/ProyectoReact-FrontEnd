@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import styled from "styled-components";
 
 
 export default function Welcome() {
@@ -26,7 +25,7 @@ export default function Welcome() {
     
   }, []);
   return (
-    <Container>
+    <div className="welcomechat">
         {
             newmode?
             <img src="https://babyguard.vercel.app/img/pepe-clown.gif" alt="" />
@@ -37,20 +36,7 @@ export default function Welcome() {
         Welcome, <span>{name}!</span>
       </h1>
       <h3>Please select a chat to Start messaging.</h3>
-    </Container>
+    </div>
   );
 }
 
-const Container = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: white;
-  flex-direction: column;
-  img {
-    height: 20rem;
-  }
-  span {
-    color: #4e0eff;
-  }
-`;

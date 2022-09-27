@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import styled from "styled-components";
 import guardService from '../../services/guards';
 import userService from '../../services/users';
 
@@ -40,11 +39,11 @@ export default function Contacts({ contacts, changeChat }) {
     };
 
   return (
-        <Container>
-          <div className="brand">
+        <div className="contactos">
+          <header className="brand">
             <img src='https://babyguard.vercel.app/img/Logo.png' alt="logo" />
             <h3>Babyguard</h3>
-          </div>
+          </header>
           <div className="contacts">
             {contacts.map((contact, index) => {
               return (
@@ -68,7 +67,7 @@ export default function Contacts({ contacts, changeChat }) {
               );
             })}
           </div>
-          <div className="current-user">
+          <footer className="current-user">
             <div className="avatar">
               <img
                 src={`https://damp-temple-29994.herokuapp.com/api/img/public/${currentUserImage}`}
@@ -78,95 +77,8 @@ export default function Contacts({ contacts, changeChat }) {
             <div className="name">
               <h2>{currentName}</h2>
             </div>
-          </div>
-        </Container>
+          </footer>
+        </div>
     )
 }
     
-
-const Container = styled.div`
-  display: grid;
-  grid-template-rows: 10% 75% 15%;
-  overflow: hidden;
-  background-color: rgb(23 99 96);
-  .brand {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    justify-content: center;
-    img {
-      height: 2rem;
-    }
-    h3 {
-      color: white;
-      text-transform: uppercase;
-    }
-  }
-  .contacts {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    overflow: auto;
-    gap: 0.8rem;
-    &::-webkit-scrollbar {
-      width: 0.2rem;
-      &-thumb {
-        background-color: #ffffff39;
-        width: 0.1rem;
-        border-radius: 1rem;
-      }
-    }
-    .contact {
-      background-color: rgb(56 179 195);
-      min-height: 5rem;
-      cursor: pointer;
-      width: 90%;
-      border-radius: 0.2rem;
-      padding: 0.4rem;
-      display: flex;
-      gap: 1rem;
-      align-items: center;
-      transition: 0.5s ease-in-out;
-      .avatar {
-        img {
-          height: 3rem;
-        }
-      }
-      .name {
-        h3 {
-          color: white;
-        }
-      }
-    }
-    .selected {
-      background-color: rgb(121 191 200);
-    }
-  }
-  .current-user {
-    background-color: rgb(13 135 131);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 2rem;
-    .avatar {
-      img {
-        height: 4rem;
-        max-inline-size: 100%;
-      }
-    }
-    .name {
-      h2 {
-        color: white;
-      }
-    }
-    @media screen and (min-width: 300px) and (max-width: 720px) {
-      gap: 0.5rem;
-      .name {
-        h2 {
-          font-size: 1rem;
-        }
-      }
-    }
-    
-  }
-`;
