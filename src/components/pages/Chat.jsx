@@ -11,6 +11,7 @@ import Welcome from './WelcomeChat';
 export default function Chat() {
   const navigate = useNavigate();
   const socket = useRef();
+  const [chatwidth, setChatwidth] = useState('');
   const [contacts, setContacts] = useState([]);
   const [currentChat, setCurrentChat] = useState(undefined);
   const [currentUser, setCurrentUser] = useState(undefined);
@@ -73,24 +74,24 @@ export default function Chat() {
     <>
       {usuario?
       <section className='home chat'>
-        <div className="container">
-          <Contacts contacts={contacts} changeChat={handleChatChange} />
+        <div className={"container "+chatwidth}>
+          <Contacts contacts={contacts} changeChat={handleChatChange} changeChatwidth={setChatwidth} />
           {//Al entrar en el chat no estará abierto ninguna conversación así que mostrará una página de bienvenida
           currentChat === undefined ? (
-            <Welcome />
+            <Welcome changeChatwidth={setChatwidth} />
           ) : (
-            <ChatContainer currentChat={currentChat} socket={socket} />
+            <ChatContainer currentChat={currentChat} socket={socket} changeChatwidth={setChatwidth} />
           )}
         </div>
       </section>
       :guard?
         <section className='home chat'>
-          <div className="container">
-            <Contacts contacts={contacts} changeChat={handleChatChange} />
+          <div className={"container "+chatwidth}>
+            <Contacts contacts={contacts} changeChat={handleChatChange} changeChatwidth={setChatwidth} />
             {currentChat === undefined ? (
-              <Welcome />
+              <Welcome changeChatwidth={setChatwidth} />
             ) : (
-              <ChatContainer currentChat={currentChat} socket={socket} />
+              <ChatContainer currentChat={currentChat} socket={socket} changeChatwidth={setChatwidth} />
             )}
           </div>
         </section>

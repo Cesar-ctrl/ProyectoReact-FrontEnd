@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import guardService from '../../services/guards';
 import userService from '../../services/users';
 
-export default function Contacts({ contacts, changeChat }) {
+export default function Contacts({ contacts, changeChat, changeChatwidth }) {
     const [currentName, setCurrentName] = useState(undefined);
     const [currentUserImage, setCurrentUserImage] = useState(undefined);
     const [currentSelected, setCurrentSelected] = useState(undefined);
@@ -36,6 +36,7 @@ export default function Contacts({ contacts, changeChat }) {
     const changeCurrentChat = (index, contact) => {
         setCurrentSelected(index);
         changeChat(contact);
+        changeChatwidth('')
     };
 
   return (
