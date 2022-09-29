@@ -242,7 +242,7 @@ const PerfilGuard = ({ }) => {
                     
                 </div>
                 <div className="flexea cuidador column notcenter">
-                    <h4>Valoraciones y reseñas</h4>
+                    <h4>Valoraciones</h4>
                     
                     <section className='flexea column notcenter'>
                     {
@@ -256,16 +256,17 @@ const PerfilGuard = ({ }) => {
                         usuario?
 
                         //onClick={() => addComment()}
-                        <section>
+                        <section style={{marginBottom: '2vh'}}>
+                            <h4>Escribe un comentario</h4>
                             <Star size={"w-7 h-7"} rating={rating} setRating={setRating} />    
                             <textarea name="contenido" id="contenido" cols="20" rows="5"  onChange={handleComentarioChange} >  </textarea> 
                             <input type="button" value="Guardar" onClick={() => addComment()} />
                             
                         </section>:null
                     }
+                    <h4>Reseñas</h4>
                     
                     {
-                        
                         comments.map((comments, i) => //Buscar en comments
                         <Comentario
                             key={i}
