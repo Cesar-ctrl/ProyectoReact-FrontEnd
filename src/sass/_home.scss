@@ -322,3 +322,19 @@ h2{
     transition: width 0.25s;
     border-radius: 5px;
 }
+
+.perfil{
+    margin-top: 7vh;
+    a{
+        padding-left:5vh;
+        margin-bottom: 2vh;
+    }
+
+    img:first-of-type{
+        margin-right: 1vh;
+    }
+    .salir{
+        margin-left:5vh;
+    }
+    
+}
