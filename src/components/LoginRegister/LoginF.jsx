@@ -43,15 +43,14 @@ export default function LoginF ({...props}) {
 
   return (
         <section className='pop absolute'>
-            <header>
-            </header>
             <section className='body background2 formlogin'>
-                <header>
+                <header className='headerformulario'>
                     <Link to="/" className='flexea atras negro' >
-                        <img src="../img/back-arrow.svg" alt="" className='reloj maspequenio'/>
-                        Atrás
+                        <img src="https://babyguard.vercel.app/img/back-arrow.svg" alt="" className='reloj maspequenio'/>
+                        
                     </Link>
                     <h2>Iniciar sesión en BabyGuard</h2>
+                    
                 </header>
                 <span className=''>
                     <Notification  message={errorMessage} />

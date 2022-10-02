@@ -134,8 +134,9 @@ if(info){
                 <header>
                 <Link to="/home/perfil" className='flexea atras negro'>
                         <img src="https://babyguard.vercel.app/img/back-arrow.svg" alt="" className='reloj pequenio'/>
-                        Atrás
+                       
                 </Link>
+                <h2>Actualiza niñera</h2>
                 </header>
                 <form action="" className='login' onSubmit={handleUpdate}>
                     <fieldset className='col-12'>

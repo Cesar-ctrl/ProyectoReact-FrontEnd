@@ -48,20 +48,23 @@ function startTime() {
 useEffect(() => {
  startTime() 
 }, [])
-
+/*
+Incluir Foto Nombre Horario Favorito en la tabla de búsqueda
+cambiar nombre Búsqueda por Búsqueda de niñeras (darle enfasis)
+Hacer mock-ups de lo que hace la app ej:
+Vas a Registro-> registra-> envia a nueva página
+*/
 
 return (
   <main className='container'>
     <section className='background1'  id="contenedor">
       <div className="flexea column notcenter">
-        <header className="header welcome">
-          <div className="floatright"> 
-            <h2 className='inicio-sesion '>
-              <Link to="/login" className='flexea atras blanco'>
-                Inicio Sesión
-              </Link>
-            </h2>
-          </div>
+        <header className="welcome flexea rowreverse">
+          <h2 className='inicio-sesion '>
+            <Link to="/login" className='flexea atras blanco'>
+              Inicio Sesión
+            </Link>
+          </h2>
         </header>
         <section className='flexea columncenter'>
           <div className='col-10'>
@@ -72,7 +75,7 @@ return (
           </div>
         </section>
         <section className='flexea columncenter'>
-          <div className='col-10'>
+          <div className='botones'>
             <ul className='slider'>
               <li id="slide1" className={`col-10 ${addClass? 'esco':null}`}   >
                 <h3  >¡NUEVA APP PARA EL CUIDADO DE TUS HIJOS!</h3>
@@ -102,14 +105,14 @@ return (
           </div>
         </section>
         <section className='flexea columncenter'>
-          <div className='col-11 flexea column'>
+          <div className='botones flexea column'>
 
             <Link to="/home/buscar">
-              <button className='encuentra'>Encuentra niñeras</button>
+              <button className='botonw encuentra'>Encuentra niñeras</button>
             </Link>
 
             <Link to="/register">
-              <button className='registro'>Regístrate</button>
+              <button className='botonw registro'>Regístrate</button>
             </Link>
             
           </div>

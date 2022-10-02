@@ -44,7 +44,7 @@ const Guard = ({ favs, guard, toggleFav }) => {
                 <Link to={"/home/buscar/guard/"+guard.id}
                 state={state}
                 >
-                    <h3>{guard.name} {guard.surnames}</h3>
+                    <h3>{guard.name}</h3>
                 </Link>
                 <div className="flexea roww">
                     {<StaticStar value={total?Math.round(total/lengt):'none'} />}

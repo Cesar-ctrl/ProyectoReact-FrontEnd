@@ -115,7 +115,7 @@ export default function ChatContainer({ currentChat, socket, changeChatwidth }) 
           guard?
           <>
             <div className='foto' onClick={()=>changeChatwidth('contacto')}>
-                  <img src="../img/back-arrow.svg" className='fotoestandar' alt="" />
+                  <img src="https://babyguard.vercel.app/img/back-arrow.svg" className='fotoestandar' alt="" />
             </div>
             <Link to={"/home/buscar/user/"+currentChat.id} params={{ userid:userid }}>
               <div className="user-details">
@@ -132,7 +132,7 @@ export default function ChatContainer({ currentChat, socket, changeChatwidth }) 
           :
           <>
             <div className='foto'onClick={()=>changeChatwidth('contacto')}>
-                <img src="../img/back-arrow.svg" className='fotoestandar' alt="" />
+                <img src="https://babyguard.vercel.app/img/back-arrow.svg" className='fotoestandar' alt="" />
             </div>
             <Link to={"/home/buscar/guard/"+currentChat.id}>
               <div className="user-details">

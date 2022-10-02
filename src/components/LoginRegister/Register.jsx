@@ -64,8 +64,8 @@ export default function RegisterF ({handleSubmit, ...props}) {
                 <header>
                 
                     <Link to="/" className='flexea atras negro'>
-                        <img src="../img/back-arrow.svg" alt="" className='reloj maspequenio'/>
-                        Inicio Sesión
+                        <img src="https://babyguard.vercel.app/img/back-arrow.svg" alt="" className='reloj maspequenio'/>
+                        
                     </Link>
                     <h2>Registrarse en BabyGuard</h2>
                 </header>           

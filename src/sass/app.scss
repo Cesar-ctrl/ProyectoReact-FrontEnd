@@ -75,6 +75,10 @@ a {
         align-items: center;
         justify-content: space-evenly;
     }
+    &.rowreverse{
+        flex-direction: row-reverse;
+        
+    }
     &.centertext{
         display:flex;
         align-items: center; 

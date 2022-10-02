@@ -77,7 +77,7 @@ if(info){
                 <header>
                     <Link to="/home/perfil" state={state} className='flexea atras negro'>
                         <img src="https://babyguard.vercel.app/img/back-arrow.svg" alt="" className='reloj pequenio'/>
-                        Atrás
+                        
                     </Link>
                     <h2>Información Personal</h2>
                 </header>           

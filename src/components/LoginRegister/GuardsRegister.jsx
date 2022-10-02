@@ -120,10 +120,10 @@ export default function GuardsRegister ({handleSubmit, ...props}) {
             <section className='body background2'>
                 <header>
                     <Link to="/" className='flexea atras negro' >
-                        <img src="../img/back-arrow.svg" alt="" className='reloj maspequenio'/>
-                        Atrás
+                        <img src="https://babyguard.vercel.app/img/back-arrow.svg" alt="" className='reloj maspequenio'/>
+                        
                     </Link>
-                    <h2>Registrarse como cuidador</h2>
+                    <h2>Registro de cuidadores</h2>
                 </header>
                 <form action="" className='login' onSubmit={handleRegister}>
                     <fieldset className='col-12'>

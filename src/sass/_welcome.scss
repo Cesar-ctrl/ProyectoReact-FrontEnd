@@ -124,13 +124,14 @@ $line-height-base: 1.6;
 .header {
     padding: 15px;
 }
-.floatright{
-    float: right;
-}
+
 .welcome{
-    float:right;
-    color:white;
+    padding: {
+        top:15px;
+        right: 15px;
+    } 
 }
+
 @font-face {
     font-family: "Comfortaa";
     src: url("../fonts/Comfortaa-VariableFont_wght.ttf");
@@ -158,10 +159,14 @@ input[type="checkbox"]{
 button.encuentra{
     border: 1px solid rgb(49, 153, 181);
     background-color:rgb(49, 153, 181) ;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
 }
 button.registro{
     border: 1px solid white;
     background-color: rgb(185 185 185 / 0%);
+    border-top-right-radius: 0;
+    border-top-left-radius: 0;
 }
 h1.titulo{
     font-family: 'Comfortaa';
@@ -171,10 +176,10 @@ h1.titulo{
 
 
 .inicio-sesion{
-    font-family: 'Comfortaa';
+    padding: 15px;
     font-size: 15px;
-    text-decoration-line: underline;
-    color: #FFFFFF;
+    background-color: rgb(49, 153, 181);
+    border-radius: 5px;
 }
 
 ul, li {
@@ -183,6 +188,7 @@ ul, li {
     list-style: none;
 }
 ul.slider{
+    padding: 15px;
     position: relative;
     height: 280px;
     li {
@@ -215,6 +221,14 @@ ul.slider  {
     }
     
 }
+#slide1+#slide2+#slide3{
+    padding-bottom: 0;
+}
+li{
+    p:first-of-type{
+        margin-bottom: 0;
+    }
+}
 
 li#slide1.col-9.esco {
     opacity: 0; 
@@ -246,6 +260,32 @@ li#slide1.col-9.esco {
           
       }
 }
+
+.botones{
+    padding: 15px;
+    width:75.66% ;
+    @include movileS(){
+        width: 85.66%;
+    }
+    @include movileM(){
+        width: 73.66%;;
+    }
+    @include movile(){
+        width:73.66%;
+    }
+    @include tablet(){
+        width:63.66%;
+    }
+    @include desktop(){
+        width:43.66%;
+    }
+}
+.botonw{
+    height: 5vh;
+    border-radius: 5px;
+}
+
+
 /*
 .menu li a:active{
     display: inline-block;

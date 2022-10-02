@@ -55,10 +55,10 @@ export default function LoginF () {
             <section className='body background2 formlogin'>
                 <header>
                     <Link to="/"  className='flexea atras negro'>
-                        <img src="../img/back-arrow.svg" alt="" className='reloj maspequenio'/>
-                        Atrás
+                        <img src="https://babyguard.vercel.app/img/back-arrow.svg" alt="" className='reloj maspequenio'/>
+                        
                     </Link>
-                    <h2>Iniciar sesión como cuidador</h2>
+                    <h2>Inicio sesión de cuidador</h2>
                 </header>
                 <span className=''>
                     <Notification  message={errorMessage} />
