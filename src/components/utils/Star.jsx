@@ -32,7 +32,7 @@ function RatingIcon(props) {
         }, [rating, hoverRating, index, size.size]);
     return (
             <div 
-            className="cursor-pointer"
+            className="cursor-pointer pointer"
             onMouseEnter={() => onMouseEnter(index)} 
             onMouseLeave={() => onMouseLeave()} 
             onClick={() => onSaveRating(index)}>

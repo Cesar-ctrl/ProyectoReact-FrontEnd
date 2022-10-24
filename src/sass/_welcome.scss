@@ -139,6 +139,10 @@ $line-height-base: 1.6;
 h3{
     margin: 0px;
 }
+h3.br{
+    margin-top: 20px;
+}
+
 
 a, input, textarea{
     width: 100%;
@@ -175,11 +179,24 @@ h1.titulo{
 }
 
 
-.inicio-sesion{
+.boton-azul{
+    width: auto;
     padding: 15px;
     font-size: 15px;
     background-color: rgb(49, 153, 181);
     border-radius: 5px;
+    cursor:pointer;
+}
+.no-disponible{
+    background-color: rgb(255, 60, 0);
+    cursor:not-allowed;
+}
+.blanco{
+    color: white;
+  } 
+
+.pointer{
+    cursor:pointer;
 }
 
 ul, li {

@@ -60,7 +60,7 @@ return (
     <section className='background1'  id="contenedor">
       <div className="flexea column notcenter">
         <header className="welcome flexea rowreverse">
-          <h2 className='inicio-sesion '>
+          <h2 className='boton-azul '>
             <Link to="/login" className='flexea atras blanco'>
               Inicio Sesión
             </Link>

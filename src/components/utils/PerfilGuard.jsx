@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import guardService from '../../services/guards';
 import userService from '../../services/users';
 import commentService from '../../services/comments';
+import solicitudesService from '../../services/solicitudes';
 import Star from './Star';
 import Comentario from './Comentario';
 import Puntuacion from './Puntuacion';
@@ -222,19 +223,20 @@ const PerfilGuard = ({ }) => {
                             </tbody>
                         </table>
                     </div>
+                    
+                </div>
+                <div className='cuidador flexea wrap'>
+                    {guard.disponible?
+                        <button className='boton-azul blanco'>Contratar</button>:
+                        <a className='boton-azul no-disponible blanco'>No disponible</a>
+                    }
+                    
                     {
                        usuario?
-                       
-                        <div className='horadisp flexea column'>
-                            {
-                                usuario?
-                                <img src="https://babyguard.vercel.app/img/Chat.png" className  ="reloj" alt="" onClick={() => handleChat(guard.id)} />
-                                :
-                                <img src="https://babyguard.vercel.app/img/Chat.png" className  ="reloj" alt="" />
-                            }
-                            <h3>Chatear</h3>
-                        </div>
-                    
+                            <div className='pointer flexea column' onClick={() => handleChat(guard.id)}>                           
+                                <img src="https://babyguard.vercel.app/img/Chat.png" className  ="reloj" alt=""  />
+                                <h3>Chatear</h3>
+                            </div>
                      : guardian? guardian.id==guard.id?
                        <button onClick={toggleDisponible}>{label}</button>
                        : null:null
