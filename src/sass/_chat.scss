@@ -4,25 +4,25 @@
     width: 100vw;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     gap: 1rem;
     align-items: center;
     background-color: rgb(19 19 36 / 0%);
     .container{
-        height: 85vh;
+        height: 79vh;
         width: 85vw;
         background-color: rgba(65, 152, 126, 0.82);
         display: grid;
         grid-template-columns: 25% 75%;
         transform: grid-template-columns 0.5s ease;
         border-radius: 20px;
+        transform: width 0.5s ease-out;
         @media screen and (min-width: 100px) and (max-width: 768px) {
             display: flex;
-            justify-content: center;
             //Hay que poner un 10% 90% para añadir el botón
             }
         @media screen and (min-width: 768px) and (max-width: 1080px) {
-        grid-template-columns: 35% 65%;
+            grid-template-columns: 35% 65%;
+            height: 74vh;
         }
     }
     
@@ -42,12 +42,36 @@
     }
 }
 
-.container.contacto .contactos {
-    width: 100%;
+.container.chatt .contactos {
+    
+    @media screen and (min-width: 100px) and (max-width: 768px) {
+        width: 0; 
+        transform: width 0.5s ease-out;
+    }
+
 }
 
+.container.contacto .contactos {
+    
+    @media screen and (min-width: 100px) and (max-width: 768px) {
+        width: 100%; 
+        transform: width 0.5s ease-out;
+    }
+
+}
+
+
+.container.chatt .chatcontainer{
+    @media screen and (min-width: 100px) and (max-width: 768px) {
+        width: 100%;
+        transform: width 0.5s ease-out;
+    }
+}
 .container.contacto .chatcontainer{
-    width: 0;
+    @media screen and (min-width: 100px) and (max-width: 768px) {
+        width: 0;
+        transform: width 0.5s ease-out;
+    }
 }
 
 .contactos{
@@ -60,7 +84,7 @@
 
     @media screen and (min-width: 100px) and (max-width: 768px) {
         height: 100%; /* 100% Full-height */
-        width: 0; /*Hacer que cambie de 0 a 100%
+        width: 100%; /*Hacer que cambie de 0 a 100%
         //position: fixed; /* Stay in place */
         //z-index: 1; /* Stay on top */
         //top: 0;
@@ -98,10 +122,11 @@
         }
         .contact {
             background-color: rgb(56 179 195);
+            box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
             min-height: 5rem;
             cursor: pointer;
             width: 90%;
-            border-radius: 0.2rem;
+            border-radius: 15px;
             padding: 0.4rem;
             display: flex;
             gap: 1rem;
@@ -111,6 +136,7 @@
             .avatar {
                 img {
                     height: 3rem;
+                    border-radius: 30px;
                 }
             }
             .name {
@@ -133,6 +159,7 @@
             img {
                 height: 4rem;
                 max-inline-size: 100%;
+                border-radius: 30px;
             }
         }
         .name {
@@ -153,7 +180,7 @@
 
 .chatcontainer{
     display: grid;
-    grid-template-rows: 10% 80% 10%;
+    grid-template-rows: 15% 70% 15%;
     gap: 0.1rem;
     overflow: hidden;
     border-radius: 20px;
@@ -182,6 +209,7 @@
         .avatar {
             img {
                 height: 4rem;
+                border-radius: 30px;
             }
         }
         .username {

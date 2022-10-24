@@ -70,7 +70,7 @@ const Busqueda = () => {
       <section className="home busqueda">
         <header className='titulo main'>
 
-            <h2>Búsqueda</h2>
+            <h2>Listado de cuidadores</h2>
 
         </header>
         <section className='buscador'>

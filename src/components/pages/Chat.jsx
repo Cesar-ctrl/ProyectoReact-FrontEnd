@@ -21,16 +21,14 @@ export default function Chat() {
   const guard = JSON.parse(loggeGuardJSON)
   
   useEffect(() => { //Comprobamos si el que está logeado es un usuario o una niñera
-    if (!(localStorage.getItem("loggedNoteAppUser") || localStorage.getItem("loggedNoteAppGuard"))) {
-      navigate("/login");
-    } else {
+    
       if(localStorage.getItem("loggedNoteAppUser")){
         setCurrentUser(
            JSON.parse(
             localStorage.getItem("loggedNoteAppUser")
           )
         );
-      }else{
+      }if(localStorage.getItem("loggedNoteAppGuard")){
         setCurrentUser(
            JSON.parse(
             localStorage.getItem("loggedNoteAppGuard")
@@ -38,13 +36,13 @@ export default function Chat() {
         );
       }
       
-    }
+    
   }, []);
   useEffect(() => { //utilizamos socket para que los mensajes se envien y reciban de forma dinamica sin tener que recargar la página
     if (currentUser) {
-      // cambiar a https://damp-temple-29994.herokuapp.com Si se quiere probar en local 
+      // cambiar a http://localhost:3001 Si se quiere probar en local 
       // Y en el servidor tambén pondré un comentario de que cambiar para que funcione en local 
-      socket.current = io('http://localhost:3001');
+      socket.current = io('https://damp-temple-29994.herokuapp.com');
       socket.current.emit("add-user", currentUser.id);
     }
   }, [currentUser]);
@@ -74,6 +72,9 @@ export default function Chat() {
     <>
       {usuario?
       <section className='home chat'>
+        <header className='titulo main'>
+            <h2>Chat</h2>
+        </header>
         <div className={"container "+chatwidth}>
           <Contacts contacts={contacts} changeChat={handleChatChange} changeChatwidth={setChatwidth} />
           {//Al entrar en el chat no estará abierto ninguna conversación así que mostrará una página de bienvenida
@@ -86,6 +87,9 @@ export default function Chat() {
       </section>
       :guard?
         <section className='home chat'>
+          <header className='titulo main' id='chat' >
+            <h2>Chat</h2>
+        </header>
           <div className={"container "+chatwidth}>
             <Contacts contacts={contacts} changeChat={handleChatChange} changeChatwidth={setChatwidth} />
             {currentChat === undefined ? (
@@ -95,7 +99,13 @@ export default function Chat() {
             )}
           </div>
         </section>
-      :<BotonRegistro />
+      :
+      <section>
+        <header className='titulo main'>
+            <h2>Chat</h2>
+        </header>
+        <BotonRegistro />
+      </section>
       
       }
     </>

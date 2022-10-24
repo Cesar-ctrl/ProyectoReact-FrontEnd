@@ -31,32 +31,38 @@ const Guard = ({ favs, guard, toggleFav }) => {
   return (
     
     <div className={guard.disponible ? 'cuidador flexea roww' : 'cuidador flexea roww indispuesto'}>
-        <div className='foto'>
-            {
-                newmode?<img src="../img/pepe-clown.gif" className='fotoestandar' alt="" /> :
-                <img src={"https://damp-temple-29994.herokuapp.com/api/img/public/"+guard.imgUrl} className='fotoestandar' alt="" />
-            }
-            
-        </div>
-        
-        <div>
-            <div className='nombreval flexea column'>
-                <Link to={"/home/buscar/guard/"+guard.id}
+        <Link to={"/home/buscar/guard/"+guard.id}
                 state={state}
+                className="flexea roww negro"
                 >
-                    <h3>{guard.name}</h3>
-                </Link>
-                <div className="flexea roww">
-                    {<StaticStar value={total?Math.round(total/lengt):'none'} />}
+            <div className='foto'>
+                
+                {
+                    newmode?<img src="../img/pepe-clown.gif" className='fotoestandar' alt="" /> :
+                    <img src={"https://damp-temple-29994.herokuapp.com/api/img/public/"+guard.imgUrl} className='fotoestandar' alt="" />
+                }
+                
+            </div>
+            
+            <div>
+                <div className='nombreval flexea column'>
+                    <Link to={"/home/buscar/guard/"+guard.id}
+                    state={state}
+                    >
+                        <h3>{guard.name}</h3>
+                    </Link>
+                    <div className="flexea roww">
+                        {<StaticStar value={total?Math.round(total/lengt):'none'} />}
 
-                    <h3>{total?Math.round(total/lengt*10)/10:0}</h3>
+                        <h3>{total?Math.round(total/lengt*10)/10:0}</h3>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div className='horadisp flexea column'>
-            <img src="../img/reloj-pequenio.png" className="reloj pequenio" alt="" />
-            <h3>{guard.horarioinicio}-{guard.horariofin}</h3>
-        </div>
+            <div className='horadisp flexea column'>
+                <img src="../img/reloj-pequenio.png" className="reloj pequenio" alt="" />
+                <h3>{guard.horarioinicio}-{guard.horariofin}</h3>
+            </div>
+        </Link>
         <div className='box flex' onClick={toggleFav}>{resultado}</div>
     </div>
     
