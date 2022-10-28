@@ -28,6 +28,7 @@ const PerfilGuard = ({ }) => {
     const navigate = useNavigate();
     const [rating, setRating] = React.useState(0);
     const [comentario, setComentario] = useState('')
+    const [solicitado, setSolicitado] = useState(false)
     
     const label = guard.disponible
     ? 'Make Not available'
@@ -49,6 +50,7 @@ const PerfilGuard = ({ }) => {
         }if(guardian){
             guardService.setToken(guardian.token)
         }
+        
         guardService.getGuard(arr[4])
             .then(initialGuards => {
                 setGuards(initialGuards)
@@ -63,6 +65,19 @@ const PerfilGuard = ({ }) => {
             .then(initialGuards => {
                 setComments(initialGuards)//Cambiar, hacer un setcomments 
             }) 
+        const bodySolicitud = { 
+            user: usuario.id,
+            guard:guard.id
+        }
+        solicitudesService.yaSolicitado(bodySolicitud)
+            .then(res => {
+                console.log(res)
+                if(res.length == 0){
+                    setSolicitado(false)
+                }else{
+                    setSolicitado(true)
+                }
+            })
     }, [guard.name])
 
 
@@ -161,6 +176,38 @@ const PerfilGuard = ({ }) => {
         alert("Comentario añadido")
     }
 
+    const sendSolicitud = () => {
+        const bodySolicitud = { 
+            user: usuario.id,
+            guard:Id
+        }
+        solicitudesService
+            .postSolicitud(bodySolicitud)
+            .then(returned => {
+                console.log(returned)
+            })
+            .catch(error => {
+            setTimeout(() => {
+            }, 5000)   
+            })
+    }
+
+    const reciveSolicitudes = () => {
+        const bodySolicitud = { 
+            user: usuario.id,
+            guard:Id
+        }
+        solicitudesService
+            .getHistorySolicitudes(bodySolicitud)
+            .then(returned => {
+                console.log(returned)
+            })
+            .catch(error => {
+            setTimeout(() => {
+            }, 5000)   
+            })
+    }
+
     var leng = comments.length
     if(guard.dias){
         
@@ -227,8 +274,9 @@ const PerfilGuard = ({ }) => {
                 </div>
                 <div className='cuidador flexea wrap'>
                     {guard.disponible?
-                        <button className='boton-azul blanco'>Contratar</button>:
-                        <a className='boton-azul no-disponible blanco'>No disponible</a>
+                        solicitado?<button className='boton-azul blanco indispuesto' >Ya solicitado</button>
+                        :<button className='boton-azul blanco' onClick={() => reciveSolicitudes()}>Solicitar</button>
+                        :<a className='boton-azul no-disponible blanco'>No disponible</a>
                     }
                     
                     {

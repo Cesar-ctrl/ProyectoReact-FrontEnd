@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const baseUrl = 'https://damp-temple-29994.herokuapp.com/api/solicitudes'
+const baseUrl = 'http://localhost:3001/api/solicitudes/'
 
 let token = null
 
@@ -8,20 +8,36 @@ const setToken = newToken => {
     token = `Bearer ${newToken}`
   }
 
-const sendSolicitudRoute = async credentials => {
-const config = {
+const postSolicitud = async (body) => {
+    const config = {
         headers: {
             Authorization: token
         }
     }
-    const { data } = await axios.post(`${baseUrl}/`, credentials, config)
+    const { data } = await axios.post(`${baseUrl}/send`, body, config)
     return data
+}
+
+const yaSolicitado = async (body) => {
+  const config = {
+      headers: {
+          Authorization: token
+      }
+  }
+  const { data } = await axios.post(`${baseUrl}/solicitado`, body, config)
+  return data
 }
 
 const getSolicitudes = (id) => {
     const request = axios.get(`${baseUrl}/${id}`)
     request.then(response => response.data)
     return request.then(response => response.data)
+}
+
+const getHistorySolicitudes = (id) => {
+  const request = axios.get(`${baseUrl}/history/${id}`)
+  request.then(response => response.data)
+  return request.then(response => response.data)
 }
 
 //Este sirve para cambiar la descripción del cuidador
@@ -38,4 +54,15 @@ const putSolicitudes = (id, aprob) => {
     return request.then(response => response.data)
 }
 
-export default { setToken, sendSolicitudRoute, getSolicitudes, putSolicitudes }
+const deleteSolicitudes = (id) => {
+  const config = {
+    headers: {
+    Authorization: token
+    }
+  } 
+  const request = axios.delete(`${baseUrl}/${id}`, config)
+  return request.then(response => response.data)
+}
+
+
+export default { setToken, postSolicitud, yaSolicitado, getSolicitudes, getHistorySolicitudes, putSolicitudes, deleteSolicitudes }
