@@ -152,7 +152,7 @@ a {
         width: $size2 * 0.8;
         height: $size2 * 0.8;
     }
-    @media only screen and (min-width: 455px){
+    @include movile(){
         width: $size2;
         height: $size2;
     }

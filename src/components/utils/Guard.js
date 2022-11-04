@@ -46,11 +46,9 @@ const Guard = ({ favs, guard, toggleFav }) => {
             
             <div>
                 <div className='nombreval flexea column'>
-                    <Link to={"/home/buscar/guard/"+guard.id}
-                    state={state}
-                    >
-                        <h3>{guard.name}</h3>
-                    </Link>
+                    
+                    <h3>{guard.name}</h3>
+                    
                     <div className="flexea roww">
                         {<StaticStar value={total?Math.round(total/lengt):'none'} />}
 

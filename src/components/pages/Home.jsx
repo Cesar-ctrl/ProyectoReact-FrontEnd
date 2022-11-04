@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Routes,  Route,  Link, useLocation  } from "react-router-dom";
 import Busqueda from './Busqueda';
 import Favoritos from './Favoritos';
+import Solicitudes from './Solicitudes';
 import Chat from './Chat';
 import Child from './Child';
 import Miperfil from './Miperfil';
@@ -9,6 +10,7 @@ import ChildRegister from '../LoginRegister/ChildRegister';
 import ChildUpdate from '../InfoUpdate/ChildUpdate';
 import childService from '../../services/childs';
 import userService from '../../services/users';
+import guardService from '../../services/guards';
 import PerfilGuard from '../utils/PerfilGuard';
 import Ajustes from './Ajustes';
 import UserUpdate from '../InfoUpdate/UserUpdate';
@@ -24,6 +26,7 @@ function Home() {
     const state = location.state;
     // Declaración de variables de estado
     const [user, setUser] = useState(null)
+    const [guard, setGuard] = useState(null)
     const [container, setContainer] = useState('container')
     //usamos useEffect para ejecutar tareas secundarias como declarar los token en los services 
     useEffect(() => {
@@ -34,6 +37,13 @@ function Home() {
           userService.setToken(user.token)
           childService.setToken(user.token)
         }  
+        const loggGuardJSON = window.localStorage.getItem('loggedNoteAppGuard')
+        if (loggGuardJSON) {
+            const guardian = JSON.parse(loggGuardJSON)
+            setGuard(guardian)
+            guardService.setToken(guardian.token)
+          }  
+        
       }, [])
 
     //Esto es un Easteregg
@@ -51,6 +61,7 @@ function Home() {
             <Routes>
                 <Route path="/buscar" element={ <Busqueda />} />
                 <Route path="/favoritos" element={ <Favoritos /> }  />
+                <Route path="/solicitudes" element={ <Solicitudes /> }  />
                 <Route path="/chat" element={ <Chat /> }  />
                 <Route path="/child" element={ <Child /> } />
                 <Route path="/child/signup" element={ <ChildRegister 
@@ -72,10 +83,19 @@ function Home() {
                     <img src="https://babyguard.vercel.app/img/lupa.svg" alt="" className='icono'/>
                     Buscar
                 </Link>
+                {guard?
+                <Link className="nav footer" to="/home/solicitudes" state={state}>
+                    <img src="https://babyguard.vercel.app/img/Light_green_check.svg" alt="" className='icono'/>
+                    Solicitud
+                </Link>
+                :
                 <Link className="nav footer" to="/home/favoritos" state={state}>
                     <img src="https://babyguard.vercel.app/img/estrella.svg" alt="" className='icono'/>
                     Favoritos
                 </Link>
+
+                }
+                
                 <Link className="nav footer" to="/home/chat" state={state}>
                     <img src="https://babyguard.vercel.app/img/mensaje.svg" alt="" className='icono'/>
                     Chat

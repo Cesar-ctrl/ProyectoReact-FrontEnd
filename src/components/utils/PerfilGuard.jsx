@@ -46,7 +46,19 @@ const PerfilGuard = ({ }) => {
                 .then(initialGuards => {
                     setContacts(initialGuards.chats)
                 })
-            
+            const bodySolicitud = { 
+                user: usuario.id,
+                guard:guard.id
+            }
+            solicitudesService.yaSolicitado(bodySolicitud)
+                .then(res => {
+                    console.log(res)
+                    if(res.length == 0){
+                        setSolicitado(false)
+                    }else{
+                        setSolicitado(true)
+                    }
+                })
         }if(guardian){
             guardService.setToken(guardian.token)
         }
@@ -65,19 +77,7 @@ const PerfilGuard = ({ }) => {
             .then(initialGuards => {
                 setComments(initialGuards)//Cambiar, hacer un setcomments 
             }) 
-        const bodySolicitud = { 
-            user: usuario.id,
-            guard:guard.id
-        }
-        solicitudesService.yaSolicitado(bodySolicitud)
-            .then(res => {
-                console.log(res)
-                if(res.length == 0){
-                    setSolicitado(false)
-                }else{
-                    setSolicitado(true)
-                }
-            })
+        
     }, [guard.name])
 
 
@@ -273,10 +273,13 @@ const PerfilGuard = ({ }) => {
                     
                 </div>
                 <div className='cuidador flexea wrap'>
-                    {guard.disponible?
+                    {
+                    guard.disponible?
+                        usuario?
                         solicitado?<button className='boton-azul blanco indispuesto' >Ya solicitado</button>
                         :<button className='boton-azul blanco' onClick={() => reciveSolicitudes()}>Solicitar</button>
                         :<a className='boton-azul no-disponible blanco'>No disponible</a>
+                        :<a className='boton-azul no-disponible blanco'>Registrese para solicitar</a>
                     }
                     
                     {

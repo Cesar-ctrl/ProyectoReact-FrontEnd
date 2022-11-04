@@ -3,12 +3,13 @@
     bottom: 0;
     left: 0;
     right: 0;
-    height: 6vh;
+    height: 7vh;
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
     align-items: center;
-    background-color: rgb(186 255 250 / 37%);
+    background-color: rgb(186 255 250 / 80%);
+    padding: 3px;
     @include tablet(){
         top: 0;
         height: 10vh;
@@ -38,9 +39,23 @@
 .footer {
     align-items: center;
     color: black;
+    font-weight: bold;
     .icono{
         width: 20px;
         height: 20px;
+    }
+    font-size: 5vw;
+    @include movileS(){
+        font-size: 13px;
+    }
+    @include movileM(){
+        font-size: 14px;
+    }
+    @include movile(){
+        font-size: 15px;
+    }
+    @include tablet(){
+        font-size: 20px;
     }
 }
 .estrella{
@@ -265,9 +280,15 @@ h2{
     }
     &.deperfil{
         background: rgba(127, 210, 195, 0.46);
-        height: 80vh;
+        height: 78vh;
+        @include movileS(){
+            height: 76vh;
+        }
+        @include movileM(){
+            height: 74vh;
+        }
         @include movile(){
-            height: 78vh;
+            height: 72vh;
         }
         @include tablet(){
             height: 72vh;

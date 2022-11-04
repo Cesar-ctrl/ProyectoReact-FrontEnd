@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const baseUrl = 'http://localhost:3001/api/solicitudes/'
+const baseUrl = 'http://localhost:3001/api/solicitudes'
 
 let token = null
 
@@ -28,10 +28,9 @@ const yaSolicitado = async (body) => {
   return data
 }
 
-const getSolicitudes = (id) => {
-    const request = axios.get(`${baseUrl}/${id}`)
-    request.then(response => response.data)
-    return request.then(response => response.data)
+const getSolicitudes = async (id) => {
+    const { data } = await axios.get(`${baseUrl}/${id}`)
+    return data
 }
 
 const getHistorySolicitudes = (id) => {
@@ -41,27 +40,28 @@ const getHistorySolicitudes = (id) => {
 }
 
 //Este sirve para cambiar la descripción del cuidador
-const putSolicitudes = (id, aprob) => {
-    const config = {
+const putSolicitudes = (id, aprob, user) => {
+  const config = {
       headers: {
       Authorization: token
       }
     } 
     const descripcion = {
-      aprobado:aprob
+      aprobado:aprob,
+      user:user
     }
     const request = axios.put(`${baseUrl}/${id}`, descripcion, config)
     return request.then(response => response.data)
 }
 
-const deleteSolicitudes = (id) => {
+const deleteSolicitudes = async (id) => {
   const config = {
     headers: {
     Authorization: token
     }
   } 
-  const request = axios.delete(`${baseUrl}/${id}`, config)
-  return request.then(response => response.data)
+  const { data } = await axios.delete(`${baseUrl}/${id}`, config)
+  return data
 }
 
 
