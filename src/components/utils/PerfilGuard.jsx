@@ -34,6 +34,10 @@ const PerfilGuard = ({ }) => {
     ? 'Make Not available'
     : 'Make available';
 
+    const solicitadohtml = solicitado?
+    <button className='boton-azul blanco indispuesto' >Ya solicitado</button>
+    :<button className='boton-azul blanco' onClick={() => sendSolicitud()}>Solicitar</button>
+
 
     useEffect(() => {
         const path = window.location.pathname
@@ -176,6 +180,7 @@ const PerfilGuard = ({ }) => {
         alert("Comentario añadido")
     }
 
+    
     const sendSolicitud = () => {
         const bodySolicitud = { 
             user: usuario.id,
@@ -190,6 +195,7 @@ const PerfilGuard = ({ }) => {
             setTimeout(() => {
             }, 5000)   
             })
+        setSolicitado(true)
     }
 
     const reciveSolicitudes = () => {
@@ -198,7 +204,7 @@ const PerfilGuard = ({ }) => {
             guard:Id
         }
         solicitudesService
-            .getHistorySolicitudes(bodySolicitud)
+            .getHistorySolicitudes(Id)
             .then(returned => {
                 console.log(returned)
             })
@@ -276,8 +282,7 @@ const PerfilGuard = ({ }) => {
                     {
                     guard.disponible?
                         usuario?
-                        solicitado?<button className='boton-azul blanco indispuesto' >Ya solicitado</button>
-                        :<button className='boton-azul blanco' onClick={() => reciveSolicitudes()}>Solicitar</button>
+                        solicitadohtml
                         :<a className='boton-azul no-disponible blanco'>No disponible</a>
                         :<a className='boton-azul no-disponible blanco'>Registrese para solicitar</a>
                     }

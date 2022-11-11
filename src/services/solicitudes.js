@@ -40,7 +40,7 @@ const getHistorySolicitudes = (id) => {
 }
 
 //Este sirve para cambiar la descripción del cuidador
-const putSolicitudes = (id, aprob, user) => {
+const putSolicitudes = (id, aprob, user, guard) => {
   const config = {
       headers: {
       Authorization: token
@@ -48,8 +48,11 @@ const putSolicitudes = (id, aprob, user) => {
     } 
     const descripcion = {
       aprobado:aprob,
-      user:user
+      user:user,
+      guard:guard
     }
+    console.log(id)
+    console.log(descripcion)
     const request = axios.put(`${baseUrl}/${id}`, descripcion, config)
     return request.then(response => response.data)
 }

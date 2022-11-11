@@ -25,10 +25,10 @@ const Solicitudes = ({}) =>{
     },[])
 
 
-    const rechazarSolicitud = async (idSolicitud, userid) => {
+    const rechazarSolicitud = async (idSolicitud, userid,) => {
         console.log(solicitudes)
         solicitudesService
-            .putSolicitudes(idSolicitud, false, userid)
+            .putSolicitudes(idSolicitud, false, userid, guardian.id)
             .then(res => {
                 console.log(res)
             })
@@ -50,7 +50,7 @@ const Solicitudes = ({}) =>{
     }
     const aceptarSolicitud = (idSolicitud, userid) => {
         solicitudesService
-            .putSolicitudes(idSolicitud, true, userid)
+            .putSolicitudes(idSolicitud, true, userid, guardian.id)
             .then(response => {
                 setSolicitudes(response)
             })
@@ -74,6 +74,7 @@ const Solicitudes = ({}) =>{
                     {
                     
                     solicitudes.map((solicit, i) => 
+                        solicit.aprobado? null:
                         <Solicitud
                             key={i}
                             solicitud={solicit}
