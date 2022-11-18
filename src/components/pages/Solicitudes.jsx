@@ -48,7 +48,7 @@ const Solicitudes = ({}) =>{
             }, 5000)   
             })
     }
-    const aceptarSolicitud = (idSolicitud, userid) => {
+    const aceptarSolicitud = async (idSolicitud, userid) => {
         solicitudesService
             .putSolicitudes(idSolicitud, true, userid, guardian.id)
             .then(response => {
@@ -58,6 +58,7 @@ const Solicitudes = ({}) =>{
             setTimeout(() => {
             }, 5000)   
             })
+
     }
     
     return(

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
 import { v4 as uuidv4 } from "uuid";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import ChatInput from "./ChatInput";
 import messageService from '../../services/messages';
 
@@ -14,6 +14,8 @@ export default function ChatContainer({ currentChat, socket, changeChatwidth }) 
     const usuario = JSON.parse(loggeUserJSON)
     const loggeGuardJSON = window.localStorage.getItem('loggedNoteAppGuard')
     const guard = JSON.parse(loggeGuardJSON)
+    const location = useLocation();
+    const state = location.state;
 
     //Aquí es donde se van a ver los mensajes, tambien donde va a actuar el socket
     useEffect(() => {
@@ -117,25 +119,28 @@ export default function ChatContainer({ currentChat, socket, changeChatwidth }) 
             <div className='foto' onClick={()=>changeChatwidth('contacto')}>
                   <img src="https://babyguard.vercel.app/img/back-arrow.svg" className='fotoestandar' alt="" />
             </div>
-            <Link to={"/home/buscar/user/"+currentChat.id} params={{ userid:userid }}>
-              <div className="user-details">
-                <div className="avatar">
-                  <img
-                    src={`https://damp-temple-29994.herokuapp.com/api/img/public/${currentChat.imgUrl}`} alt=""/>
-                </div>
-                <div className="username">
-                  <h3>{currentChat.name}</h3>
-                </div>
+            
+              <div className="user-header">
+                <Link to={"/home/buscar/user/"+currentChat.id} params={{ userid:userid }} state={state} className="user-details">
+                  <div className="avatar">
+                    <img
+                      src={`https://damp-temple-29994.herokuapp.com/api/img/public/${currentChat.imgUrl}`} alt=""/>
+                  </div>
+                  <div className="username">
+                    <h3>{currentChat.name}</h3>
+                  </div>
+                </Link>
               </div>
-            </Link>
+           
           </>
           :
           <>
             <div className='foto'onClick={()=>changeChatwidth('contacto')}>
                 <img src="https://babyguard.vercel.app/img/back-arrow.svg" className='fotoestandar' alt="" />
             </div>
-            <Link to={"/home/buscar/guard/"+currentChat.id}>
-              <div className="user-details">
+            
+              <div className="user-header">
+              <Link to={"/home/buscar/guard/"+currentChat.id} className="user-details" state={state}>
                 <div className="avatar">
                   <img
                     src={`https://damp-temple-29994.herokuapp.com/api/img/public/${currentChat.imgUrl}`} alt=""/>
@@ -143,8 +148,9 @@ export default function ChatContainer({ currentChat, socket, changeChatwidth }) 
                 <div className="username">
                   <h3>{currentChat.name}</h3>
                 </div>
+                </Link>
               </div>
-            </Link>
+            
           </>
         }
         

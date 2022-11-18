@@ -60,6 +60,11 @@ const getUser = (id) => {
   return request.then(response => response.data)
   }
 
+const getchildsUser = (id) => {
+  const request = axios.get(`${baseUrl}/hijos/${id}`)
+  return request.then(response => response.data)
+}
+
 const getFavUser = (id) => {
   const request = axios.get(`${baseUrl}/fav/${id}`)
   return request.then(response => response.data)
@@ -84,4 +89,4 @@ const postChat = (id, newObject) => {
   return request.then(response => response.data)
 }
 
-export default { users, getAll, postfav, putfav, getUser, setToken, getFavUser, updateUser, getChatUser, postChat }
+export default { users, getAll, postfav, putfav, getUser, getchildsUser, setToken, getFavUser, updateUser, getChatUser, postChat }

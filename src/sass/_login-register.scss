@@ -40,15 +40,47 @@
     }
 }
 
+.absolute{
+  position:absolute;
+  display: block;
+}
+
+.popup{
+  position: fixed;
+  flex-direction: column;
+  background: white;
+  height: 75vh;
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+  header, section{
+      
+      justify-content: auto;
+      
+  }
+  header{
+    display: grid;
+    width: 100%;
+    grid-template-columns: 20% 80%;
+    @include movile(){
+      width: 80%;
+      grid-template-columns: 11% 78% 11%;
+      text-align: center;
+    }
+    @include tablet(){
+      width: 60%;
+    }
+    @include desktop(){
+      width: 40%;
+    }
+    
+  }
+}
 .headerformulario>h2{
   font-size: 20px;
   
 }
 
-.absolute{
-  position:absolute;
-  display: block;
-}
 .body{
   display: flex;  
   align-items: center;

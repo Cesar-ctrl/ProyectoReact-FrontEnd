@@ -51,8 +51,6 @@ const putSolicitudes = (id, aprob, user, guard) => {
       user:user,
       guard:guard
     }
-    console.log(id)
-    console.log(descripcion)
     const request = axios.put(`${baseUrl}/${id}`, descripcion, config)
     return request.then(response => response.data)
 }

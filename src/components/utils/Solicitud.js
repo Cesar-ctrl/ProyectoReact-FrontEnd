@@ -20,12 +20,10 @@ const Solicitud = ({ solicitud, rechazarSolicitud, aceptarSolicitud }) => {
                     className="flexea roww negro"
                     >
                     <div className='foto'>
-
                         {
-                            newmode?<img src="../img/pepe-clown.gif" className='fotoestandar' alt="" /> :
-                            <img src={"https://damp-temple-29994.herokuapp.com/api/img/public/"+solicitud.user.imgUrl} className='fotoestandar' alt="" />
+                        newmode?<img src="../img/pepe-clown.gif" className='fotoestandar' alt="" /> :
+                        <img src={"https://damp-temple-29994.herokuapp.com/api/img/public/"+solicitud.user.imgUrl} className='fotoestandar' alt="" />
                         }
-                        
                     </div>
                     
                     <div>

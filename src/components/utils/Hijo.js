@@ -1,9 +1,13 @@
 import React from 'react'
-import { useNavigate,  Link } from "react-router-dom";
+import {  Link, useLocation } from "react-router-dom";
 
 const Hijo = ({ child }) => {
+
+  const location = useLocation();
+  const state = location.state;
+
   return (
-    <Link to={'/home/child/change/'+child.id}>
+    <Link to={'/home/child/change/'+child.id} state={state}>
       <div className= 'cuidador flexea roww' >
           <div className='foto'>
               <img src={"https://damp-temple-29994.herokuapp.com/api/img/public/"+child.imgUrl} className='fotoestandar' alt="" />

@@ -10,7 +10,7 @@
     .container{
         height: 79vh;
         width: 85vw;
-        background-color: rgba(65, 152, 126, 0.82);
+        background-color: rgba(110, 188, 198, 0.71);
         display: grid;
         grid-template-columns: 25% 75%;
         transform: grid-template-columns 0.5s ease;
@@ -34,6 +34,7 @@
     align-items: center;
     color: white;
     flex-direction: column;
+    transition: width 0.5s ease-out;
     img {
         height: 20rem;
     }
@@ -78,7 +79,7 @@
     display: grid;
     grid-template-rows: 10% 75% 15%;
     overflow: hidden;
-    background-color: rgb(23 99 96);
+    background-color: #3c7c90;
     transition: width 0.5s ease-out;
     border-radius: 20px;
 
@@ -89,7 +90,7 @@
         //z-index: 1; /* Stay on top */
         //top: 0;
         //left: 0;
-        transform: width 0.5s ease-out;
+        //transform: width 0.5s ease-out;
       }
 
     .brand {
@@ -150,7 +151,7 @@
         }
     }
     .current-user {
-        background-color: rgb(13 135 131);
+        background-color: rgb(26, 78, 159);
         display: flex;
         justify-content: center;
         align-items: center;
@@ -184,42 +185,54 @@
     gap: 0.1rem;
     overflow: hidden;
     border-radius: 20px;
+    transition: width 0.5s ease-out;
     @media screen and (min-width: 720px) and (max-width: 1080px) {
         grid-template-rows: 15% 70% 15%;
     }
     @media screen and (min-width: 100px) and (max-width: 768px) {
         width: 100%; //Hay que hacer que cambie de 0 a 100%
-        transform: grid-template-columns 0.5s ease;
+        //transform: grid-template-columns 0.5s ease;
         
         }
     .chat-header {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        background-color: #4e0eff80;
+        background-color: #53A9DA;
         border-radius: 20px;
         border-bottom-left-radius: 0;
         border-bottom-right-radius: 0;
-        .user-details {
+       
+        .user-header{
             display: flex;
             align-items: center;
             gap: 1rem;
             justify-content: center;
-            margin-right: 9vw;
-        .avatar {
-            img {
-                height: 4rem;
-                border-radius: 30px;
+            width: 100%;
+        
+            .user-details {
+                display: flex;
+                align-items: center;
+                gap: 1rem;
+                justify-content: center;
+                width: auto;
+                .avatar {
+                    img {
+                        height: 4rem;
+                        border-radius: 30px;
+                    }
+                }
+                .username {
+                    h3 {
+                    color: white;
+                    }
+                }
+                
             }
-        }
-        .username {
-            h3 {
-            color: white;
-            }
-        }
         }
         .foto{
             margin-left: 1vw;
+            cursor: pointer;
         }
     }
     .chat-messages {
@@ -271,13 +284,15 @@
     display: grid;
     align-items: center;
     grid-template-columns: 5% 95%;
-    background-color: rgb(23 99 96);
+    background-color: #376ac1;
     border-radius: 20px;
     border-top-left-radius: 0;
     border-top-right-radius: 0;
     padding: 0 1rem;
     gap: 1rem;
-    
+    ::placeholder{
+        color:white;
+    }
     .button-container {
         display: flex;
         align-items: center;
@@ -293,11 +308,11 @@
         .emoji-picker-react {
             position: absolute;
             top: -350px;
-            background-color: #080420;
+            background-color: rgb(4, 45, 103);
             box-shadow: 0 5px 10px #9a86f3;
             border-color: #9a86f3;
             .emoji-scroll-wrapper::-webkit-scrollbar {
-            background-color: #080420;
+            background-color: rgb(4, 45, 103);
             width: 5px;
             &-thumb {
                 background-color: #9a86f3;
@@ -313,7 +328,7 @@
             border-color: #9a86f3;
             }
             .emoji-group:before {
-            background-color: #080420;
+            background-color: rgb(4, 45, 103);
             }
         }
         }
@@ -348,6 +363,7 @@
         align-items: center;
         background-color: rgb(31 54 186);
         border: none;
+        cursor: pointer;
         @media screen and (min-width: 720px) and (max-width: 1080px) {
             padding: 0.3rem 1rem;
             svg {

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate,  Link } from "react-router-dom";
+import { useNavigate, Link, useLocation } from "react-router-dom";
 import childService from '../../services/childs';
 import imageService from '../../services/images';
 
@@ -18,6 +18,8 @@ export default function RegisterF ({...props}) {
     const [necesidades, setNecesidadesesp] = useState('')
     const [selectedFile, setImgUrl] = useState(null)
     const navigate = useNavigate();
+    const location = useLocation();
+    const state = location.state;
 
     const handleDniChange = ({target}) => setDni(target.value)
 
@@ -163,7 +165,7 @@ export default function RegisterF ({...props}) {
             </header>
             <section className='body background2'>
                 <header>
-                    <Link to="/home/child" className='flexea atras negro'>
+                    <Link to="/home/child" state={state} className='flexea atras negro' >
                         <img src="https://babyguard.vercel.app/img/back-arrow.svg" alt="" className='reloj maspequenio' />
                         
                     </Link>

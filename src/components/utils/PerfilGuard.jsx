@@ -7,6 +7,7 @@ import solicitudesService from '../../services/solicitudes';
 import Star from './Star';
 import Comentario from './Comentario';
 import Puntuacion from './Puntuacion';
+import SolicitudForm from '../utils/SolicitudForm';
 
 const PerfilGuard = ({ }) => {
 
@@ -24,11 +25,14 @@ const PerfilGuard = ({ }) => {
     const [surnames, setSurnames] = useState('')
     const [horariofin, setHorariofin] = useState('')
     const [horarioinicio, setHorarioinicio] = useState('')
-    const [descr, setDesc] = useState(guard.descripcion)
+    const [descr, setDesc] = useState('')
+    const [dias, setDias] = useState([])
     const navigate = useNavigate();
     const [rating, setRating] = React.useState(0);
     const [comentario, setComentario] = useState('')
     const [solicitado, setSolicitado] = useState(false)
+    const [historial, setHistorial] = useState([])
+    const [solicitar, setSolicitar] = React.useState(false);
     
     const label = guard.disponible
     ? 'Make Not available'
@@ -36,13 +40,29 @@ const PerfilGuard = ({ }) => {
 
     const solicitadohtml = solicitado?
     <button className='boton-azul blanco indispuesto' >Ya solicitado</button>
-    :<button className='boton-azul blanco' onClick={() => sendSolicitud()}>Solicitar</button>
-
+    :<button className='boton-azul blanco' onClick={() => setSolicitar(true)}>Solicitar</button>
 
     useEffect(() => {
         const path = window.location.pathname
         const arr = path.split("/")
         setId(arr[4])
+        
+        guardService.getGuard(arr[4])
+            .then(initialGuards => {
+                setGuards(initialGuards)
+                setName(initialGuards.name)
+                setSurnames(initialGuards.surnames)
+                setId(initialGuards.id)
+                setDesc(initialGuards.descripcion)
+                setHorarioinicio(initialGuards.horarioinicio)
+                setHorariofin(initialGuards.horariofin)
+                setDias(initialGuards.dias)
+            })
+        
+        commentService.recieveCommentRoute(guard.id)
+            .then(initialGuards => {
+                setComments(initialGuards)//Cambiar, hacer un setcomments 
+            }) 
         if(usuario){
             guardService.setToken(usuario.token);
             commentService.setToken(usuario.token);
@@ -56,36 +76,23 @@ const PerfilGuard = ({ }) => {
             }
             solicitudesService.yaSolicitado(bodySolicitud)
                 .then(res => {
-                    console.log(res)
                     if(res.length == 0){
                         setSolicitado(false)
                     }else{
                         setSolicitado(true)
                     }
                 })
+            solicitudesService.getHistorySolicitudes(usuario.id)
+                .then(res => {
+                    setHistorial(res.historialContratos)
+                })
+            
         }if(guardian){
             guardService.setToken(guardian.token)
         }
         
-        guardService.getGuard(arr[4])
-            .then(initialGuards => {
-                setGuards(initialGuards)
-            })
-        setName(guard.name)
-        setSurnames(guard.surnames)
-        setId(guard.id)
-        setDesc(guard.descripcion)
-        setHorarioinicio(guard.horarioinicio)
-        setHorariofin(guard.horariofin)
-        commentService.recieveCommentRoute(guard.id)
-            .then(initialGuards => {
-                setComments(initialGuards)//Cambiar, hacer un setcomments 
-            }) 
-        
-    }, [guard.name])
+    }, [guard.horarioinicio])
 
-
-    
 
     const handleDescrChange = ({target}) => setDesc(target.value)
 
@@ -198,154 +205,144 @@ const PerfilGuard = ({ }) => {
         setSolicitado(true)
     }
 
-    const reciveSolicitudes = () => {
-        const bodySolicitud = { 
-            user: usuario.id,
-            guard:Id
-        }
-        solicitudesService
-            .getHistorySolicitudes(Id)
-            .then(returned => {
-                console.log(returned)
-            })
-            .catch(error => {
-            setTimeout(() => {
-            }, 5000)   
-            })
-    }
-
     var leng = comments.length
-    if(guard.dias){
-        
-    return (
 
+
+    
+    return (
     <section className="home">
         <header className='titulo main flexea perfil'>
             <div className='foto'>
             <img src={"https://damp-temple-29994.herokuapp.com/api/img/public/"+guard.imgUrl} className='reloj' alt="" />
             </div>
-            <h2>{guard.name} {guard.surnames}</h2>
+            <h2>{name} {surnames}</h2>
         </header>
-        <section className='flexea column'>
-            <div className='col-10 column listado deperfil'>
-            <div className='cuidador'>
-                {usuario?  <p>{guard.descripcion}</p> : guardian?  guardian.id==guard.id? 
-                <div>
-                    <textarea name="descripcion" id="descr" cols="30" rows="5" defaultValue={descr} onChange={handleDescrChange} >{guard.descripcion}</textarea> 
-                    <input type="button" value="Guardar" onClick={() => changeDesc()} />
-                </div>
-                : <p>{guard.descripcion}</p>:<p>{guard.descripcion}</p>}
-                
-            </div>
-                <div className='cuidador flexea wrap'>
-                    <div className='horadisp flexea column'>
-                        <img src="https://babyguard.vercel.app/img/reloj-grande.png" className="reloj" alt="" />
-                        {usuario?<h3>{guard.horarioinicio}-{guard.horariofin}</h3> : guardian? guardian.id==guard.id?
-                            <div>
-                                <input className="col-12" type="time" name="horarioinicio" defaultValue={ guard.horarioinicio} value={horarioinicio} onChange={ handleHorarioinicioChange} />
-                                <input className="col-12" type="time" name="horariofin" defaultValue={ guard.horariofin} value={horariofin}  min={horarioinicio}  onChange={ handleHorariofinChange} />
-                                <input type="button" value="Guardar" onClick={() => changeHorario()} />
-                            </div>
-                            : <h3>{guard.horarioinicio}-{guard.horariofin}</h3>
-                            :<h3>{guard.horarioinicio}-{guard.horariofin}</h3>
-                            
+        {
+            solicitar?
+            <SolicitudForm 
+                sendSolicitud={sendSolicitud}
+                setSolicitar={() => setSolicitar(false)}
+            />
+            :
+            <section className='flexea column'>
+                <div className='col-10 column listado deperfil'>
+                    <div className='cuidador detail'>
+                        {usuario?  <p>{descr}</p> : guardian?  guardian.id==guard.id? 
+                        <div>
+                            <textarea name="descripcion" id="descr" cols="30" rows="5" defaultValue={descr} onChange={handleDescrChange} ></textarea> 
+                            <input type="button" value="Guardar" onClick={() => changeDesc()} />
+                        </div>
+                        : <p>{descr}</p>:<p>{descr}</p>}
+                        
+                    </div>
+                    <div className='cuidador flexea wrap'>
+                        <div className='horadisp flexea column'>
+                            <img src="https://babyguard.vercel.app/img/reloj-grande.png" className="reloj" alt="" />
+                            {usuario?<h3>{guard.horarioinicio}-{guard.horariofin}</h3> : guardian? guardian.id==guard.id?
+                                <div>
+                                    <input className="col-12" type="time" name="horarioinicio" defaultValue={ guard.horarioinicio} value={horarioinicio} onChange={ handleHorarioinicioChange} />
+                                    <input className="col-12" type="time" name="horariofin" defaultValue={ guard.horariofin} value={horariofin}  min={horarioinicio}  onChange={ handleHorariofinChange} />
+                                    <input type="button" value="Guardar" onClick={() => changeHorario()} />
+                                </div>
+                                : <h3>{guard.horarioinicio}-{guard.horariofin}</h3>
+                                :<h3>{guard.horarioinicio}-{guard.horariofin}</h3>
+                                
+                            }
+                        </div>
+                        <div>
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <th>L</th>
+                                        <th>M</th>
+                                        <th>X</th>
+                                        <th>J</th>
+                                        <th>V</th>
+                                        <th>S</th>
+                                        <th>D</th>
+                                    </tr>
+                                    <tr>
+
+                                        <td>{dias[0]? <img src="https://babyguard.vercel.app/img/Light_green_check.svg" className="dias" alt="" /> : <img src="https://babyguard.vercel.app/img/Red_x.svg" className="dias" alt="" />}</td>
+                                        <td>{dias[1]? <img src="https://babyguard.vercel.app/img/Light_green_check.svg" className="dias" alt="" /> : <img src="https://babyguard.vercel.app/img/Red_x.svg" className="dias" alt="" />}</td>
+                                        <td>{dias[2]? <img src="https://babyguard.vercel.app/img/Light_green_check.svg" className="dias" alt="" /> : <img src="https://babyguard.vercel.app/img/Red_x.svg" className="dias" alt="" />}</td>
+                                        <td>{dias[3]? <img src="https://babyguard.vercel.app/img/Light_green_check.svg" className="dias" alt="" /> : <img src="https://babyguard.vercel.app/img/Red_x.svg" className="dias" alt="" />}</td>
+                                        <td>{dias[4]? <img src="https://babyguard.vercel.app/img/Light_green_check.svg" className="dias" alt="" /> : <img src="https://babyguard.vercel.app/img/Red_x.svg" className="dias" alt="" />}</td>
+                                        <td>{dias[5]? <img src="https://babyguard.vercel.app/img/Light_green_check.svg" className="dias" alt="" /> : <img src="https://babyguard.vercel.app/img/Red_x.svg" className="dias" alt="" />}</td>
+                                        <td>{dias[6]? <img src="https://babyguard.vercel.app/img/Light_green_check.svg" className="dias" alt="" /> : <img src="https://babyguard.vercel.app/img/Red_x.svg" className="dias" alt="" />}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                    </div>
+                    <div className='cuidador flexea wrap'>
+                        {
+                            usuario?
+                            guard.disponible?
+                            solicitadohtml
+                            :<a className='boton-azul no-disponible blanco'>No disponible</a>
+                            :<a className='boton-azul no-disponible blanco'>Registrese para solicitar</a>
                         }
-                    </div>
-                    <div>
-                        <table>
-                            <tbody>
-                                <tr>
-                                    <th>L</th>
-                                    <th>M</th>
-                                    <th>X</th>
-                                    <th>J</th>
-                                    <th>V</th>
-                                    <th>S</th>
-                                    <th>D</th>
-                                </tr>
-                                <tr>
-
-                                    <td>{guard.dias[0]? <img src="https://babyguard.vercel.app/img/Light_green_check.svg" className="dias" alt="" /> : <img src="https://babyguard.vercel.app/img/Red_x.svg" className="dias" alt="" />}</td>
-                                    <td>{guard.dias[1]? <img src="https://babyguard.vercel.app/img/Light_green_check.svg" className="dias" alt="" /> : <img src="https://babyguard.vercel.app/img/Red_x.svg" className="dias" alt="" />}</td>
-                                    <td>{guard.dias[2]? <img src="https://babyguard.vercel.app/img/Light_green_check.svg" className="dias" alt="" /> : <img src="https://babyguard.vercel.app/img/Red_x.svg" className="dias" alt="" />}</td>
-                                    <td>{guard.dias[3]? <img src="https://babyguard.vercel.app/img/Light_green_check.svg" className="dias" alt="" /> : <img src="https://babyguard.vercel.app/img/Red_x.svg" className="dias" alt="" />}</td>
-                                    <td>{guard.dias[4]? <img src="https://babyguard.vercel.app/img/Light_green_check.svg" className="dias" alt="" /> : <img src="https://babyguard.vercel.app/img/Red_x.svg" className="dias" alt="" />}</td>
-                                    <td>{guard.dias[5]? <img src="https://babyguard.vercel.app/img/Light_green_check.svg" className="dias" alt="" /> : <img src="https://babyguard.vercel.app/img/Red_x.svg" className="dias" alt="" />}</td>
-                                    <td>{guard.dias[6]? <img src="https://babyguard.vercel.app/img/Light_green_check.svg" className="dias" alt="" /> : <img src="https://babyguard.vercel.app/img/Red_x.svg" className="dias" alt="" />}</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    
-                </div>
-                <div className='cuidador flexea wrap'>
-                    {
-                    guard.disponible?
+                        
+                        {
                         usuario?
-                        solicitadohtml
-                        :<a className='boton-azul no-disponible blanco'>No disponible</a>
-                        :<a className='boton-azul no-disponible blanco'>Registrese para solicitar</a>
-                    }
-                    
-                    {
-                       usuario?
-                            <div className='pointer flexea column' onClick={() => handleChat(guard.id)}>                           
-                                <img src="https://babyguard.vercel.app/img/Chat.png" className  ="reloj" alt=""  />
-                                <h3>Chatear</h3>
-                            </div>
-                     : guardian? guardian.id==guard.id?
-                       <button onClick={toggleDisponible}>{label}</button>
-                       : null:null
-                    }
-                    
-                </div>
-                <div className="flexea cuidador column notcenter">
-                    <h4>Valoraciones</h4>
-                    
-                    <section className='flexea column notcenter'>
-                    {
-                        <Puntuacion
-                            comments={comments}
-                            lengt={leng}
-                        />
-                    }
-                    </section>
-                    {
-                        usuario?
+                                <div className='pointer flexea column' onClick={() => handleChat(guard.id)}>                           
+                                    <img src="https://babyguard.vercel.app/img/Chat.png" className  ="reloj" alt=""  />
+                                    <h3>Chatear</h3>
+                                </div>
+                        : guardian? guardian.id==guard.id?
+                        <button onClick={toggleDisponible}>{label}</button>
+                        : null:null
+                        }
+                        
+                    </div>
+                    <div className="flexea cuidador column notcenter">
+                        <h4>Valoraciones</h4>
+                        
+                        <section className='flexea column notcenter'>
+                        {
+                            <Puntuacion
+                                comments={comments}
+                                lengt={leng}
+                            />
+                        }
+                        </section>
+                        {
+                            historial.find(element => element.guard==Id)?
 
-                        //onClick={() => addComment()}
-                        <section style={{marginBottom: '2vh'}}>
-                            <h4>Escribe un comentario</h4>
-                            <Star size={"w-7 h-7"} rating={rating} setRating={setRating} />    
-                            <textarea name="contenido" id="contenido" cols="20" rows="5"  onChange={handleComentarioChange} >  </textarea> 
-                            <input type="button" value="Guardar" onClick={() => addComment()} />
-                            
-                        </section>:null
-                    }
-                    <h4>Reseñas</h4>
-                    
-                    {
-                        comments.map((comments, i) => //Buscar en comments
-                        <Comentario
-                            key={i}
-                            comments={comments}
-                        />
-                        )
-                    
-                    }
-                    
+                            //onClick={() => addComment()}
+                            <section style={{marginBottom: '2vh'}}>
+                                <h4>Escribe un comentario</h4>
+                                <Star size={"w-7 h-7"} rating={rating} setRating={setRating} />    
+                                <textarea name="contenido" id="contenido" cols="20" rows="5"  onChange={handleComentarioChange} ></textarea> 
+                                <input type="button" value="Guardar" onClick={() => addComment()} />
+                                
+                            </section>:<p>Debes haber contratado al cuidador para escribir un comentario</p>
+                        }
+                        <h4>Reseñas</h4>
+                        
+                        {
+                            comments.map((comments, i) => //Buscar en comments
+                            <Comentario
+                                key={i}
+                                comments={comments}
+                            />
+                            )
+                        
+                        }
+                        
+
+                    </div>
 
                 </div>
-
-            </div>
-        </section>
+            </section>
+        }
+        
         
     </section>
   )
-}
-else{
-    console.log("esperando")
-}
+
 }
 
 export default PerfilGuard
