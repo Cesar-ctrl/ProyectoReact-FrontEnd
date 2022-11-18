@@ -76,6 +76,7 @@ const PerfilGuard = ({ }) => {
             }
             solicitudesService.yaSolicitado(bodySolicitud)
                 .then(res => {
+                    console.log(res)
                     if(res.length == 0){
                         setSolicitado(false)
                     }else{
@@ -222,6 +223,7 @@ const PerfilGuard = ({ }) => {
             <SolicitudForm 
                 sendSolicitud={sendSolicitud}
                 setSolicitar={() => setSolicitar(false)}
+                horariofin={horariofin}
             />
             :
             <section className='flexea column'>

@@ -39,6 +39,12 @@ const getHistorySolicitudes = (id) => {
   return request.then(response => response.data)
 }
 
+const getHistoryContratos = (id) => {
+  const request = axios.get(`${baseUrl}/history/contratos/${id}`)
+  request.then(response => response.data)
+  return request.then(response => response.data)
+}
+
 //Este sirve para cambiar la descripción del cuidador
 const putSolicitudes = (id, aprob, user, guard) => {
   const config = {
@@ -55,6 +61,20 @@ const putSolicitudes = (id, aprob, user, guard) => {
     return request.then(response => response.data)
 }
 
+const putEndSolicitud = (id, acabado, guard) => {
+  const config = {
+    headers: {
+    Authorization: token
+    }
+  } 
+  const cuerpo = {
+    acabado:acabado,
+    guard:guard
+  }
+  const request = axios.put(`${baseUrl}/acabar/${id}`, cuerpo, config)
+    return request.then(response => response.data)
+}
+
 const deleteSolicitudes = async (id) => {
   const config = {
     headers: {
@@ -66,4 +86,4 @@ const deleteSolicitudes = async (id) => {
 }
 
 
-export default { setToken, postSolicitud, yaSolicitado, getSolicitudes, getHistorySolicitudes, putSolicitudes, deleteSolicitudes }
+export default { setToken, postSolicitud, yaSolicitado, getSolicitudes, getHistorySolicitudes, getHistoryContratos, putSolicitudes, putEndSolicitud, deleteSolicitudes }

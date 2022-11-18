@@ -5,6 +5,7 @@ import Favoritos from './Favoritos';
 import Solicitudes from './Solicitudes';
 import Chat from './Chat';
 import Child from './Child';
+import Contratos from './Contratos';
 import Miperfil from './Miperfil';
 import ChildRegister from '../LoginRegister/ChildRegister';
 import ChildUpdate from '../InfoUpdate/ChildUpdate';
@@ -63,6 +64,7 @@ function Home() {
                 <Route path="/favoritos" element={ <Favoritos /> }  />
                 <Route path="/solicitudes" element={ <Solicitudes /> }  />
                 <Route path="/chat" element={ <Chat /> }  />
+                <Route path="/contratos" element={ <Contratos /> } />
                 <Route path="/child" element={ <Child /> } />
                 <Route path="/child/signup" element={ <ChildRegister 
                     modoEdicion={false}
@@ -100,10 +102,17 @@ function Home() {
                     <img src="https://babyguard.vercel.app/img/mensaje.svg" alt="" className='icono'/>
                     Chat
                 </Link>
+                {guard?
+                <Link className="nav footer" to="/home/contratos" state={state}>
+                    <img src="https://babyguard.vercel.app/img/child.svg" alt="" className='icono'/>
+                    Contratos
+                </Link>
+                :
                 <Link className="nav footer" to="/home/child" state={state}>
                     <img src="https://babyguard.vercel.app/img/child.svg" alt="" className='icono'/>
                     Niños
                 </Link>
+                }
                 <Link className="nav footer" to="/home/perfil" state={state}>
                     <img src="https://babyguard.vercel.app/img/cuenta.svg" alt="" className='icono'/>
                     Perfil

@@ -2,12 +2,13 @@ import React, { useEffect, useState } from 'react';
 import {  Link, useLocation } from "react-router-dom";
 import userService from '../../services/users';
 
-const SolicitudForm = ({ sendSolicitud, setSolicitar }) => {
+const SolicitudForm = ({ sendSolicitud, setSolicitar, horariofin }) => {
     const location = useLocation();
     const state = location.state;
-    const newmode = window.localStorage.getItem('newmode')
-    const loggUserJSON = window.localStorage.getItem('loggedNoteAppUser')
-    const usuario = JSON.parse(loggUserJSON)
+    const newmode = window.localStorage.getItem('newmode');
+    const loggUserJSON = window.localStorage.getItem('loggedNoteAppUser');
+    const usuario = JSON.parse(loggUserJSON);
+    const date = new Date();
 
     const [childs, SetChilds] = useState([])
 
@@ -19,6 +20,20 @@ const SolicitudForm = ({ sendSolicitud, setSolicitar }) => {
             })
         
     }, [])
+    console.log(typeof(horariofin))
+
+    const comprueba = (e) =>{
+        if(document.querySelectorAll('input[type="checkbox"]:checked').length==0){
+            e.preventDefault();
+            document.querySelectorAll('li').forEach(element => {
+                element.style ='border: 1px solid red;'
+                console.log(element)
+            });
+        }else{
+            sendSolicitud()
+        }
+    }
+
     
     return(
         <section className='flexea column'>
@@ -32,12 +47,12 @@ const SolicitudForm = ({ sendSolicitud, setSolicitar }) => {
                     </button>
                     <h2>Mandar Solicitud</h2>
                 </header>
-                <form action="">
+                <form action="" onSubmit={comprueba} id='my-form'>
                     <fieldset className='col-12'>
-                        <label htmlFor="timestamp" className='col-10'>Horario de comienzo</label>
-                        <input className="col-10" type="time" name="horarioinicio"  />
+                        <label htmlFor="timestamp" className='col-10' >Horario de comienzo</label>
+                        <input className="col-10" type="time" name="horarioinicio" defaultValue={date.getHours()+':'+date.getMinutes()} />
                         <label htmlFor="timestamp" className='col-10'>Horario de fin</label>
-                        <input className="col-10" type="time" name="horariofin" />
+                        <input className="col-10" type="time" name="horariofin" defaultValue={horariofin} />
                     </fieldset>
                     <fieldset className='col-12'>
                         {childs.map(({ id, name, surnames, edad, DNI, alergenos, necesidadesesp }, index) => {
@@ -57,7 +72,7 @@ const SolicitudForm = ({ sendSolicitud, setSolicitar }) => {
                             })}
                     </fieldset>
                     <fieldset className='col-12'>
-                        <button className='boton-azul blanco' onClick={() => sendSolicitud()}>Solicitar</button>
+                        <button type="submit" className='boton-azul blanco' >Solicitar</button>
                     </fieldset>
                 </form>
                 
