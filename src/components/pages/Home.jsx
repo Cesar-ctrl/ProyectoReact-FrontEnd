@@ -81,39 +81,39 @@ function Home() {
             
             <footer className="footerhome">
             <hr onDoubleClick ={ () => toggleback() }/>
-                <Link className="nav footer" to="/home/buscar" state={state}>
+                <Link className="nav" to="/home/buscar" state={state}>
                     <img src="https://babyguard.vercel.app/img/lupa.svg" alt="" className='icono'/>
                     Buscar
                 </Link>
                 {guard?
-                <Link className="nav footer" to="/home/solicitudes" state={state}>
+                <Link className="nav" to="/home/solicitudes" state={state}>
                     <img src="https://babyguard.vercel.app/img/Light_green_check.svg" alt="" className='icono'/>
                     Solicitud
                 </Link>
                 :
-                <Link className="nav footer" to="/home/favoritos" state={state}>
+                <Link className="nav" to="/home/favoritos" state={state}>
                     <img src="https://babyguard.vercel.app/img/estrella.svg" alt="" className='icono'/>
                     Favoritos
                 </Link>
 
                 }
                 
-                <Link className="nav footer" to="/home/chat" state={state}>
+                <Link className="nav" to="/home/chat" state={state}>
                     <img src="https://babyguard.vercel.app/img/mensaje.svg" alt="" className='icono'/>
                     Chat
                 </Link>
                 {guard?
-                <Link className="nav footer" to="/home/contratos" state={state}>
+                <Link className="nav" to="/home/contratos" state={state}>
                     <img src="https://babyguard.vercel.app/img/child.svg" alt="" className='icono'/>
                     Contratos
                 </Link>
                 :
-                <Link className="nav footer" to="/home/child" state={state}>
+                <Link className="nav" to="/home/child" state={state}>
                     <img src="https://babyguard.vercel.app/img/child.svg" alt="" className='icono'/>
                     Niños
                 </Link>
                 }
-                <Link className="nav footer" to="/home/perfil" state={state}>
+                <Link className="nav" to="/home/perfil" state={state}>
                     <img src="https://babyguard.vercel.app/img/cuenta.svg" alt="" className='icono'/>
                     Perfil
                 </Link>

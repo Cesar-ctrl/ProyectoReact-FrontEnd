@@ -129,6 +129,7 @@ export default function ChatContainer({ currentChat, socket, changeChatwidth }) 
                   <div className="username">
                     <h3>{currentChat.name}</h3>
                   </div>
+                  <img src="../img/info.svg" className='fotoestandar' alt="" />
                 </Link>
               </div>
            
@@ -148,7 +149,8 @@ export default function ChatContainer({ currentChat, socket, changeChatwidth }) 
                 <div className="username">
                   <h3>{currentChat.name}</h3>
                 </div>
-                </Link>
+                <img src="../img/info.svg" className='fotoestandar' alt="" />
+              </Link>
               </div>
             
           </>

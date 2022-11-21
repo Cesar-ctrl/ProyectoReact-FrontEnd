@@ -21,29 +21,22 @@
     }
 }
 
+
 .nav{
     display: flex;
     flex-direction: column;
-    @include tablet(){
-        flex-direction: row-reverse;
-        justify-content: center;
-        height: 100%;
-        border-right: 1px solid;
-       
-    }
-    @include desktop(){
-        flex-direction: row-reverse;
-        justify-content: center;
-    }
-}
-.footer {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    transition: background-color .5s;
     align-items: center;
     color: black;
     font-weight: bold;
+    border-radius: 7px;
     .icono{
         width: 20px;
         height: 20px;
     }
+    
     font-size: 5vw;
     @include movileS(){
         font-size: 13px;
@@ -55,9 +48,24 @@
         font-size: 15px;
     }
     @include tablet(){
+        flex-direction: row-reverse;
+        justify-content: center;
+        height: 100%;
+        border-right: 1px solid;
         font-size: 20px;
     }
+    @include desktop(){
+        flex-direction: row-reverse;
+        justify-content: center;
+    }
+    
+    
 }
+.nav:hover{
+    color: white;
+    background-color: #3c7c90;
+}
+
 .estrella{
     fill: yellow;
 }
@@ -192,7 +200,7 @@ h2{
 
 .buscador{
     padding: 10px;
-    padding-bottom: 30px;
+    padding-bottom: 20px;
     .barra{
         display: flex;
         justify-content: space-evenly;
@@ -229,6 +237,7 @@ h2{
         }
       }
     .cuidador{
+        transition: background-color .5s;
         padding: {
             top: 10px;
             bottom: 10px;
@@ -317,6 +326,10 @@ h2{
         @include desktop(){
             height: 60vh;
         }
+}
+
+.cuidador:hover{
+    background-color: rgb(56, 179, 195);
 }
 #chat{
     align-self: flex-start

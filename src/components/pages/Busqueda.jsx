@@ -63,7 +63,7 @@ const Busqueda = () => {
     }
 
     const handleSearchChange = ({target}) => setBusqueda(target.value)
-    var search = guards.filter(guard => guard.name.includes(busqueda))
+    var search = guards.filter(guard => guard.name.toLowerCase().includes(busqueda.toLowerCase()))
     const guardsToShow = search
 
     return (
