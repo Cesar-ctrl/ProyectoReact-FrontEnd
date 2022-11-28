@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import {  Link, useLocation } from "react-router-dom";
 import userService from '../../services/users';
 
-const SolicitudForm = ({ sendSolicitud, setSolicitar, horariofin }) => {
+const SolicitudForm = ({ sendSolicitud, setSolicitar, horariofin, horarioinicio }) => {
     const location = useLocation();
     const state = location.state;
     const newmode = window.localStorage.getItem('newmode');
@@ -10,7 +10,14 @@ const SolicitudForm = ({ sendSolicitud, setSolicitar, horariofin }) => {
     const usuario = JSON.parse(loggUserJSON);
     const date = new Date();
 
-    const [childs, SetChilds] = useState([])
+    const [childs, SetChilds] = useState([]);
+    const [calle, SetCalle] = useState('');
+    const [institucion, SetInstitucion] = useState('');
+    const [colegio, SetColegio] = useState('');
+    const [casa, SetCasa] = useState('');
+    const [error, setError] = useState(false);
+    const [errorName, setErrorName] = useState('');
+    const [errortext, setErrortext] = useState('');
 
     useEffect(() => {
         userService.setToken(usuario.token)
@@ -20,40 +27,95 @@ const SolicitudForm = ({ sendSolicitud, setSolicitar, horariofin }) => {
             })
         
     }, [])
-    console.log(typeof(horariofin))
 
     const comprueba = (e) =>{
         if(document.querySelectorAll('input[type="checkbox"]:checked').length==0){
             e.preventDefault();
             document.querySelectorAll('li').forEach(element => {
                 element.style ='border: 1px solid red;'
-                console.log(element)
             });
+            setError(true)
+            
+            setTimeout(() => {
+                setErrorName('Formulario inválido')
+                setErrortext('No ha elegido a el niño que se desea cuidar')
+            }, 2000)
+            setTimeout(() => {
+                setErrorName('')
+                setErrortext('')
+                setError(false)
+            }, 6000)
         }else{
             sendSolicitud()
         }
     }
 
+    const handleCasaChange = ({target}) => target.checked?SetColegio(false):SetCasa(false)
+    const handleColegioChange = ({target}) => target.checked?SetColegio(true):SetColegio(false)
+    const handleCalleChange = ({target}) => SetCalle(target.value)
+    const handleInstitucionChange = ({target}) => SetInstitucion(target.value)
+
+    const errorMsg = 
+        <div className='errorMsg'>
+            <h2 className='errorName'>{errorName}</h2>
+            <p className='errortext'>{errortext}</p>
+        </div>
     
     return(
         <section className='flexea column'>
             <header>
             </header>
             <section className='col-10 column listado deperfil'>
-                <header>
-                    <button className='flexea atras negro' onClick={setSolicitar}>
-                        <img src="https://babyguard.vercel.app/img/back-arrow.svg" alt="" className='reloj maspequenio' />
-                            
-                    </button>
+                <header className='grid'>
+                    <a className='flexea atras negro' onClick={setSolicitar}>
+                        <img src="https://babyguard.vercel.app/img/back-arrow.svg" alt="" className='reloj maspequenio' /> 
+                    </a>
                     <h2>Mandar Solicitud</h2>
                 </header>
                 <form action="" onSubmit={comprueba} id='my-form'>
                     <fieldset className='col-12'>
-                        <label htmlFor="timestamp" className='col-10' >Horario de comienzo</label>
-                        <input className="col-10" type="time" name="horarioinicio" defaultValue={date.getHours()+':'+date.getMinutes()} />
-                        <label htmlFor="timestamp" className='col-10'>Horario de fin</label>
+                        <label htmlFor="horarioinicio" className='col-10' >Horario de comienzo</label>
+                        {
+                            (date.getHours()+':'+date.getMinutes())>horarioinicio?
+                            <input className="col-10" type="time" name="horarioinicio" defaultValue={date.getHours()+':'+date.getMinutes()} />
+                            :<input className="col-10" type="time" name="horarioinicio" defaultValue={horarioinicio} />
+                        }
+                        
+                        <label htmlFor="horariofin" className='col-10'>Horario de fin</label>
                         <input className="col-10" type="time" name="horariofin" defaultValue={horariofin} />
                     </fieldset>
+
+                    <fieldset className='col-12'>
+                        <div>
+                            <div className='flexea'>
+                                
+                                <input type="radio" id='colegio' name='tipo' value={colegio} onChange={handleColegioChange}required />
+                                <label htmlFor='colegio'>Colegio</label>
+                            </div>
+                        </div>
+                        <div>
+                            <div className='flexea'>
+                                
+                                <input type="radio" id='casa' name='tipo' value={casa} onChange={handleCasaChange} required />
+                                <label htmlFor='casa'>Casa</label>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <fieldset>
+                        <label htmlFor='calle'>Calle</label>
+                        <input type="text" id='calle' name='calle' value={calle} onChange={handleCalleChange} required />
+                    </fieldset>
+
+                    {
+                        colegio?
+                        <fieldset>
+                            <label htmlFor='institucion'>Nombre de institución</label>
+                            <input type="text" id='institucion' name='institucion' value={institucion} onChange={handleInstitucionChange} required />
+                        </fieldset>
+                        :null
+                    }
+                    
                     <fieldset className='col-12'>
                         {childs.map(({ id, name, surnames, edad, DNI, alergenos, necesidadesesp }, index) => {
                             return (
@@ -75,7 +137,9 @@ const SolicitudForm = ({ sendSolicitud, setSolicitar, horariofin }) => {
                         <button type="submit" className='boton-azul blanco' >Solicitar</button>
                     </fieldset>
                 </form>
-                
+                {
+                    error?errorMsg:null
+                }   
             </section>
             
         </section>

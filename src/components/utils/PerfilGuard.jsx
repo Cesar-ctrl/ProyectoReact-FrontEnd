@@ -16,6 +16,7 @@ const PerfilGuard = ({ }) => {
 
     const loggGuardJSON = window.localStorage.getItem('loggedNoteAppGuard')
     const guardian = JSON.parse(loggGuardJSON)
+    const newmode = window.localStorage.getItem('newmode')
 
     const [guard, setGuards] = useState([]) 
     const [contacts, setContacts] = useState([]) 
@@ -214,7 +215,11 @@ const PerfilGuard = ({ }) => {
     <section className="home">
         <header className='titulo main flexea perfil'>
             <div className='foto'>
-            <img src={"https://damp-temple-29994.herokuapp.com/api/img/public/"+guard.imgUrl} className='reloj' alt="" />
+                {
+                    newmode?<img src="http://localhost:3000/img/pepe-clown.gif" className='reloj'  alt="" />
+                    :<img src={"https://damp-temple-29994.herokuapp.com/api/img/public/"+guard.imgUrl} className='reloj' alt="" />
+                }
+            
             </div>
             <h2>{name} {surnames}</h2>
         </header>
@@ -224,6 +229,7 @@ const PerfilGuard = ({ }) => {
                 sendSolicitud={sendSolicitud}
                 setSolicitar={() => setSolicitar(false)}
                 horariofin={horariofin}
+                horarioinicio={horarioinicio}
             />
             :
             <section className='flexea column'>

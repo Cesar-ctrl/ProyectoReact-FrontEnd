@@ -1,15 +1,26 @@
 import React, { useState, useEffect } from 'react';
 import guardService from '../../services/guards';
+import messageService from '../../services/messages';
 import userService from '../../services/users';
 import Guard from '../utils/Guard';
 
-const Busqueda = () => {
 
+const Busqueda = (currentNotif, socket) => {
+    console.log(socket)
+    const [notification, setNotification] = useState([]);
+    const [arrivalNotification, setArrivalNotification] = useState(null);
     const [guards, setGuards] = useState([]) 
     const [showAll, setShowAll] = useState(true)
     const [busqueda, setBusqueda] = useState('') 
+    const [cp, setCp] = useState(null) 
+    const [error, setError] = useState(false)
+    const [errorName, setErrorName] = useState('')
+    const [errortext, setErrortext] = useState('')
     const loggeUserJSON = window.localStorage.getItem('loggedNoteAppUser')
+    const loggedGuardJSON = window.localStorage.getItem('loggedNoteAppGuard')
     const usuario = JSON.parse(loggeUserJSON)
+    const guard = JSON.parse(loggedGuardJSON)
+    
 
 
     useEffect(() => {
@@ -20,51 +31,114 @@ const Busqueda = () => {
           })
     }, [])
     
+    //useEffect(() => {
+    //    if(usuario){  // distingue si es un usuario o una niñera para ver que mensajes son recibidos o enviados
+    //        const response = messageService.recieveLastMessageRoute({
+    //            to: usuario.id
+    //        })
+    //        response.then(chats => {
+    //            setNotification(chats);
+    //        })
+    //    }else{
+    //        messageService
+    //            .recieveLastMessageRoute({
+    //                to:guard.id,
+    //            })
+    //            .then(chats => {
+    //                setNotification(chats);
+    //            })
+    //    }
+    //}, []);
+
+    useEffect(() => {
+        if (socket.current) {
+          socket.current.on("msg-recieve", (msg) => {
+            setArrivalNotification({ fromSelf: false, message: msg });
+          });
+        }
+      }, []);
+    useEffect(() => {
+        console.log(arrivalNotification)    
+        arrivalNotification && setNotification((prev) => [...prev, arrivalNotification]);
+    }, [arrivalNotification]);
+    
+
     //toggleFav recojo la id de el usuario que he pinchado,  
     const toggleFav = (id) => {
-        const guard = guards.find(n => n.id === id)//busco y declaro la niñera que he pinchado
-        var favoritos = usuario.guards//traigo la lista completa de favoritos
-        var encontrado = false
-        for (let index = 0; index < favoritos.length; index++) {//hago un bucle para recorrer la lista favoritos
-            const element = favoritos[index];
-            if (element == id) {// Si encuentra la misma id de la niñera que he pinchado
-                userService     //llama a los services para eliminarlo de la lista
-                .putfav(usuario.id, guard.id)
-                .then(returnedGuard => {    //actualiza la lista
+        try{
+            const guard = guards.find(n => n.id === id)//busco y declaro la niñera que he pinchado
+            var favoritos = usuario.guards//traigo la lista completa de favoritos
+            var encontrado = false
+            for (let index = 0; index < favoritos.length; index++) {//hago un bucle para recorrer la lista favoritos
+                const element = favoritos[index];
+                if (element == id) {// Si encuentra la misma id de la niñera que he pinchado
+                    userService     //llama a los services para eliminarlo de la lista
+                    .putfav(usuario.id, guard.id)
+                    .then(returnedGuard => {    //actualiza la lista
+                        setGuards(guards.map(guardd => guardd.id !== id ? guardd : guard))
+                    })
+                    var parsedObject = usuario
+                    // Modificar el objeto para ahora guardarlo en el localStorage
+                    parsedObject.guards = parsedObject.guards.filter(item => item !== id)
+                    //actualizamos el elemento del localstorage
+                    const modifiedndstrigifiedForStorage = JSON.stringify(parsedObject);
+                    window.localStorage.setItem("loggedNoteAppUser", modifiedndstrigifiedForStorage);
+                    encontrado = true
+                    break
+                }
+                
+            }
+        
+            if (!(encontrado)) {    //si no encuentra la niñera en la lista de favoritos
+                userService         //llama a los services para haver una peticion post a la api para añadir la niñera a favoritos
+                .postfav(usuario.id, guard.id)
+                .then(returnedGuard => {//actualiza la lista
                     setGuards(guards.map(guardd => guardd.id !== id ? guardd : guard))
                 })
-                var parsedObject = usuario
+                const parsedObject = usuario
                 // Modificar el objeto para ahora guardarlo en el localStorage
-                parsedObject.guards = parsedObject.guards.filter(item => item !== id)
+                parsedObject.guards.push(guard.id)
                 //actualizamos el elemento del localstorage
                 const modifiedndstrigifiedForStorage = JSON.stringify(parsedObject);
                 window.localStorage.setItem("loggedNoteAppUser", modifiedndstrigifiedForStorage);
-                encontrado = true
-                break
             }
+        }catch(e) {
+            setError(true)
+            
+            setTimeout(() => {
+                setErrorName('Error Login')
+                setErrortext('No estas registrado para usar esa acción')
+            }, 2000)
+            setTimeout(() => {
+                setErrorName('')
+                setErrortext('')
+                setError(false)
+            }, 6000)
+            
             
         }
-
-        if (!(encontrado)) {    //si no encuentra la niñera en la lista de favoritos
-            userService         //llama a los services para haver una peticion post a la api para añadir la niñera a favoritos
-            .postfav(usuario.id, guard.id)
-            .then(returnedGuard => {//actualiza la lista
-                setGuards(guards.map(guardd => guardd.id !== id ? guardd : guard))
-            })
-            const parsedObject = usuario
-            // Modificar el objeto para ahora guardarlo en el localStorage
-            parsedObject.guards.push(guard.id)
-            //actualizamos el elemento del localstorage
-            const modifiedndstrigifiedForStorage = JSON.stringify(parsedObject);
-            window.localStorage.setItem("loggedNoteAppUser", modifiedndstrigifiedForStorage);
-        }
-        
-
     }
 
     const handleSearchChange = ({target}) => setBusqueda(target.value)
+    const handleCpChange = ({target}) => setCp(target.value)
     var search = guards.filter(guard => guard.name.toLowerCase().includes(busqueda.toLowerCase()))
-    const guardsToShow = search
+    function searchcp () {
+        if(busqueda=="" && cp==null){
+            return guards
+        }else{
+            return search.filter(guard => (""+guard.cp).includes(""+cp))
+        }
+
+    }
+    var listcp = searchcp()
+    const guardsToShow = listcp
+
+    const errorMsg = 
+        <div className='errorMsg'>
+            <h2 className='errorName'>{errorName}</h2>
+            <p className='errortext'>{errortext}</p>
+        </div>
+    
 
     return (
       <section className="home busqueda">
@@ -75,15 +149,17 @@ const Busqueda = () => {
         </header>
         <section className='buscador'>
             <div className='barra'>
-                
-                <input type="text" className='barra col-8' onChange={handleSearchChange} />
+                <input type="number" className='barra col-4' onChange={handleCpChange} placeholder='Buscar código postal' />
+                <input type="text" className='barra col-4' onChange={handleSearchChange} placeholder='Buscar por nombre' />
                 <div className='imgbuscar'>
                     <img src="../img/lupa-busqueda.png" alt="" className='lupa'/>
                 </div>
                 
             </div>
             <div className='filtros'>
-
+            <div>
+                
+            </div>
             </div>
         </section>
         <section className='flexea column'>
@@ -109,6 +185,9 @@ const Busqueda = () => {
             }
                 
             </div>
+            {
+                error?errorMsg:null
+            }
         </section>
 
       </section>

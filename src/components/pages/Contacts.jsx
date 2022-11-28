@@ -35,6 +35,7 @@ export default function Contacts({ contacts, changeChat, changeChatwidth }) {
     //Cambiar el chat
     const changeCurrentChat = (index, contact) => {
         setCurrentSelected(index);
+        console.log(contact)
         changeChat(contact);
         changeChatwidth('chatt')
     };

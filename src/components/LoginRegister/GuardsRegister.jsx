@@ -12,8 +12,10 @@ export default function GuardsRegister ({handleSubmit, ...props}) {
     const [horariofin, setHorariofin] = useState('')
     const [horarioinicio, setHorarioinicio] = useState('')
     const [password, setPassword] = useState('')
+    const [cp, setCp]= useState('')
     const [guard, setGuard] = useState(null)
     const [loggedin, setLoggedIn] = useState(null)
+    const [error, setError] = useState(true)
     const navigate = useNavigate();
 
     const listadias = [
@@ -73,42 +75,51 @@ export default function GuardsRegister ({handleSubmit, ...props}) {
     const handleHorarioinicioChange = ({target}) => setHorarioinicio(target.value)
     const handleHorariofinChange = ({target}) => setHorariofin(target.value)
     const handlePasswordChange = ({target}) => setPassword(target.value)
-
+    const handleCpChange = ({target}) => setCp(target.value)
     
     const handleRegister = async (event) => {
         event.preventDefault()
-
-        try {
-            
-            
-            const guard = await guardService.register({
-                name,
-                surnames,
-                DNI,
-                email,
-                phone,
-                dias,
-                horarioinicio,
-                horariofin,
-                password
-            })
-            
-            
-            setGuard(guard)
-            const logedguard = await guardService.login({
-                email,
-                password
-              })
-              window.localStorage.setItem(
-                'loggedNoteAppGuard', JSON.stringify(logedguard)
-              )
-            setLoggedIn(true)
-            navigate("/home/buscar", { replace: true });
-        } catch(e) {
-          setErrorMessage('Wrong credentials')
-          setTimeout(() => {
-            setErrorMessage(null)
-          }, 5000)
+        var pass1 = document.getElementById('pass1');
+        var pass2 = document.getElementById('pass2');
+        if (pass1.value == pass2.value) {
+            try {
+                const guard = await guardService.register({
+                    name,
+                    surnames,
+                    DNI,
+                    email,
+                    phone,
+                    dias,
+                    horarioinicio,
+                    horariofin,
+                    password,
+                    cp
+                })
+                
+                
+                setGuard(guard)
+                const logedguard = await guardService.login({
+                    email,
+                    password
+                })
+                window.localStorage.setItem(
+                    'loggedNoteAppGuard', JSON.stringify(logedguard)
+                )
+                setLoggedIn(true)
+                navigate("/home/buscar", { replace: true });
+            } catch(e) {
+            setErrorMessage('Wrong credentials')
+            setTimeout(() => {
+                setErrorMessage(null)
+            }, 5000)
+            }
+        }else{
+            setError(true)
+            document.getElementById("error").style='color:red'
+            var contrasenias = document.querySelectorAll('input[type="password"]')
+            for (let index = 0; index < contrasenias.length; index++) {
+                contrasenias[index].style='border: 2px solid red;';
+            }
         }
     
       }
@@ -128,24 +139,24 @@ export default function GuardsRegister ({handleSubmit, ...props}) {
                 <form action="" className='login' onSubmit={handleRegister}>
                     <fieldset className='col-12'>
                         <label htmlFor="name" className='col-10'>Nombre</label>
-                        <input className="col-10" type="text" name="name" value={ name} placeholder="Introduzca su Nombre"  pattern="[^0-9\x22]+"  title="Solo se aceptan letras"  onChange={ handleNameChange} />
+                        <input className="col-10" type="text" name="name" value={ name} placeholder="Introduzca su Nombre"  pattern="[^0-9\x22]+"  title="Solo se aceptan letras"  onChange={ handleNameChange} required />
                     </fieldset>
                     <fieldset className='col-12'>
                         <label htmlFor="surnames" className='col-10'>Apellidos</label>
-                        <input className="col-10" type="text" name="surnames" value={ surnames} placeholder="Introduzca sus Apellidos"  pattern="[^0-9\x22]+"  title="Solo se aceptan letras"  onChange={ handleSurnamesChange} />
+                        <input className="col-10" type="text" name="surnames" value={ surnames} placeholder="Introduzca sus Apellidos"  pattern="[^0-9\x22]+"  title="Solo se aceptan letras"  onChange={ handleSurnamesChange} required />
                     </fieldset>
                     <fieldset className='col-12'>
                         <label htmlFor="dni" className='col-10'>DNI</label>
-                        <input className="col-10" type="text" name="dni" value={ DNI} placeholder="Introduzca su DNI" pattern="[0-9]{8}[A-Za-z]{1}" title="Debe poner 8 números y una letra"  onChange={ handleDniChange} />
+                        <input className="col-10" type="text" name="dni" value={ DNI} placeholder="Introduzca su DNI" pattern="[0-9]{8}[A-Za-z]{1}" title="Debe poner 8 números y una letra"  onChange={ handleDniChange} required />
                     </fieldset>
                     <fieldset className='col-12'>
                         <label htmlFor="phone" className='col-10'>Télefono</label>
-                        <input className="col-10" type="number" name="phone" value={ phone} placeholder="Introduzca su teléfono" pattern="[0-9]{9}" title="Debe introducir su teléfono"  onChange={ handlePhoneChange} />
+                        <input className="col-10" type="number" name="phone" value={ phone} placeholder="Introduzca su teléfono" pattern="[0-9]{9}" title="Debe introducir su teléfono"  onChange={ handlePhoneChange} required />
                     </fieldset>
 
                     <fieldset className='col-12'>
                         <label htmlFor="email" className='col-10'>Correo electrónico</label>
-                        <input className="col-10" type="email" name="email" value={ email} placeholder="Introduzca su correo electrónico" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"  onChange={ handleEmailChange} />
+                        <input className="col-10" type="email" name="email" value={ email} placeholder="Introduzca su correo electrónico" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"  onChange={ handleEmailChange} required />
                     </fieldset>
 
 
@@ -170,19 +181,23 @@ export default function GuardsRegister ({handleSubmit, ...props}) {
                     </fieldset>
                     <fieldset className='col-12'>
                         <label htmlFor="horarioinicio" className='col-10'>Horario de comienzo</label>
-                        <input className="col-10" type="time" name="horarioinicio" value={ horarioinicio}  onChange={ handleHorarioinicioChange} />
+                        <input className="col-10" type="time" name="horarioinicio" value={ horarioinicio}  onChange={ handleHorarioinicioChange} required />
                         <label htmlFor="horariofin" className='col-10'>Horario de fin</label>
-                        <input className="col-10" type="time" name="horariofin" value={ horariofin}  min={horarioinicio}  onChange={ handleHorariofinChange} />
+                        <input className="col-10" type="time" name="horariofin" value={ horariofin}  min={horarioinicio}  onChange={ handleHorariofinChange} required />
+                    </fieldset>
+                    <fieldset className='col-12'>
+                        <label htmlFor="cp" className='col-10'>Código Postal</label>
+                        <input className="col-10" type="number" name="cp" defaultValue={cp} pattern="[0-5]{5}"  placeholder="Introduzca código postal"  title="Debe introducir su código postal"  onChange={ handleCpChange} required />
                     </fieldset>
 
 
                     <fieldset className='col-12'>
                         <label htmlFor="Password" className='col-10'>Contraseña</label>
-                        <input className="col-10" type="password" value={ password} name="Password" placeholder="Introduzca contraseña de al menos 8 caracteres" pattern=".{8,}" title="Debe usar 8 o más caracteres" onChange={ handlePasswordChange} />
+                        <input className="col-10" type="password" value={ password} name="Password" placeholder="Introduzca contraseña de al menos 8 caracteres" pattern=".{8,}" title="Debe usar 8 o más caracteres" onChange={ handlePasswordChange} required />
                     </fieldset>
                     <fieldset className='col-12'>
                         <label htmlFor="PasswordConfirm" className='col-10'>Confirmación de la contraseña</label>
-                        <input className="col-10" type="password" placeholder="Repita la contraseña" name="PasswordConfirm"  />
+                        <input className="col-10" type="password" placeholder="Repita la contraseña" name="PasswordConfirm" required />
                     </fieldset>
                     <fieldset className='col-12'>
                         <button className="col-2 col-10" type="submit" name="enviar" value="Registrarse" id='form-register-button'>Registrarse</button>

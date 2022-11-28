@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { Routes,  Route,  Link, useLocation  } from "react-router-dom";
 import Busqueda from './Busqueda';
 import Favoritos from './Favoritos';
@@ -17,6 +17,7 @@ import Ajustes from './Ajustes';
 import UserUpdate from '../InfoUpdate/UserUpdate';
 import GuardUpdate from '../InfoUpdate/GuardUpdate';
 import PerfilUsuario from '../utils/PerfilUsuario';
+import { io } from 'socket.io-client';
 //Todas las importaciones necesarias
 
 
@@ -29,24 +30,44 @@ function Home() {
     const [user, setUser] = useState(null)
     const [guard, setGuard] = useState(null)
     const [container, setContainer] = useState('container')
+    const socket = useRef();
+    const loggedUserJSON = window.localStorage.getItem('loggedNoteAppUser')
+    const loggGuardJSON = window.localStorage.getItem('loggedNoteAppGuard')
+    const [currentNotif, setCurrentNotif] = useState(undefined);
     //usamos useEffect para ejecutar tareas secundarias como declarar los token en los services 
     useEffect(() => {
-        const loggedUserJSON = window.localStorage.getItem('loggedNoteAppUser')
+        
         if (loggedUserJSON) {
           const user = JSON.parse(loggedUserJSON)
           setUser(user)
           userService.setToken(user.token)
           childService.setToken(user.token)
         }  
-        const loggGuardJSON = window.localStorage.getItem('loggedNoteAppGuard')
+        
         if (loggGuardJSON) {
             const guardian = JSON.parse(loggGuardJSON)
             setGuard(guardian)
             guardService.setToken(guardian.token)
           }  
+    }, [])
+    
+    useEffect(() => { //utilizamos socket para que recibir notificaciones
+        // cambiar a https://damp-temple-29994.herokuapp.com Si se quiere probar en local 
+        // Y en el servidor tambén pondré un comentario de que cambiar para que funcione en local 
+        if(loggGuardJSON || loggedUserJSON){
+            socket.current = io('http://localhost:3001');
+            if (loggGuardJSON) {
+                socket.current.emit("add-user", loggGuardJSON.id)
+            }
+            if(loggedUserJSON){
+                socket.current.emit("add-user", loggedUserJSON.id)
+            }
+        }
+        //Continuar con las notificaciones
         
-      }, [])
-
+        
+    }, []);
+    console.log(socket)
     //Esto es un Easteregg
     const toggleback = () => {
         setContainer('container backunder')
@@ -60,14 +81,15 @@ function Home() {
         <div className={container} id="containermain">
             <main className={state?'main '+state:'main background1'}>
             <Routes>
-                <Route path="/buscar" element={ <Busqueda />} />
-                <Route path="/favoritos" element={ <Favoritos /> }  />
-                <Route path="/solicitudes" element={ <Solicitudes /> }  />
+                <Route path="/buscar" element={ <Busqueda currentNotif={currentNotif} socket={socket}  />} />
+                <Route path="/favoritos" element={ <Favoritos currentNotif={currentNotif} socket={socket} /> }  />
+                <Route path="/solicitudes" element={ <Solicitudes currentNotif={currentNotif} socket={socket} /> }  />
                 <Route path="/chat" element={ <Chat /> }  />
-                <Route path="/contratos" element={ <Contratos /> } />
-                <Route path="/child" element={ <Child /> } />
+                <Route path="/contratos" element={ <Contratos currentNotif={currentNotif} socket={socket} /> } />
+                <Route path="/child" element={ <Child currentNotif={currentNotif} socket={socket} /> } />
                 <Route path="/child/signup" element={ <ChildRegister 
                     modoEdicion={false}
+                    currentNotif={currentNotif} socket={socket}
                 /> } />
                 <Route path="/child/change/*" element={ <ChildUpdate /> } />
                 <Route path="/perfil" element={ <Miperfil /> } />

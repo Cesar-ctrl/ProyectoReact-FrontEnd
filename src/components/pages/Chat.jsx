@@ -35,9 +35,8 @@ export default function Chat() {
           )
         );
       }
-      
-    
   }, []);
+
   useEffect(() => { //utilizamos socket para que los mensajes se envien y reciban de forma dinamica sin tener que recargar la página
     if (currentUser) {
       // cambiar a https://damp-temple-29994.herokuapp.com Si se quiere probar en local 
@@ -46,9 +45,10 @@ export default function Chat() {
       socket.current.emit("add-user", currentUser.id);
     }
   }, [currentUser]);
-
+  console.log(socket)
   useEffect(() => {
     if (currentUser) {
+      console.log(currentUser)
       if (localStorage.getItem("loggedNoteAppGuard")) {
           guardService  //si es una niñera trae los contactos de la niñera
             .getChatGuard(currentUser.id)
@@ -64,7 +64,7 @@ export default function Chat() {
       }
     }
   }, [currentUser]);
-  //control de evento para cembiar de chat y se vean los nuevos mensajes
+  //control de evento para cambiar de chat y se vean los nuevos mensajes
   const handleChatChange = (chat) => {
     setCurrentChat(chat);
   };

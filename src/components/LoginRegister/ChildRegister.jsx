@@ -82,14 +82,14 @@ export default function RegisterF ({handleSubmit, ...props}) {
         new Array(listaalergenos.length).fill(false)
       );
 
-      const handleOnChange = (position) => {
+    const handleOnChange = (position) => {
         const updatedAlergenos = alergenos.map((item, index) =>
-          index === position ? !item : item
+            index === position ? !item : item
         );
-    
+
         setAlergenos(updatedAlergenos);
-    
-      };
+
+    };
     
     const handleRegisterChild = async (event) => {
         event.preventDefault()

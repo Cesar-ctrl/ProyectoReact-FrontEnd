@@ -18,6 +18,7 @@ export default function GuardsUpdate ({handleSubmit, ...props}) {
     const [selectedFile, setSelectedFile] = useState(null);
     const [guard, setGuard] = useState(null)
     const [info, setInfo] = useState(null)
+    const [cp, setCp]= useState('')
     const [loggedIn, setLoggedIn] = useState(null)
     const navigate = useNavigate();
 
@@ -99,7 +100,8 @@ export default function GuardsUpdate ({handleSubmit, ...props}) {
                     dias,
                     horarioinicio,
                     horariofin,
-                    imgUrl
+                    imgUrl,
+                    cp
                 })
             }else{
                 const guard = await guardService.update(usuario.id, {
@@ -109,6 +111,7 @@ export default function GuardsUpdate ({handleSubmit, ...props}) {
                 dias,
                 horarioinicio,
                 horariofin,
+                cp
             })
             }
             setGuard(guard)
@@ -175,6 +178,11 @@ if(info){
                         <input className="col-10" type="time" name="horarioinicio" defaultValue={info.horarioinicio}  onChange={ e=> setHorariofin(e.target.value) } />
                         <label htmlFor="timestamp" className='col-10'>Horario de fin</label>
                         <input className="col-10" type="time" name="horariofin" defaultValue={info.horariofin}  onChange={ e=> setHorarioinicio(e.target.value) } />
+                    </fieldset>
+
+                    <fieldset className='col-12'>
+                        <label htmlFor="cp" className='col-10'>Código Postal</label>
+                        <input className="col-10" type="number" name="cp" defaultValue={info.cp} pattern="[0-5]{5}"  placeholder="Introduzca código postal"  title="Debe introducir su código postal"  onChange={ e=> setCp(e.target.value) }  />
                     </fieldset>
 
                     <fieldset className='col-12'>

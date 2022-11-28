@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from "react";
-import styled from "styled-components";
 import { v4 as uuidv4 } from "uuid";
 import { Link, useLocation } from "react-router-dom";
 import ChatInput from "./ChatInput";
@@ -7,6 +6,7 @@ import messageService from '../../services/messages';
 
 
 export default function ChatContainer({ currentChat, socket, changeChatwidth }) {
+  console.log(socket)
     const [messages, setMessages] = useState([]);
     const scrollRef = useRef();
     const [arrivalMessage, setArrivalMessage] = useState(null);
@@ -16,7 +16,7 @@ export default function ChatContainer({ currentChat, socket, changeChatwidth }) 
     const guard = JSON.parse(loggeGuardJSON)
     const location = useLocation();
     const state = location.state;
-
+    
     //Aquí es donde se van a ver los mensajes, tambien donde va a actuar el socket
     useEffect(() => {
         if(usuario){  // distingue si es un usuario o una niñera para ver que mensajes son recibidos o enviados
@@ -95,6 +95,7 @@ export default function ChatContainer({ currentChat, socket, changeChatwidth }) 
   };
 
   useEffect(() => {
+    console.log(socket.current)
     if (socket.current) {
       socket.current.on("msg-recieve", (msg) => {
         setArrivalMessage({ fromSelf: false, message: msg });
@@ -103,6 +104,7 @@ export default function ChatContainer({ currentChat, socket, changeChatwidth }) 
   }, []);
 
   useEffect(() => {
+    console.log(arrivalMessage)
     arrivalMessage && setMessages((prev) => [...prev, arrivalMessage]);
   }, [arrivalMessage]);
 

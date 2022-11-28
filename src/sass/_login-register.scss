@@ -78,7 +78,13 @@
 }
 .headerformulario>h2{
   font-size: 20px;
-  
+}
+
+header.grid{
+  display: grid;
+    width: 80%;
+    grid-template-columns: 20% 80%;
+    align-items: center;
 }
 
 .body{
@@ -198,7 +204,9 @@ button{
   }
 }
 
-
+.atras{
+  cursor: pointer;
+}
 
 @mixin movile {
     @media only screen and (min-width: 425px) {

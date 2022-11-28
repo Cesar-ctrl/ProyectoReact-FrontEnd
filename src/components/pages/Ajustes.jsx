@@ -46,7 +46,7 @@ const Ajustes = (props) => {
         </div>
         <div className='col-12 column listado'>
 
-            <div className='cuidador flexea'>
+            <div className='cuidador flexea roww evenly'>
                 <div className='superfoto' onClick={changeBack3} ref={back2} id="background2">
                     <img src="../../static/media/backgraund3-tablet.157ff688cc985b7f6c84.jpg" className="superfoto" alt="" />
                 </div>
@@ -56,8 +56,7 @@ const Ajustes = (props) => {
                 <div className='superfoto' onClick={changeBack2} ref={back3} id="background3">
                     <img src="../../static/media/backgraund2-tablet.83d9d47e0dc5598b8bf9.png" className="superfoto" alt="" />
                 </div>
-                <div className='nombreval flexea centertext'>
-                </div>
+                
             </div>
             <div className='cuidador flexea'>
                 <Link to="/home" state={backgr} >

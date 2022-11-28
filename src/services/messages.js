@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const baseUrl = 'https://damp-temple-29994.herokuapp.com/api/messages'
+const baseUrl = 'http://localhost:3001/api/messages/'
 
 let token = null
 
@@ -29,4 +29,14 @@ const recieveMessageRoute  = async credentials => {
     return data
 }
 
-export default { recieveMessageRoute, sendMessageRoute, setToken }
+const recieveLastMessageRoute  = async credentials => {
+    const config = {
+        headers: {
+            Authorization: token
+        }
+    }
+    const { data } = await axios.post(`${baseUrl}/getlastmsg`, credentials, config)
+    return data
+}
+
+export default { recieveMessageRoute, sendMessageRoute, recieveLastMessageRoute, setToken }

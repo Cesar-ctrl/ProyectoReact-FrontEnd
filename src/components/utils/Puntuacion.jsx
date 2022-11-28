@@ -45,7 +45,7 @@ const Puntuacion = ({ comments, lengt }) => {
 
     <div className='flexea roww evenly'>
         <div>
-            <h5 className='media'>{total?total/lengt:0}</h5>
+            <h5 className='media'>{total?Math.round(total/lengt*10)/10:0}</h5>
             {<StaticStar value={Math.round(total?total/lengt:'none')} />}
         </div>
         <div className='col-12'>
