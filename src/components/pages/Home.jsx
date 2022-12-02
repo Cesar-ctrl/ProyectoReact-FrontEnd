@@ -52,7 +52,7 @@ function Home() {
     }, [])
     
     useEffect(() => { //utilizamos socket para que recibir notificaciones
-        // cambiar a https://damp-temple-29994.herokuapp.com Si se quiere probar en local 
+        // cambiar a https://babyguard.onrender.com Si se quiere probar en local 
         // Y en el servidor tambén pondré un comentario de que cambiar para que funcione en local 
         if(loggGuardJSON || loggedUserJSON){
             socket.current = io('http://localhost:3001');

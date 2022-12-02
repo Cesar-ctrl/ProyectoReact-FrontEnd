@@ -61,6 +61,7 @@ const SolicitudForm = ({ sendSolicitud, setSolicitar, horariofin, horarioinicio 
             <p className='errortext'>{errortext}</p>
         </div>
     
+    
     return(
         <section className='flexea column'>
             <header>
@@ -134,7 +135,15 @@ const SolicitudForm = ({ sendSolicitud, setSolicitar, horariofin, horarioinicio 
                             })}
                     </fieldset>
                     <fieldset className='col-12'>
-                        <button type="submit" className='boton-azul blanco' >Solicitar</button>
+                        {
+                            childs.length>0?
+                            <button type="submit" className='boton-azul blanco' >Solicitar</button>
+                            :
+                            <Link className='cuidador flexea roww' state={state} to='../child'>
+                                <h3>Aún no has registrado ningún niño</h3>
+                            </Link>
+                        }
+                        
                     </fieldset>
                 </form>
                 {

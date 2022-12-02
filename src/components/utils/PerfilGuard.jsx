@@ -28,6 +28,7 @@ const PerfilGuard = ({ }) => {
     const [horarioinicio, setHorarioinicio] = useState('')
     const [descr, setDesc] = useState('')
     const [dias, setDias] = useState([])
+    const [showAll, setShowAll] = useState(true)
     const navigate = useNavigate();
     const [rating, setRating] = React.useState(0);
     const [comentario, setComentario] = useState('')
@@ -77,7 +78,6 @@ const PerfilGuard = ({ }) => {
             }
             solicitudesService.yaSolicitado(bodySolicitud)
                 .then(res => {
-                    console.log(res)
                     if(res.length == 0){
                         setSolicitado(false)
                     }else{
@@ -154,7 +154,7 @@ const PerfilGuard = ({ }) => {
 
     const handleChat = async(chats) => {
         try{
-            
+            console.log(contacts)
             const contacto = contacts.find(n => n.id === chats)
             if(!(contacto)){
                 const user = await userService.postChat(usuario.id, chats)
@@ -209,7 +209,6 @@ const PerfilGuard = ({ }) => {
 
     var leng = comments.length
 
-
     
     return (
     <section className="home">
@@ -217,7 +216,7 @@ const PerfilGuard = ({ }) => {
             <div className='foto'>
                 {
                     newmode?<img src="http://localhost:3000/img/pepe-clown.gif" className='reloj'  alt="" />
-                    :<img src={"https://damp-temple-29994.herokuapp.com/api/img/public/"+guard.imgUrl} className='reloj' alt="" />
+                    :<img src={"https://babyguard.onrender.com/api/img/public/"+guard.imgUrl} className='reloj' alt="" />
                 }
             
             </div>
@@ -309,12 +308,10 @@ const PerfilGuard = ({ }) => {
                         <h4>Valoraciones</h4>
                         
                         <section className='flexea column notcenter'>
-                        {
                             <Puntuacion
                                 comments={comments}
                                 lengt={leng}
                             />
-                        }
                         </section>
                         {
                             historial.find(element => element.guard==Id)?

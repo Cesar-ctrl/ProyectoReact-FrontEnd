@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const baseUrl = 'https://damp-temple-29994.herokuapp.com/api/babyguards'
+const baseUrl = 'https://babyguard.onrender.com/api/babyguards'
 
 let token = null
 
@@ -15,7 +15,7 @@ const register = async credentials => {
 }
 //Este sirve para hacer log in de cuidador
 const login = async credentials => {
-  const { data } = await axios.post('https://damp-temple-29994.herokuapp.com/api/loginguards', credentials)
+  const { data } = await axios.post('https://babyguard.onrender.com/api/loginguards', credentials)
   return data
 }
 //Este sirve para traer todos los cuidadores

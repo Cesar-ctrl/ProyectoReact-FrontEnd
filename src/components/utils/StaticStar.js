@@ -53,7 +53,8 @@ const StaticStar = (value) => {
               <RatingIcon 
                 index={index} 
                 rating={rating} 
-                onSaveRating={onSaveRating} />
+                onSaveRating={onSaveRating} 
+                key={index} />
             )
           })}
         </div>

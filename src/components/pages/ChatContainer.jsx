@@ -126,7 +126,7 @@ export default function ChatContainer({ currentChat, socket, changeChatwidth }) 
                 <Link to={"/home/buscar/user/"+currentChat.id} params={{ userid:userid }} state={state} className="user-details">
                   <div className="avatar">
                     <img
-                      src={`https://damp-temple-29994.herokuapp.com/api/img/public/${currentChat.imgUrl}`} alt=""/>
+                      src={`https://babyguard.onrender.com/api/img/public/${currentChat.imgUrl}`} alt=""/>
                   </div>
                   <div className="username">
                     <h3>{currentChat.name}</h3>
@@ -146,7 +146,7 @@ export default function ChatContainer({ currentChat, socket, changeChatwidth }) 
               <Link to={"/home/buscar/guard/"+currentChat.id} className="user-details" state={state}>
                 <div className="avatar">
                   <img
-                    src={`https://damp-temple-29994.herokuapp.com/api/img/public/${currentChat.imgUrl}`} alt=""/>
+                    src={`https://babyguard.onrender.com/api/img/public/${currentChat.imgUrl}`} alt=""/>
                 </div>
                 <div className="username">
                   <h3>{currentChat.name}</h3>

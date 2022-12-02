@@ -58,7 +58,7 @@ export default function Contacts({ contacts, changeChat, changeChatwidth }) {
                 >
                   <div className="avatar">
                     <img
-                      src={`https://damp-temple-29994.herokuapp.com/api/img/public/${contact.imgUrl}`}
+                      src={`https://babyguard.onrender.com/api/img/public/${contact.imgUrl}`}
                       alt=""
                     />
                   </div>
@@ -72,7 +72,7 @@ export default function Contacts({ contacts, changeChat, changeChatwidth }) {
           <footer className="current-user">
             <div className="avatar">
               <img
-                src={`https://damp-temple-29994.herokuapp.com/api/img/public/${currentUserImage}`}
+                src={`https://babyguard.onrender.com/api/img/public/${currentUserImage}`}
                 alt="avatar"
               />
             </div>

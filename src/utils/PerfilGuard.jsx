@@ -129,7 +129,7 @@ const PerfilGuard = ({ }) => {
     <section className="home">
         <header className='titulo main flexea perfil'>
             <div className='foto'>
-            <img src={"https://damp-temple-29994.herokuapp.com/api/img/public/"+guard.imgUrl} className='reloj' alt="" />
+            <img src={"https://babyguard.onrender.com/api/img/public/"+guard.imgUrl} className='reloj' alt="" />
             </div>
             <h2>{guard.name} {guard.surnames}</h2>
         </header>

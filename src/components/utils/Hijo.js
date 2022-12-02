@@ -10,7 +10,7 @@ const Hijo = ({ child }) => {
     <Link to={'/home/child/change/'+child.id} state={state}>
       <div className= 'cuidador flexea roww' >
           <div className='foto'>
-              <img src={"https://damp-temple-29994.herokuapp.com/api/img/public/"+child.imgUrl} className='fotoestandar' alt="" />
+              <img src={"https://babyguard.onrender.com/api/img/public/"+child.imgUrl} className='fotoestandar' alt="" />
           </div>
           
           <div>

@@ -39,7 +39,7 @@ const Guard = ({ favs, guard, toggleFav }) => {
                 
                 {
                     newmode?<img src="../img/pepe-clown.gif" className='fotoestandar' alt="" /> :
-                    <img src={"https://damp-temple-29994.herokuapp.com/api/img/public/"+guard.imgUrl} className='fotoestandar' alt="" />
+                    <img src={"https://babyguard.onrender.com/api/img/public/"+guard.imgUrl} className='fotoestandar' alt="" />
                 }
                 
             </div>

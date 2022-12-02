@@ -9,10 +9,13 @@ const Busqueda = (currentNotif, socket) => {
     console.log(socket)
     const [notification, setNotification] = useState([]);
     const [arrivalNotification, setArrivalNotification] = useState(null);
+    const [user, setUser] = useState(null)
     const [guards, setGuards] = useState([]) 
     const [showAll, setShowAll] = useState(true)
     const [busqueda, setBusqueda] = useState('') 
+    const [childs, SetChilds] = useState([]);
     const [cp, setCp] = useState(null) 
+    const [tip, setTip] = useState(false);
     const [error, setError] = useState(false)
     const [errorName, setErrorName] = useState('')
     const [errortext, setErrortext] = useState('')
@@ -30,7 +33,7 @@ const Busqueda = (currentNotif, socket) => {
             setGuards(initialGuards)
           })
     }, [])
-    
+
     //useEffect(() => {
     //    if(usuario){  // distingue si es un usuario o una niñera para ver que mensajes son recibidos o enviados
     //        const response = messageService.recieveLastMessageRoute({
@@ -56,13 +59,13 @@ const Busqueda = (currentNotif, socket) => {
             setArrivalNotification({ fromSelf: false, message: msg });
           });
         }
-      }, []);
+    }, []);
+
     useEffect(() => {
         console.log(arrivalNotification)    
         arrivalNotification && setNotification((prev) => [...prev, arrivalNotification]);
     }, [arrivalNotification]);
     
-
     //toggleFav recojo la id de el usuario que he pinchado,  
     const toggleFav = (id) => {
         try{
@@ -118,6 +121,21 @@ const Busqueda = (currentNotif, socket) => {
             
         }
     }
+    
+    const gothijos = () =>{
+        if(!(usuario.hijos.length>0)){
+        setTip(true)
+        setTimeout(() => {
+            setErrorName('Niños no iniciados')
+            setErrortext('No tienes ningún niño registrado en la app')
+        }, 2000)
+        setTimeout(() => {
+            setErrorName('')
+            setErrortext('')
+            setTip(false)
+        }, 6000)
+    }
+    }
 
     const handleSearchChange = ({target}) => setBusqueda(target.value)
     const handleCpChange = ({target}) => setCp(target.value)
@@ -131,10 +149,16 @@ const Busqueda = (currentNotif, socket) => {
 
     }
     var listcp = searchcp()
-    const guardsToShow = listcp
+
+    const guardsToShow = showAll? listcp : listcp.filter(guard => guard.disponible)
 
     const errorMsg = 
         <div className='errorMsg'>
+            <h2 className='errorName'>{errorName}</h2>
+            <p className='errortext'>{errortext}</p>
+        </div>
+    const tipMsg = 
+        <div className='errorMsg blue'>
             <h2 className='errorName'>{errorName}</h2>
             <p className='errortext'>{errortext}</p>
         </div>
@@ -149,6 +173,7 @@ const Busqueda = (currentNotif, socket) => {
         </header>
         <section className='buscador'>
             <div className='barra'>
+                <input type="checkbox" onClick={() => setShowAll(!showAll)} />
                 <input type="number" className='barra col-4' onChange={handleCpChange} placeholder='Buscar código postal' />
                 <input type="text" className='barra col-4' onChange={handleSearchChange} placeholder='Buscar por nombre' />
                 <div className='imgbuscar'>
@@ -162,7 +187,7 @@ const Busqueda = (currentNotif, socket) => {
             </div>
             </div>
         </section>
-        <section className='flexea column'>
+        <section className='flexea column' onLoad={gothijos} >
             <div className='col-10 column listado'>
             {usuario?
             guardsToShow.map((guard, i) => 
@@ -188,6 +213,9 @@ const Busqueda = (currentNotif, socket) => {
             {
                 error?errorMsg:null
             }
+            {
+                tip?tipMsg:null
+            } 
         </section>
 
       </section>

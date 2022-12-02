@@ -75,9 +75,7 @@ const Favoritos = () => {
     const newmode = window.localStorage.getItem('newmode')
 
     //Filtro para ocultar las niñeras que no están disponibles en este momento
-    const guardsToShow = showAll
-    ? guards.guards
-    : guards.guards.filter(guard => guard.disponible)
+    const guardsToShow = showAll? guards.guards : guards.guards.filter(guard => guard.disponible)
     
     const loggUserJSON = window.localStorage.getItem('loggedNoteAppUser')
     return (

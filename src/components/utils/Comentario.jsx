@@ -16,7 +16,7 @@ const Comentario = ({ comments }) => {
     <section>
         <header className='flexea perfil comentario'>
             <div className='flexea perfil'>
-                <img src={"https://damp-temple-29994.herokuapp.com/api/img/public/"+comments.autor.imgUrl} alt="" className='fotocomentario '/>
+                <img src={"https://babyguard.onrender.com/api/img/public/"+comments.autor.imgUrl} alt="" className='fotocomentario '/>
                 <h3>{comments.autor.name} {comments.autor.surnames}</h3>
             </div>
             <div className='flexea perfil'>

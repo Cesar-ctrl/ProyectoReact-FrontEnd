@@ -78,7 +78,7 @@ const Contrato = (props) => {
     <section className="home">
         <header className='titulo main flexea perfil'>
             <div className='foto'>
-                <img src={"https://damp-temple-29994.herokuapp.com/api/img/public/"+user.imgUrl} className='reloj' alt="" />
+                <img src={"https://babyguard.onrender.com/api/img/public/"+user.imgUrl} className='reloj' alt="" />
             </div>
             <h2>{user.name} {user.surnames}</h2>
         </header>
@@ -91,7 +91,7 @@ const Contrato = (props) => {
                     <p>Teléfono: {user.phone}</p>
                     <p>Correo: {user.email}</p>
                     <p>Foto: </p>
-                    <img src={"https://damp-temple-29994.herokuapp.com/api/img/public/"+user.imgUrl} className='reloj grande' alt="" />
+                    <img src={"https://babyguard.onrender.com/api/img/public/"+user.imgUrl} className='reloj grande' alt="" />
                 </div>
                 <h3 className='br'>Hijos:</h3>
                 <div className='cuidador flexea column notcenter'>
@@ -125,7 +125,7 @@ const Contrato = (props) => {
                             }
                             
                             <p>Foto: </p>
-                            <img src={"https://damp-temple-29994.herokuapp.com/api/img/public/"+child.imgUrl} className='reloj grande' alt="" />
+                            <img src={"https://babyguard.onrender.com/api/img/public/"+child.imgUrl} className='reloj grande' alt="" />
                         </div>
                         )
                         :

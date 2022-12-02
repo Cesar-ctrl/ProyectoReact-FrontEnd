@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const baseUrl = 'https://damp-temple-29994.herokuapp.com/api/hijos'
+const baseUrl = 'https://babyguard.onrender.com/api/hijos'
 
 let token = null
 
