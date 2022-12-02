@@ -174,7 +174,7 @@ const Busqueda = (currentNotif, socket) => {
         <section className='buscador'>
             <div className='barra'>
                 <input type="checkbox" onClick={() => setShowAll(!showAll)} />
-                <input type="number" className='barra col-4' onChange={handleCpChange} placeholder='Buscar código postal' />
+                <input type="number" className='barra col-4' onChange={handleCpChange} placeholder='C.P.' />
                 <input type="text" className='barra col-4' onChange={handleSearchChange} placeholder='Buscar por nombre' />
                 <div className='imgbuscar'>
                     <img src="../img/lupa-busqueda.png" alt="" className='lupa'/>

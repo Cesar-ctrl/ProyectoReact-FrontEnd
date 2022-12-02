@@ -39,9 +39,9 @@ export default function Chat() {
 
   useEffect(() => { //utilizamos socket para que los mensajes se envien y reciban de forma dinamica sin tener que recargar la página
     if (currentUser) {
-      // cambiar a https://babyguard.onrender.com Si se quiere probar en local 
+      // cambiar a http://localhost:3001 Si se quiere probar en local 
       // Y en el servidor tambén pondré un comentario de que cambiar para que funcione en local 
-      socket.current = io('http://localhost:3001');
+      socket.current = io('https://babyguard.onrender.com');
       socket.current.emit("add-user", currentUser.id);
     }
   }, [currentUser]);
