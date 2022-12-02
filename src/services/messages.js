@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const baseUrl = 'http://localhost:3001/api/messages/'
+const baseUrl = 'https://babyguard.onrender.com/api/messages/'
 
 let token = null
 

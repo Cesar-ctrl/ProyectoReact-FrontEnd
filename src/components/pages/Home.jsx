@@ -52,10 +52,10 @@ function Home() {
     }, [])
     
     useEffect(() => { //utilizamos socket para que recibir notificaciones
-        // cambiar a https://babyguard.onrender.com Si se quiere probar en local 
+        // cambiar a http://localhost:3001 Si se quiere probar en local 
         // Y en el servidor tambén pondré un comentario de que cambiar para que funcione en local 
         if(loggGuardJSON || loggedUserJSON){
-            socket.current = io('http://localhost:3001');
+            socket.current = io('https://babyguard.onrender.com');
             if (loggGuardJSON) {
                 socket.current.emit("add-user", loggGuardJSON.id)
             }
