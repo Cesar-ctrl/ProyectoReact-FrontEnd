@@ -69,7 +69,7 @@ const SolicitudForm = ({ sendSolicitud, setSolicitar, horariofin, horarioinicio 
             <section className='col-10 column listado deperfil'>
                 <header className='grid'>
                     <a className='flexea atras negro' onClick={setSolicitar}>
-                        <img src="https://babyguard.vercel.app/img/back-arrow.svg" alt="" className='reloj maspequenio' /> 
+                        <img src="https://babyguard.vercel.app/img/back-arrow.svg" alt="" /> 
                     </a>
                     <h2>Mandar Solicitud</h2>
                 </header>

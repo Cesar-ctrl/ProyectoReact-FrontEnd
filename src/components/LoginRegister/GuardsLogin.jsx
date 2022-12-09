@@ -8,7 +8,9 @@ export default function LoginF () {
     const [password, setPassword] = useState('')
     const [email, setEmail] = useState('')
     const [LoggedIn, setLoggedIn] = useState(null)
-    const [errorMessage, setErrorMessage] = useState(null)
+    const [error, setError] = useState(false)
+    const [errorName, setErrorName] = useState('')
+    const [errortext, setErrortext] = useState('')
     const navigate = useNavigate();
 
     const handleEmailChange = ({target}) => setEmail(target.value)
@@ -37,14 +39,34 @@ export default function LoginF () {
           navigate("/home/buscar", { replace: true });
           
         } catch(e) {
-          setErrorMessage('Email o contraseña inválidos')
-          setTimeout(() => {
-            setErrorMessage(null)
-          }, 5000)
+            setError(true)
+            
+            setTimeout(() => {
+                setErrorName('Error Login')
+                setErrortext('Email o contraseña inválidos')
+            }, 2000)
+            setTimeout(() => {
+                setErrorName('')
+                setErrortext('')
+                setError(false)
+            }, 6000)
+          
+            var contrasenias = document.querySelectorAll('input[type="password"]')
+            for (let index = 0; index < contrasenias.length; index++) {
+                contrasenias[index].style='border: 2px solid red;';
+            }
+            var emails = document.querySelectorAll('input[type="text"]')
+            for (let index = 0; index < emails.length; index++) {
+                emails[index].style='border: 2px solid red;';
+            }
         }
     
       }
-      
+      const errorMsg = 
+        <div className='errorMsg'>
+            <h2 className='errorName'>{errorName}</h2>
+            <p className='errortext'>{errortext}</p>
+        </div>
       
     
   return (
@@ -55,14 +77,11 @@ export default function LoginF () {
             <section className='body background2 formlogin'>
                 <header>
                     <Link to="/"  className='flexea atras negro'>
-                        <img src="https://babyguard.vercel.app/img/back-arrow.svg" alt="" className='reloj maspequenio'/>
+                        <img src="https://babyguard.vercel.app/img/back-arrow.svg" alt="" />
                         
                     </Link>
                     <h2>Inicio sesión de cuidador</h2>
                 </header>
-                <span className=''>
-                    <Notification  message={errorMessage} />
-                </span>
                 <form action="" className='login' onSubmit={handleLogin}>
                     <fieldset className='col-12'>
                         <label htmlFor="Email" className='col-10'>Correo electrónico</label>
@@ -82,7 +101,9 @@ export default function LoginF () {
                         </Link>
                     </div>
                 </form>
-                
+                {
+                    error?errorMsg:null
+                }  
             </section>
             
         

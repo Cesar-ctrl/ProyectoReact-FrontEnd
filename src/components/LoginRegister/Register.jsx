@@ -4,7 +4,6 @@ import loginService from '../../services/login';
 import registerService from '../../services/register';
 
 export default function RegisterF ({handleSubmit, ...props}) {
-    const [errorMessage, setErrorMessage] = useState(null)
     const [name, setName] = useState('')
     const [surnames, setSurnames] = useState('')
     const [DNI, setDni] = useState('')
@@ -13,7 +12,10 @@ export default function RegisterF ({handleSubmit, ...props}) {
     const [password, setPassword] = useState('')
     const [user, setUser] = useState(null)
     const [loggedIn, setLoggedIn] = useState(null)
-    const [error, setError] = useState(true)
+    const [errorp, setErrorp] = useState(false)
+    const [error, setError] = useState(false)
+    const [errorName, setErrorName] = useState('')
+    const [errortext, setErrortext] = useState('')
     const navigate = useNavigate();
 
     const handleNameChange = ({target}) => setName(target.value)
@@ -54,14 +56,33 @@ export default function RegisterF ({handleSubmit, ...props}) {
               setLoggedIn(true)
               navigate("/home/buscar", { replace: true });
             } catch(e) {
-              setErrorMessage('Wrong credentials')
-              setTimeout(() => {
-                setErrorMessage(null)
-              }, 5000)
+                setError(true)
+            
+                setTimeout(() => {
+                    setErrorName('Error Register')
+                    setErrortext('Datos introducidos invalidos')
+                }, 2000)
+                setTimeout(() => {
+                    setErrorName('')
+                    setErrortext('')
+                    setError(false)
+                }, 6000)
+              
             }
         }else{
             setError(true)
-            document.getElementById("error").style='color:red'
+            
+            setTimeout(() => {
+                setErrorName('Error Register')
+                setErrortext('Datos introducidos invalidos')
+            }, 2000)
+            setTimeout(() => {
+                setErrorName('')
+                setErrortext('')
+                setError(false)
+            }, 6000)
+
+            setErrorp(true)
             var contrasenias = document.querySelectorAll('input[type="password"]')
             for (let index = 0; index < contrasenias.length; index++) {
                 contrasenias[index].style='border: 2px solid red;';
@@ -70,6 +91,15 @@ export default function RegisterF ({handleSubmit, ...props}) {
         
     
       }
+      const errorMsg = 
+      <div className='errorMsg'>
+          <h2 className='errorName'>{errorName}</h2>
+          <p className='errortext'>{errortext}</p>
+      </div>
+      const errorparagraph = 
+      <div className='error'>
+          <p className='errortext' style={{ color: "red" }}>Las contraseñas no coinciden</p>
+      </div>
 
   return (
         <section className='pop absolute'>
@@ -79,7 +109,7 @@ export default function RegisterF ({handleSubmit, ...props}) {
                 <header>
                 
                     <Link to="/" className='flexea atras negro'>
-                        <img src="https://babyguard.vercel.app/img/back-arrow.svg" alt="" className='reloj maspequenio'/>
+                        <img src="https://babyguard.vercel.app/img/back-arrow.svg" alt="" />
                         
                     </Link>
                     <h2>Registrarse en BabyGuard</h2>
@@ -111,8 +141,7 @@ export default function RegisterF ({handleSubmit, ...props}) {
                         <input id='pass1' className="col-10" type="password" value={ password} name="Password" placeholder="Introduzca contraseña de al menos 8 caracteres" pattern=".{8,}" title="Debe usar 8 o más caracteres" onChange={ handlePasswordChange}  required/>
                     </fieldset>
                     {
-                        error?
-                        <p id="error">Las contraseñas no coinciden</p>: null
+                        errorp?errorparagraph: null
                     }
                     <fieldset className='col-12'>
                         <label htmlFor="PasswordConfirm" className='col-10'>Confirmación de la contraseña</label>
@@ -131,6 +160,9 @@ export default function RegisterF ({handleSubmit, ...props}) {
                         </Link>
                     </div>
                 </form>
+                {
+                    error?errorMsg:null
+                } 
             </section>
         
         </section>

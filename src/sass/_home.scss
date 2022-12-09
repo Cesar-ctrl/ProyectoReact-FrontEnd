@@ -446,7 +446,7 @@ section.perfil{
 }
 
 .errorMsg{
-    position: absolute;
+    position: sticky;
     bottom:7vh;
     right: 3vw;
     $size: 60vw;
@@ -455,6 +455,7 @@ section.perfil{
     background-color: rgb(153, 0, 0);
     color: white;
     padding: 10px;
+    align-self: flex-end;
     @include movileS(){
         width: $size;
         height: 15vh;

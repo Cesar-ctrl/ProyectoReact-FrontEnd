@@ -9,7 +9,6 @@ export default function GuardsUpdate ({handleSubmit, ...props}) {
     const loggUserJSON = window.localStorage.getItem('loggedNoteAppGuard')
     const usuario = JSON.parse(loggUserJSON)
 
-    const [errorMessage, setErrorMessage] = useState(null)
     const [nombre, setName] = useState('')
     const [apellidos, setSurnames] = useState('')
     const [telef, setPhone] = useState('')
@@ -19,6 +18,9 @@ export default function GuardsUpdate ({handleSubmit, ...props}) {
     const [guard, setGuard] = useState(null)
     const [info, setInfo] = useState(null)
     const [cp, setCp]= useState('')
+    const [error, setError] = useState(false)
+    const [errorName, setErrorName] = useState('')
+    const [errortext, setErrortext] = useState('')
     const [loggedIn, setLoggedIn] = useState(null)
     const navigate = useNavigate();
 
@@ -117,10 +119,17 @@ export default function GuardsUpdate ({handleSubmit, ...props}) {
             setGuard(guard)
             navigate("/home/buscar", { replace: true });
         } catch(e) {
-          setErrorMessage('Wrong credentials')
-          setTimeout(() => {
-            setErrorMessage(null)
-          }, 5000)
+            setError(true)
+            
+            setTimeout(() => {
+                setErrorName('Error Update')
+                setErrortext('Datos introducidos invalidos')
+            }, 2000)
+            setTimeout(() => {
+                setErrorName('')
+                setErrortext('')
+                setError(false)
+            }, 6000)
         }
       }
       useEffect(()=> {
@@ -128,6 +137,13 @@ export default function GuardsUpdate ({handleSubmit, ...props}) {
             setDias(info.dias);
         }
       }, info)
+
+    const errorMsg = 
+      <div className='errorMsg'>
+          <h2 className='errorName'>{errorName}</h2>
+          <p className='errortext'>{errortext}</p>
+      </div>
+      
 if(info){                          
   return (
         <section className='pop absolute'>
@@ -196,8 +212,10 @@ if(info){
                         <button className="boton-azul blanco" type="submit" name="enviar" value="Registrarse" id='form-register-button'>Guardar información</button>
                     </fieldset>
                 </form>
+                {
+                    error?errorMsg:null
+                } 
             </section>
-        
         </section>
         
   )}

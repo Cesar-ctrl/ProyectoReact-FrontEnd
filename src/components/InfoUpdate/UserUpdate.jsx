@@ -7,13 +7,15 @@ import imageService from '../../services/images';
 export default function UserUpdate ({handleSubmit, ...props}) {
     const location = useLocation();
     const state = location.state;
-    const [errorMessage, setErrorMessage] = useState(null)
     const [nombre, setName] = useState('')
     const [apellidos, setSurnames] = useState('')
     const [telef, setPhone] = useState('')
     const [selectedFile, setSelectedFile] = useState(null);
     const [user, setUser] = useState(null)
     const [info, setInfo] = useState(null)
+    const [error, setError] = useState(false)
+    const [errorName, setErrorName] = useState('')
+    const [errortext, setErrortext] = useState('')
     const navigate = useNavigate();
 
     const loggUserJSON = window.localStorage.getItem('loggedNoteAppUser')
@@ -57,16 +59,28 @@ export default function UserUpdate ({handleSubmit, ...props}) {
                     phone
                 })
             }
-          setUser(user)
-          navigate("/home/buscar", { replace: true });
+            setUser(user)
+            navigate("/home/buscar", { replace: true });
         } catch(e) {
-          setErrorMessage('Wrong credentials')
-          setTimeout(() => {
-            setErrorMessage(null)
-          }, 5000)
+            setError(true)
+            
+            setTimeout(() => {
+                setErrorName('Error Update')
+                setErrortext('Datos introducidos invalidos')
+            }, 2000)
+            setTimeout(() => {
+                setErrorName('')
+                setErrortext('')
+                setError(false)
+            }, 6000)
         }
         
-      }
+    }
+    const errorMsg = 
+      <div className='errorMsg'>
+          <h2 className='errorName'>{errorName}</h2>
+          <p className='errortext'>{errortext}</p>
+      </div>
 
 if(info){
   return (
@@ -104,9 +118,10 @@ if(info){
                         <button className="boton-azul blanco" type="submit" name="enviar" value="Registrarse" id='form-register-button'>Guardar Información</button>
                     </fieldset>
                 </form>
-                
+                {
+                    error?errorMsg:null
+                } 
             </section>
-        
         </section>
         
   )}

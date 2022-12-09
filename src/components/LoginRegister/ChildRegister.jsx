@@ -125,7 +125,7 @@ export default function RegisterF ({handleSubmit, ...props}) {
             <section className='body background2'>
                 <header>
                     <Link to="/home/child" className='flexea atras negro'>
-                        <img src="https://babyguard.vercel.app/img/back-arrow.svg" alt="" className='reloj maspequenio' />
+                        <img src="https://babyguard.vercel.app/img/back-arrow.svg" alt="" />
                         
                     </Link>
                     <h2>Dar de alta a tu niño/a</h2>

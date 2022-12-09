@@ -17,6 +17,9 @@ export default function RegisterF ({...props}) {
     const [nif, setDni] = useState('')
     const [necesidades, setNecesidadesesp] = useState('')
     const [selectedFile, setImgUrl] = useState(null)
+    const [error, setError] = useState(false)
+    const [errorName, setErrorName] = useState('')
+    const [errortext, setErrortext] = useState('')
     const navigate = useNavigate();
     const location = useLocation();
     const state = location.state;
@@ -149,7 +152,19 @@ export default function RegisterF ({...props}) {
             setAlergenos('')
             setNecesidadesesp('')
             navigate("/home/child", { replace: true });
-        } catch(e) {}
+        } catch(e) {
+            setError(true)
+            
+            setTimeout(() => {
+                setErrorName('Error Update')
+                setErrortext('Datos introducidos invalidos')
+            }, 2000)
+            setTimeout(() => {
+                setErrorName('')
+                setErrortext('')
+                setError(false)
+            }, 6000)
+        }
       }
 
     useEffect(()=> {
@@ -157,6 +172,12 @@ export default function RegisterF ({...props}) {
             setAlergenos(childs.alergenos);
         }
       }, childs)
+
+    const errorMsg = 
+      <div className='errorMsg'>
+          <h2 className='errorName'>{errorName}</h2>
+          <p className='errortext'>{errortext}</p>
+      </div>
 
     if(childs){
   return (
@@ -166,7 +187,7 @@ export default function RegisterF ({...props}) {
             <section className='body background2'>
                 <header>
                     <Link to="/home/child" state={state} className='flexea atras negro' >
-                        <img src="https://babyguard.vercel.app/img/back-arrow.svg" alt="" className='reloj maspequenio' />
+                        <img src="https://babyguard.vercel.app/img/back-arrow.svg" alt="" />
                         
                     </Link>
                     <h2>Dar de alta a tu niño/a</h2>
@@ -177,18 +198,22 @@ export default function RegisterF ({...props}) {
                         <label htmlFor="name" className='col-10'>Nombre</label>
                         <input className="col-10" type="text" name="name" defaultValue={childs.name} placeholder="Introduzca su Nombre"  pattern="[^0-9\x22]+"  title="Solo se aceptan letras"  onChange={ e=> setName(e.target.value)} />
                     </fieldset>
+                    
                     <fieldset className='col-12'>
                         <label htmlFor="surnames" className='col-10'>Apellidos</label>
                         <input className="col-10" type="text" name="surnames" defaultValue={childs.surnames} placeholder="Introduzca sus Apellidos"  pattern="[^0-9\x22]+"  title="Solo se aceptan letras"  onChange={ e=> setSurnames(e.target.value)} />
                     </fieldset>
+
                     <fieldset className='col-12'>
                         <label htmlFor="dni" className='col-10'>DNI</label>
                         <input className="col-10" type="text" name="dni" defaultValue={ childs.DNI} placeholder="Introduzca su DNI" pattern="[0-9]{8}[A-Za-z]{1}" title="Debe poner 8 números y una letra"  onChange={ handleDniChange} />
                     </fieldset>
+
                     <fieldset className='col-12'>
                         <label htmlFor="edad" className='col-10'>Edad</label>
                         <input className="col-10" type="number" name="edad" defaultValue={ childs.edad} placeholder="Introduzca su edad" pattern="[0-9]{2}" title="Debe introducir su edad 2 cifras"  onChange={ e=> setEdad(e.target.value)} />
                     </fieldset>
+
                     <fieldset className='col-12' id='alergenos'>
                         {listaalergenos.map(({ name, id }, index) => {
                             return (
@@ -208,7 +233,6 @@ export default function RegisterF ({...props}) {
                             })}
                     </fieldset>
 
-
                     <fieldset className='col-12'>
                         <label htmlFor="necesidadesesp" className='col-10'>Necesidades Especiales</label>
                         <input className="col-10" type="text" defaultValue={ childs.necesidadesesp} name="necesidadesesp" placeholder="Escriba el niño/a tiene alguna necesidad especial" pattern="[^0-9\x22]+" onChange={ e=> setNecesidadesesp(e.target.value)} />
@@ -226,8 +250,10 @@ export default function RegisterF ({...props}) {
                         <button className="boton-azul blanco" type="submit" name="enviar" value="Registrarse" id='form-register-button'>Guardar</button>
                     </fieldset>
                 </form>
+                {
+                    error?errorMsg:null
+                } 
             </section>
-        
         </section>
         
   )

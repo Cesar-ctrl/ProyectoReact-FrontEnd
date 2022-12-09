@@ -15,7 +15,10 @@ export default function GuardsRegister ({handleSubmit, ...props}) {
     const [cp, setCp]= useState('')
     const [guard, setGuard] = useState(null)
     const [loggedin, setLoggedIn] = useState(null)
-    const [error, setError] = useState(true)
+    const [errorp, setErrorp] = useState(false)
+    const [error, setError] = useState(false)
+    const [errorName, setErrorName] = useState('')
+    const [errortext, setErrortext] = useState('')
     const navigate = useNavigate();
 
     const listadias = [
@@ -108,21 +111,49 @@ export default function GuardsRegister ({handleSubmit, ...props}) {
                 setLoggedIn(true)
                 navigate("/home/buscar", { replace: true });
             } catch(e) {
-            setErrorMessage('Wrong credentials')
-            setTimeout(() => {
-                setErrorMessage(null)
-            }, 5000)
+                setError(true)
+            
+                setTimeout(() => {
+                    setErrorName('Error Register')
+                    setErrortext('Datos introducidos invalidos')
+                }, 2000)
+                setTimeout(() => {
+                    setErrorName('')
+                    setErrortext('')
+                    setError(false)
+                }, 6000)
             }
         }else{
             setError(true)
-            document.getElementById("error").style='color:red'
+            
+            setTimeout(() => {
+                setErrorName('Error Register')
+                setErrortext('Datos introducidos invalidos')
+            }, 2000)
+            setTimeout(() => {
+                setErrorName('')
+                setErrortext('')
+                setError(false)
+            }, 6000)
+
+            setErrorp(true)
             var contrasenias = document.querySelectorAll('input[type="password"]')
             for (let index = 0; index < contrasenias.length; index++) {
                 contrasenias[index].style='border: 2px solid red;';
             }
         }
     
-      }
+    }
+
+    const errorMsg = 
+      <div className='errorMsg'>
+          <h2 className='errorName'>{errorName}</h2>
+          <p className='errortext'>{errortext}</p>
+      </div>
+    const errorparagraph = 
+      <div className='error'>
+          <p className='errortext' style={{ color: "red" }}>Las contraseñas no coinciden</p>
+      </div>
 
   return (
         <section className='pop absolute'>
@@ -131,24 +162,27 @@ export default function GuardsRegister ({handleSubmit, ...props}) {
             <section className='body background2'>
                 <header>
                     <Link to="/" className='flexea atras negro' >
-                        <img src="https://babyguard.vercel.app/img/back-arrow.svg" alt="" className='reloj maspequenio'/>
+                        <img src="https://babyguard.vercel.app/img/back-arrow.svg" alt="" />
                         
                     </Link>
                     <h2>Registro de cuidadores</h2>
                 </header>
-                <form action="" className='login' onSubmit={handleRegister}>
+                <form action="" className='login flexea' onSubmit={handleRegister} style={error?{'margin-bottom': '0vh'}:{'margin-bottom': '14vh'}}>
                     <fieldset className='col-12'>
                         <label htmlFor="name" className='col-10'>Nombre</label>
                         <input className="col-10" type="text" name="name" value={ name} placeholder="Introduzca su Nombre"  pattern="[^0-9\x22]+"  title="Solo se aceptan letras"  onChange={ handleNameChange} required />
                     </fieldset>
+                    
                     <fieldset className='col-12'>
                         <label htmlFor="surnames" className='col-10'>Apellidos</label>
                         <input className="col-10" type="text" name="surnames" value={ surnames} placeholder="Introduzca sus Apellidos"  pattern="[^0-9\x22]+"  title="Solo se aceptan letras"  onChange={ handleSurnamesChange} required />
                     </fieldset>
+
                     <fieldset className='col-12'>
                         <label htmlFor="dni" className='col-10'>DNI</label>
                         <input className="col-10" type="text" name="dni" value={ DNI} placeholder="Introduzca su DNI" pattern="[0-9]{8}[A-Za-z]{1}" title="Debe poner 8 números y una letra"  onChange={ handleDniChange} required />
                     </fieldset>
+
                     <fieldset className='col-12'>
                         <label htmlFor="phone" className='col-10'>Télefono</label>
                         <input className="col-10" type="number" name="phone" value={ phone} placeholder="Introduzca su teléfono" pattern="[0-9]{9}" title="Debe introducir su teléfono"  onChange={ handlePhoneChange} required />
@@ -158,7 +192,6 @@ export default function GuardsRegister ({handleSubmit, ...props}) {
                         <label htmlFor="email" className='col-10'>Correo electrónico</label>
                         <input className="col-10" type="email" name="email" value={ email} placeholder="Introduzca su correo electrónico" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"  onChange={ handleEmailChange} required />
                     </fieldset>
-
 
                     <fieldset className='col-12'>
                         {listadias.map(({ name, simple, id }, index) => {
@@ -179,12 +212,14 @@ export default function GuardsRegister ({handleSubmit, ...props}) {
                               );
                             })}
                     </fieldset>
+
                     <fieldset className='col-12'>
                         <label htmlFor="horarioinicio" className='col-10'>Horario de comienzo</label>
                         <input className="col-10" type="time" name="horarioinicio" value={ horarioinicio}  onChange={ handleHorarioinicioChange} required />
                         <label htmlFor="horariofin" className='col-10'>Horario de fin</label>
                         <input className="col-10" type="time" name="horariofin" value={ horariofin}  min={horarioinicio}  onChange={ handleHorariofinChange} required />
                     </fieldset>
+
                     <fieldset className='col-12'>
                         <label htmlFor="cp" className='col-10'>Código Postal</label>
                         <input className="col-10" type="number" name="cp" defaultValue={cp} pattern="[0-5]{5}"  placeholder="Introduzca código postal"  title="Debe introducir su código postal"  onChange={ handleCpChange} required />
@@ -193,22 +228,29 @@ export default function GuardsRegister ({handleSubmit, ...props}) {
 
                     <fieldset className='col-12'>
                         <label htmlFor="Password" className='col-10'>Contraseña</label>
-                        <input className="col-10" type="password" value={ password} name="Password" placeholder="Introduzca contraseña de al menos 8 caracteres" pattern=".{8,}" title="Debe usar 8 o más caracteres" onChange={ handlePasswordChange} required />
+                        <input id='pass1' className="col-10" type="password" value={ password} name="Password" placeholder="Introduzca contraseña de al menos 8 caracteres" pattern=".{8,}" title="Debe usar 8 o más caracteres" onChange={ handlePasswordChange} required />
                     </fieldset>
+                    {
+                        errorp?errorparagraph: null
+                    }
                     <fieldset className='col-12'>
                         <label htmlFor="PasswordConfirm" className='col-10'>Confirmación de la contraseña</label>
-                        <input className="col-10" type="password" placeholder="Repita la contraseña" name="PasswordConfirm" required />
+                        <input id='pass2' className="col-10" type="password" placeholder="Repita la contraseña" name="PasswordConfirm" required />
                     </fieldset>
+
                     <fieldset className='col-12'>
                         <button className="boton-azul blanco" type="submit" name="enviar" value="Registrarse" id='form-register-button'>Registrarse</button>
                     </fieldset>
+
                     <div className='col-10'>
                         <Link to="/guardlogin">
                             ¿Ya tienes una cuenta?
                         </Link>
                     </div>
                 </form>
-                
+                {
+                    error?errorMsg:null
+                } 
             </section>
         
         </section>
