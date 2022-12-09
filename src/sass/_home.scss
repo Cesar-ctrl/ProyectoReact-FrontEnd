@@ -205,9 +205,13 @@ h2{
     .barra{
         display: flex;
         justify-content: space-evenly;
-        flex-direction: row-reverse;
+        flex-direction: column-reverse;
         align-items: flex-start;
-        /* padding-bottom: 10px; */
+        
+        @include movile() {
+            flex-direction: row-reverse;
+        }
+
         .lupa, .barrabuscador{
             width: 52px;
             height: 52px;
@@ -237,6 +241,12 @@ h2{
           border-radius: 1rem;
         }
       }
+    &.abierto{
+        height: 50vh;
+    }
+    &.cerrado{
+        height: 60vh;
+    }
     .cuidador{
         transition: background-color .5s;
         padding: {
@@ -340,15 +350,28 @@ h2{
     .filter{
         width: 50px;
         height: 25px;
+        &.abierto{
+            margin-bottom: 12vh;
+        }
+        &.cerrado{
+            margin-bottom: 0vh;
+        }
     }
     .sticky{
         position: absolute;
         display: flex;
         justify-content: center;
         margin-top: 25px;
-        background-color: rgb(255, 192, 110);
+        background-color: rgb(145, 224, 234);
+        border-radius: 5px;
         opacity: 1;
-
+        &.abierto{
+            height: 12vh;
+        }
+        &.cerrado{
+            height: 0vh;
+        }
+        
     }
 }
 .filtrosname{
@@ -425,7 +448,31 @@ h2{
         }
    }
 }
-
+.valoracion{
+    $size: 25px;
+    width: 20px;
+    height: 20px;
+    @include movileS(){
+        width: 25px;
+        height: 25px;
+    }
+    @include movileM(){
+        width: $size;
+        height: $size;
+    }
+    @include movile(){
+        width: $size ;
+        height: $size ;
+    }
+    @include tablet(){
+        width: $size;
+        height: $size;
+    }
+    @include desktop(){
+        width: $size;
+        height: $size;
+    }
+ }
 .media{
     font-size: 3.5rem;
     line-height: 4rem;

@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const baseUrl = 'https://babyguard.onrender.com/api/comments'
+const baseUrl = 'http://localhost:3001/api/comments'
 
 let token = null
 
@@ -38,4 +38,14 @@ const recieveValRoute  = async credentials => {
 }
 
 
-export default { sendCommentRoute, recieveCommentRoute, recieveValRoute, setToken }
+const recieveAllVal = async credentials => {
+
+    const recive = {
+        to:credentials
+    }
+    const { data } = await axios.post(`${baseUrl}/getvalcomments`, recive)
+    return data
+}
+
+
+export default { sendCommentRoute, recieveCommentRoute, recieveValRoute, recieveAllVal, setToken }

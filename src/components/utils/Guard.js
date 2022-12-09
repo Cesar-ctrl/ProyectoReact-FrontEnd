@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import {  Link, useLocation } from "react-router-dom";
-import StaticStar from './StaticStar';
+import {StaticStar, StarIcon} from './StaticStar';
 import commentService from '../../services/comments';
 
 const Guard = ({ favs, guard, toggleFav }) => {
@@ -13,20 +13,11 @@ const Guard = ({ favs, guard, toggleFav }) => {
 
     const [val, setVal] = useState([])
 
-    useEffect(() => { 
-        commentService.recieveValRoute(guard.id)
-            .then(point => {
-                setVal(point)
-            })
-    }, [])
-    var total = 0
-    var lengt = 0
-    if(val){
-        val.map((comment, i) =>
-            total += comment.valoracion
-        )
-        lengt = val.length
-    }
+    
+    commentService.recieveValRoute(guard.id)
+        .then(point => {
+            setVal(point.total)
+        })
 
   return (
     
@@ -50,9 +41,13 @@ const Guard = ({ favs, guard, toggleFav }) => {
                     <h3>{guard.name}</h3>
                     
                     <div className="flexea roww">
-                        {<StaticStar value={total?Math.round(total/lengt):'none'} />}
-
-                        <h3>{total?Math.round(total/lengt*10)/10:0}</h3>
+                        {
+                            window.screen.width>500?
+                        <StaticStar value={val?Math.round(val):'none'} />:
+                        <StarIcon fill={'yellow'} classnombre={'valoracion'} />
+                        }
+                        
+                        <h3>{guard.valoracion?guard.valoracion:val?val:0}</h3>
                     </div>
                 </div>
             </div>

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import commentService from '../../services/comments';
 import {  Link, useLocation } from "react-router-dom";
 import Star from './Star';
-import StaticStar  from './StaticStar';
+import { StaticStar, StarIcon }  from './StaticStar';
 
 
 

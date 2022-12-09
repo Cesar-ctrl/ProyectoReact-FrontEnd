@@ -2,7 +2,9 @@ import React, { useState, useEffect } from 'react';
 import guardService from '../../services/guards';
 import messageService from '../../services/messages';
 import userService from '../../services/users';
+import commentService from '../../services/comments';
 import Guard from '../utils/Guard';
+import { render, forceUpdate } from 'react-dom';
 
 
 const Busqueda = (currentNotif, socket) => {
@@ -10,7 +12,8 @@ const Busqueda = (currentNotif, socket) => {
     const [arrivalNotification, setArrivalNotification] = useState(null);
     const [user, setUser] = useState(null)
     const [guards, setGuards] = useState([]) 
-    const [showAll, setShowAll] = useState(true)
+    const [showAll, setShowAll] = useState(false)
+    const [sorted, setSorted] = useState(false)
     const [busqueda, setBusqueda] = useState('') 
     const [childs, SetChilds] = useState([]);
     const [cp, setCp] = useState(null) 
@@ -34,37 +37,19 @@ const Busqueda = (currentNotif, socket) => {
           })
     }, [])
 
-    //useEffect(() => {
-    //    if(usuario){  // distingue si es un usuario o una niñera para ver que mensajes son recibidos o enviados
-    //        const response = messageService.recieveLastMessageRoute({
-    //            to: usuario.id
-    //        })
-    //        response.then(chats => {
-    //            setNotification(chats);
-    //        })
-    //    }else{
-    //        messageService
-    //            .recieveLastMessageRoute({
-    //                to:guard.id,
-    //            })
-    //            .then(chats => {
-    //                setNotification(chats);
-    //            })
-    //    }
-    //}, []);
-
-    //useEffect(() => {
-    //    if (socket.current) {
-    //      socket.current.on("msg-recieve", (msg) => {
-    //        setArrivalNotification({ fromSelf: false, message: msg });
-    //      });
-    //    }
-    //}, []);
-
-    //useEffect(() => {
-    //    console.log(arrivalNotification)    
-    //    arrivalNotification && setNotification((prev) => [...prev, arrivalNotification]);
-    //}, [arrivalNotification]);
+    useEffect(() => { 
+        if(guards.length>0){
+            guards.map(guardd => {
+                commentService.recieveValRoute(guardd.id)
+                .then(point => {
+                    guardd.valoracion = point.total
+                    
+                })
+                
+            })
+            
+        }
+    }, [])
     
     //toggleFav recojo la id de el usuario que he pinchado,  
     
@@ -156,8 +141,10 @@ const Busqueda = (currentNotif, socket) => {
         }
 
     }
-    var listcp = searchcp()
+   
+    var listcp = searchcp()    
 
+    console.log(listcp)
     const guardsToShow = showAll? listcp : listcp.filter(guard => guard.disponible)
 
     const errorMsg = 
@@ -181,9 +168,8 @@ const Busqueda = (currentNotif, socket) => {
         </header>
         <section className='buscador'>
             <div className='barra'>
-                
-                <input type="number" className='barra col-4' onChange={handleCpChange} placeholder='C.P.' />
-                <input type="text" className='barra col-4' onChange={handleSearchChange} placeholder='Buscar por nombre' />
+                <input type="number" className={window.screen.width>425?'barra col-5':'barra col-8'} onChange={handleCpChange} placeholder='C.P.' />
+                <input type="text" className={window.screen.width>425?'barra col-5 ':'barra col-8'} onChange={handleSearchChange} placeholder='Buscar por nombre' />
                 <div className='imgbuscar'>
                     <img src="../img/lupa-busqueda.png" alt="" className='lupa'/>
                 </div>
@@ -191,17 +177,18 @@ const Busqueda = (currentNotif, socket) => {
             </div>
             <div className='filtros flexea column'>
                 {
-                    filtro?<img src="../img/filtro-abierto.png" alt="" className='filter' onClick={() => setFiltro(!filtro)} />:<img src="../img/filtro-cerrado.png" alt="" className='filter' onClick={() => setFiltro(!filtro)} />
+                    filtro?<img src="../img/filtro-abierto.png" alt="" className='filter abierto' onClick={() => setFiltro(!filtro)} />:<img src="../img/filtro-cerrado.png" alt="" className='filter cerrado' onClick={() => setFiltro(!filtro)} />
                 }
                     
                 {
                     filtro?
-                    <div className='col-10 sticky'>
+                    <div className={filtro?'col-10 sticky abierto':'col-10 sticky cerrado'}>
                         <div className='flexea column'>
                             <div className='flexea'>
                                 <input id="disponible" type="checkbox" onClick={() => setShowAll(!showAll)} defaultChecked={showAll} />
                                 <label className="filtrosname" htmlFor="disponible">Enseñar cuidadores no disponibles</label>
                             </div>
+                           
                             
                         </div>
                     </div>
@@ -211,7 +198,7 @@ const Busqueda = (currentNotif, socket) => {
             </div>
         </section>
         <section className='flexea column' onLoad={gothijos} >
-            <div className='col-10 column listado'>
+            <div className={filtro?'col-10 column listado abierto':'col-10 column listado cerrado'}>
             {usuario?
             guardsToShow.map((guard, i) => 
                 <Guard
