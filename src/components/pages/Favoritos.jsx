@@ -7,13 +7,13 @@ const Favoritos = () => {
     const [guards, setGuards] = useState([]) 
     const [showAll, setShowAll] = useState(true)
     const [errorMessage, setErrorMessage] = useState(null)
-    const loggeUserJSON = window.localStorage.getItem('loggedNoteAppUser')
-    const usuario = JSON.parse(loggeUserJSON)
+    const loggedUserJSON = window.localStorage.getItem('loggedNoteAppUser')
+    const usuario = JSON.parse(loggedUserJSON)
 
     //Comprueba que el usuario está logeado
     useEffect(() => {
-        if(loggUserJSON){
-            const usuario = JSON.parse(loggUserJSON)
+        if(loggedUserJSON){
+            const usuario = JSON.parse(loggedUserJSON)
             userService
             .getFavUser(usuario.id)
             .then(initialGuards => {
@@ -77,7 +77,7 @@ const Favoritos = () => {
     //Filtro para ocultar las niñeras que no están disponibles en este momento
     const guardsToShow = showAll? guards.guards : guards.guards.filter(guard => guard.disponible)
     
-    const loggUserJSON = window.localStorage.getItem('loggedNoteAppUser')
+    
     return (
         <section className="home">
             <header className='titulo main'>
@@ -86,7 +86,7 @@ const Favoritos = () => {
             <section className='buscador'>
                 <div className='barra'>
                 {
-                loggUserJSON? 
+                loggedUserJSON? 
                     <button onClick={() => setShowAll(!showAll)}>
                         Ver niñeras  {showAll ? 'disponibles' : 'todas' }
                     </button>
@@ -96,7 +96,7 @@ const Favoritos = () => {
             </section>
             <section className='flexea column'>
                 {
-                loggUserJSON? 
+                loggedUserJSON? 
                 <div className='col-10 column listado'>
                     {guardsToShow?
                     usuario?

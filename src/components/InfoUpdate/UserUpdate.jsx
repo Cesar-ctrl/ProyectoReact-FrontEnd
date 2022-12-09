@@ -18,8 +18,8 @@ export default function UserUpdate ({handleSubmit, ...props}) {
     const [errortext, setErrortext] = useState('')
     const navigate = useNavigate();
 
-    const loggUserJSON = window.localStorage.getItem('loggedNoteAppUser')
-    const usuario = JSON.parse(loggUserJSON)
+    const loggedUserJSON = window.localStorage.getItem('loggedNoteAppUser')
+    const usuario = JSON.parse(loggedUserJSON)
 
     useEffect(() => {
         userService.setToken(usuario.token)
@@ -95,7 +95,7 @@ if(info){
                     </Link>
                     <h2>Información Personal</h2>
                 </header>           
-                <form action="" className='login' onSubmit={handleUpdate} encType="multipart/form-data">
+                <form action="" className='login' onSubmit={handleUpdate} encType="multipart/form-data" style={error?{ marginBottom: '0vh'}:{marginBottom: '14vh'}}>
                     <fieldset className='col-12'>
                         <label htmlFor="name" className='col-10'>Nombre</label> 
                         <input className="col-10" type="text" name="name" defaultValue={info.name} placeholder="Introduzca su Nombre"  pattern="[^0-9\x22]+"  title="Solo se aceptan letras"  onChange={ e=> setName(e.target.value)} />

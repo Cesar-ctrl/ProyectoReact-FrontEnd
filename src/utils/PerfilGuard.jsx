@@ -6,8 +6,8 @@ import { useNavigate } from "react-router-dom";
 
 const PerfilGuard = ({ }) => {
 
-    const loggUserJSON = window.localStorage.getItem('loggedNoteAppUser')
-    const usuario = JSON.parse(loggUserJSON)
+    const loggedUserJSON = window.localStorage.getItem('loggedNoteAppUser')
+    const usuario = JSON.parse(loggedUserJSON)
 
     const loggGuardJSON = window.localStorage.getItem('loggedNoteAppGuard')
     const guardian = JSON.parse(loggGuardJSON)

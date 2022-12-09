@@ -167,7 +167,7 @@ export default function GuardsRegister ({handleSubmit, ...props}) {
                     </Link>
                     <h2>Registro de cuidadores</h2>
                 </header>
-                <form action="" className='login flexea' onSubmit={handleRegister} style={error?{'margin-bottom': '0vh'}:{'margin-bottom': '14vh'}}>
+                <form action="" className='login flexea' onSubmit={handleRegister} style={error?{ marginBottom: '0vh'}:{marginBottom: '14vh'}}>
                     <fieldset className='col-12'>
                         <label htmlFor="name" className='col-10'>Nombre</label>
                         <input className="col-10" type="text" name="name" value={ name} placeholder="Introduzca su Nombre"  pattern="[^0-9\x22]+"  title="Solo se aceptan letras"  onChange={ handleNameChange} required />

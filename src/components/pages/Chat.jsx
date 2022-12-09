@@ -15,8 +15,8 @@ export default function Chat() {
   const [contacts, setContacts] = useState([]);
   const [currentChat, setCurrentChat] = useState(undefined);
   const [currentUser, setCurrentUser] = useState(undefined);
-  const loggeUserJSON = window.localStorage.getItem('loggedNoteAppUser')
-  const usuario = JSON.parse(loggeUserJSON)
+  const loggedUserJSON = window.localStorage.getItem('loggedNoteAppUser')
+  const usuario = JSON.parse(loggedUserJSON)
   const loggeGuardJSON = window.localStorage.getItem('loggedNoteAppGuard')
   const guard = JSON.parse(loggeGuardJSON)
   
@@ -104,6 +104,10 @@ export default function Chat() {
         <header className='titulo main'>
             <h2>Chat</h2>
         </header>
+        <section className='buscador'>
+            <div className='barra'>
+            </div>
+        </section>
         <BotonRegistro />
       </section>
       

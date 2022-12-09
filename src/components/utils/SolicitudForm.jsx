@@ -6,8 +6,8 @@ const SolicitudForm = ({ sendSolicitud, setSolicitar, horariofin, horarioinicio 
     const location = useLocation();
     const state = location.state;
     const newmode = window.localStorage.getItem('newmode');
-    const loggUserJSON = window.localStorage.getItem('loggedNoteAppUser');
-    const usuario = JSON.parse(loggUserJSON);
+    const loggedUserJSON = window.localStorage.getItem('loggedNoteAppUser');
+    const usuario = JSON.parse(loggedUserJSON);
     const date = new Date();
 
     const [childs, SetChilds] = useState([]);

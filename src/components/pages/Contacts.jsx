@@ -6,8 +6,8 @@ export default function Contacts({ contacts, changeChat, changeChatwidth }) {
     const [currentName, setCurrentName] = useState(undefined);
     const [currentUserImage, setCurrentUserImage] = useState(undefined);
     const [currentSelected, setCurrentSelected] = useState(undefined);
-    const loggeUserJSON = window.localStorage.getItem('loggedNoteAppUser')
-    const usuario = JSON.parse(loggeUserJSON)
+    const loggedUserJSON = window.localStorage.getItem('loggedNoteAppUser')
+    const usuario = JSON.parse(loggedUserJSON)
     const loggeGuardJSON = window.localStorage.getItem('loggedNoteAppGuard')
     const guard = JSON.parse(loggeGuardJSON)
 

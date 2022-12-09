@@ -14,13 +14,14 @@ const Busqueda = (currentNotif, socket) => {
     const [busqueda, setBusqueda] = useState('') 
     const [childs, SetChilds] = useState([]);
     const [cp, setCp] = useState(null) 
+    const [filtro, setFiltro] = useState(false) 
     const [tip, setTip] = useState(false);
     const [error, setError] = useState(false)
     const [errorName, setErrorName] = useState('')
     const [errortext, setErrortext] = useState('')
-    const loggeUserJSON = window.localStorage.getItem('loggedNoteAppUser')
+    const loggedUserJSON = window.localStorage.getItem('loggedNoteAppUser')
     const loggedGuardJSON = window.localStorage.getItem('loggedNoteAppGuard')
-    const usuario = JSON.parse(loggeUserJSON)
+    const usuario = JSON.parse(loggedUserJSON)
     const guard = JSON.parse(loggedGuardJSON)
     
 
@@ -123,17 +124,19 @@ const Busqueda = (currentNotif, socket) => {
     }
     
     const gothijos = () =>{
-        if(!(usuario.hijos.length>0)){
-        setTip(true)
-        setTimeout(() => {
-            setErrorName('Niños no iniciados')
-            setErrortext('No tienes ningún niño registrado en la app')
-        }, 2000)
-        setTimeout(() => {
-            setErrorName('')
-            setErrortext('')
-            setTip(false)
-        }, 6000)
+        if(usuario){
+            if(!(usuario.hijos.length>0)){
+                setTip(true)
+                setTimeout(() => {
+                    setErrorName('Niños no iniciados')
+                    setErrortext('No tienes ningún niño registrado en la app')
+                }, 2000)
+                setTimeout(() => {
+                    setErrorName('')
+                    setErrortext('')
+                    setTip(false)
+                }, 6000)
+            }
     }
     }
 
@@ -178,7 +181,7 @@ const Busqueda = (currentNotif, socket) => {
         </header>
         <section className='buscador'>
             <div className='barra'>
-                <input type="checkbox" onClick={() => setShowAll(!showAll)} />
+                
                 <input type="number" className='barra col-4' onChange={handleCpChange} placeholder='C.P.' />
                 <input type="text" className='barra col-4' onChange={handleSearchChange} placeholder='Buscar por nombre' />
                 <div className='imgbuscar'>
@@ -186,10 +189,25 @@ const Busqueda = (currentNotif, socket) => {
                 </div>
                 
             </div>
-            <div className='filtros'>
-            <div>
+            <div className='filtros flexea column'>
+                {
+                    filtro?<img src="../img/filtro-abierto.png" alt="" className='filter' onClick={() => setFiltro(!filtro)} />:<img src="../img/filtro-cerrado.png" alt="" className='filter' onClick={() => setFiltro(!filtro)} />
+                }
+                    
+                {
+                    filtro?
+                    <div className='col-10 sticky'>
+                        <div className='flexea column'>
+                            <div className='flexea'>
+                                <input id="disponible" type="checkbox" onClick={() => setShowAll(!showAll)} defaultChecked={showAll} />
+                                <label className="filtrosname" htmlFor="disponible">Enseñar cuidadores no disponibles</label>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    :null
+                }
                 
-            </div>
             </div>
         </section>
         <section className='flexea column' onLoad={gothijos} >

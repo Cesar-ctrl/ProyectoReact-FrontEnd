@@ -7,15 +7,15 @@ import BotonRegistro from '../utils/BotonRegistro'
 const Child = () => {
     //Se que debería llamarse children
     const [childs, setChilds] = useState([]) 
-    const loggUserJSON = window.localStorage.getItem('loggedNoteAppUser')
-    const usuario = JSON.parse(loggUserJSON)
+    const loggedUserJSON = window.localStorage.getItem('loggedNoteAppUser')
+    const usuario = JSON.parse(loggedUserJSON)
 
     const location = useLocation();
     const state = location.state;
 
     //comprueba si el usuario esta logeado y llama a la api para traer los niños iniciados por el usuario
     useEffect(() => {
-        if(loggUserJSON){
+        if(loggedUserJSON){
         userService
             .getUser(usuario.id)
             .then(initialGuards => {
@@ -40,7 +40,7 @@ const Child = () => {
             </section>
             <section className='flexea column'>
             {
-                loggUserJSON? 
+                loggedUserJSON? 
                 
                 <div className='col-10 column listado'>
                     {childs.hijos? childs.hijos.map((child, i) =>

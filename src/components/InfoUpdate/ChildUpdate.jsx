@@ -8,8 +8,8 @@ export default function RegisterF ({...props}) {
     
     const [childs, setChilds] = useState(null) 
 
-    const loggUserJSON = window.localStorage.getItem('loggedNoteAppUser')
-    const user = JSON.parse(loggUserJSON)
+    const loggedUserJSON = window.localStorage.getItem('loggedNoteAppUser')
+    const user = JSON.parse(loggedUserJSON)
     
     const [nombre, setName] = useState('')// (modoEdicion? childs.name:'')
     const [apellidos, setSurnames] = useState('')
@@ -193,7 +193,7 @@ export default function RegisterF ({...props}) {
                     <h2>Dar de alta a tu niño/a</h2>
                 </header>
                 
-                <form action="" className='login' onSubmit={handleUpdate}>
+                <form action="" className='login' onSubmit={handleUpdate} style={error?{ marginBottom: '0vh'}:{marginBottom: '14vh'}}>
                     <fieldset className='col-12'>
                         <label htmlFor="name" className='col-10'>Nombre</label>
                         <input className="col-10" type="text" name="name" defaultValue={childs.name} placeholder="Introduzca su Nombre"  pattern="[^0-9\x22]+"  title="Solo se aceptan letras"  onChange={ e=> setName(e.target.value)} />

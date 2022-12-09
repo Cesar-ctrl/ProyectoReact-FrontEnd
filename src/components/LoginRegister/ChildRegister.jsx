@@ -8,8 +8,8 @@ export default function RegisterF ({handleSubmit, ...props}) {
     
     const [Id, setId] = useState("")
 
-    const loggUserJSON = window.localStorage.getItem('loggedNoteAppUser')
-    const user = JSON.parse(loggUserJSON)
+    const loggedUserJSON = window.localStorage.getItem('loggedNoteAppUser')
+    const user = JSON.parse(loggedUserJSON)
     
     const [name, setName] = useState('')// (modoEdicion? childs.name:'')
     const [surnames, setSurnames] = useState('')

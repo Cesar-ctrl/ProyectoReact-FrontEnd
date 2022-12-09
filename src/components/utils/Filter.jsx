@@ -1,11 +1,11 @@
 import React from 'react'
 import { Link } from "react-router-dom";
 
-const BotonRegistro = () => {
+const Filter = () => {
 
   return (
 
-    <div className='flexea roww' >
+    <div className='cuidador flexea roww' >
         <hr/>
         <section className='titulo'>
             <p className='cabezera'>
@@ -23,4 +23,4 @@ const BotonRegistro = () => {
   )
 }
 
-export default BotonRegistro
+export default Filter

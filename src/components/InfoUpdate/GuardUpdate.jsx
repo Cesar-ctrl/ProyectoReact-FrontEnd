@@ -6,8 +6,8 @@ import imageService from '../../services/images';
 
 export default function GuardsUpdate ({handleSubmit, ...props}) {
 
-    const loggUserJSON = window.localStorage.getItem('loggedNoteAppGuard')
-    const usuario = JSON.parse(loggUserJSON)
+    const loggedUserJSON = window.localStorage.getItem('loggedNoteAppGuard')
+    const usuario = JSON.parse(loggedUserJSON)
 
     const [nombre, setName] = useState('')
     const [apellidos, setSurnames] = useState('')
@@ -157,7 +157,7 @@ if(info){
                     </Link>
                     <h2>Actualiza niñera</h2>
                 </header>
-                <form action="" className='login' onSubmit={handleUpdate}>
+                <form action="" className='login' onSubmit={handleUpdate} style={error?{ marginBottom: '0vh'}:{marginBottom: '14vh'}}>
                     <fieldset className='col-12'>
                         <label htmlFor="name" className='col-10'>Nombre</label>
                         <input className="col-10" type="text" name="name" defaultValue={info.name} placeholder="Introduzca su Nombre"  pattern="[^0-9\x22]+"  title="Solo se aceptan letras"  onChange={ e=> setName(e.target.value)} />

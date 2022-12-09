@@ -10,8 +10,8 @@ export default function ChatContainer({ currentChat, socket, changeChatwidth }) 
     const [messages, setMessages] = useState([]);
     const scrollRef = useRef();
     const [arrivalMessage, setArrivalMessage] = useState(null);
-    const loggeUserJSON = window.localStorage.getItem('loggedNoteAppUser')
-    const usuario = JSON.parse(loggeUserJSON)
+    const loggedUserJSON = window.localStorage.getItem('loggedNoteAppUser')
+    const usuario = JSON.parse(loggedUserJSON)
     const loggeGuardJSON = window.localStorage.getItem('loggedNoteAppGuard')
     const guard = JSON.parse(loggeGuardJSON)
     const location = useLocation();

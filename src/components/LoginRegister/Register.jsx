@@ -114,7 +114,7 @@ export default function RegisterF ({handleSubmit, ...props}) {
                     </Link>
                     <h2>Registrarse en BabyGuard</h2>
                 </header>           
-                <form action="" className='login flexea' onSubmit={handleRegister}>
+                <form action="" className='login flexea' onSubmit={handleRegister} style={error?{ marginBottom: '0vh'}:{marginBottom: '14vh'}}>
                     <fieldset className='col-12'>
                         <label htmlFor="name" className='col-10'>Nombre</label>
                         <input className="col-10" type="text" name="name" value={ name} placeholder="Introduzca su Nombre"  pattern="[^0-9\x22]+"  title="Solo se aceptan letras"  onChange={ handleNameChange} required />

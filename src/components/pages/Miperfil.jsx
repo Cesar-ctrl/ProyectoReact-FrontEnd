@@ -5,8 +5,8 @@ import userService from '../../services/users';
 const Miperfil = () => {
     const location = useLocation();
     const state = location.state;
-    var loggUserJSON = window.localStorage.getItem('loggedNoteAppUser')
-    var usuario = JSON.parse(loggUserJSON)
+    var loggedUserJSON = window.localStorage.getItem('loggedNoteAppUser')
+    var usuario = JSON.parse(loggedUserJSON)
     var loggGuardJSON = window.localStorage.getItem('loggedNoteAppGuard')
     var guard = JSON.parse(loggGuardJSON)
 
@@ -22,7 +22,7 @@ const Miperfil = () => {
         setLoggedIn(false)
         navigate("/welcome", { replace: true });
       }
-    //if(!(loggUserJSON)&&!(loggGuardJSON)){
+    //if(!(loggedUserJSON)&&!(loggGuardJSON)){
     //    alert('No has iniciado sesión')
     //}
     return (
