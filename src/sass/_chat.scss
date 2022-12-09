@@ -43,24 +43,30 @@
     }
 }
 
-.container.chatt .contactos {
-    
-    @media screen and (min-width: 100px) and (max-width: 768px) {
-        width: 0; 
-        transform: width 0.5s ease-out;
+.container{
+    &.chatt {
+        & .contactos {
+            @media screen and (min-width: 100px) and (max-width: 768px) {
+                width: 0; 
+                transform: width 0.5s ease-out;
+            }
+        }
+        .chatcontainer{
+            @media screen and (min-width: 100px) and (max-width: 768px) {
+                width: 100%;
+                transform: width 0.5s ease-out;
+            }
+        }
     }
-
-}
-
-.container.contacto .contactos {
+    &.contacto .contactos {
     
-    @media screen and (min-width: 100px) and (max-width: 768px) {
-        width: 100%; 
-        transform: width 0.5s ease-out;
+        @media screen and (min-width: 100px) and (max-width: 768px) {
+            width: 100%; 
+            transform: width 0.5s ease-out;
+        }
+    
     }
-
 }
-
 
 .container.chatt .chatcontainer{
     @media screen and (min-width: 100px) and (max-width: 768px) {
@@ -68,6 +74,7 @@
         transform: width 0.5s ease-out;
     }
 }
+
 .container.contacto .chatcontainer{
     @media screen and (min-width: 100px) and (max-width: 768px) {
         width: 0;

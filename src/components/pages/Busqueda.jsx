@@ -6,7 +6,6 @@ import Guard from '../utils/Guard';
 
 
 const Busqueda = (currentNotif, socket) => {
-    console.log(socket)
     const [notification, setNotification] = useState([]);
     const [arrivalNotification, setArrivalNotification] = useState(null);
     const [user, setUser] = useState(null)
@@ -53,20 +52,21 @@ const Busqueda = (currentNotif, socket) => {
     //    }
     //}, []);
 
-    useEffect(() => {
-        if (socket.current) {
-          socket.current.on("msg-recieve", (msg) => {
-            setArrivalNotification({ fromSelf: false, message: msg });
-          });
-        }
-    }, []);
+    //useEffect(() => {
+    //    if (socket.current) {
+    //      socket.current.on("msg-recieve", (msg) => {
+    //        setArrivalNotification({ fromSelf: false, message: msg });
+    //      });
+    //    }
+    //}, []);
 
-    useEffect(() => {
-        console.log(arrivalNotification)    
-        arrivalNotification && setNotification((prev) => [...prev, arrivalNotification]);
-    }, [arrivalNotification]);
+    //useEffect(() => {
+    //    console.log(arrivalNotification)    
+    //    arrivalNotification && setNotification((prev) => [...prev, arrivalNotification]);
+    //}, [arrivalNotification]);
     
     //toggleFav recojo la id de el usuario que he pinchado,  
+    
     const toggleFav = (id) => {
         try{
             const guard = guards.find(n => n.id === id)//busco y declaro la niñera que he pinchado
@@ -144,7 +144,12 @@ const Busqueda = (currentNotif, socket) => {
         if(busqueda=="" && cp==null){
             return guards
         }else{
-            return search.filter(guard => (""+guard.cp).includes(""+cp))
+            if(cp==null){
+                return search.filter(guard => (""+guard.cp))
+            }else{
+                return search.filter(guard => (""+guard.cp).includes(""+cp))
+            }
+            
         }
 
     }
@@ -158,7 +163,7 @@ const Busqueda = (currentNotif, socket) => {
             <p className='errortext'>{errortext}</p>
         </div>
     const tipMsg = 
-        <div className='errorMsg blue'>
+        <div className='tipMsg'>
             <h2 className='errorName'>{errorName}</h2>
             <p className='errortext'>{errortext}</p>
         </div>

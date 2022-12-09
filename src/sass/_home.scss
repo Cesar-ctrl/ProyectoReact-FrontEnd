@@ -59,11 +59,11 @@
         justify-content: center;
     }
     
+    &:hover{
+        color: white;
+        background-color: #3c7c90;
+    }
     
-}
-.nav:hover{
-    color: white;
-    background-color: #3c7c90;
 }
 
 .estrella{
@@ -164,10 +164,11 @@
         right: 20px;
         left: 20px;
     }
+
+    &.main{
+        align-self: flex-start;
+    }
     
-}
-.titulo.main{
-    align-self: flex-start;
 }
 .color{
     color: black;
@@ -331,19 +332,23 @@ h2{
 .cuidador:hover{
     background-color: rgb(56, 179, 195);
 }
+
 #chat{
     align-self: flex-start
 }
+
 .indispuesto{
     cursor:not-allowed;
     opacity: 0.7;
 }
+
 .superfoto{
     display: block;
     width: 25vw;
     height: 40vh;
     background-image: url('../img/backgraund-mobile.jpg') ;
 }
+
 .box.flex{
     display: flex;
    .cursor-pointer{
@@ -399,11 +404,13 @@ h2{
         }
    }
 }
+
 .media{
     font-size: 3.5rem;
     line-height: 4rem;
     margin: 0;
 }
+
 .progress{
     height: 12px;
     width: 95%;
@@ -412,6 +419,7 @@ h2{
     background-color: #e6f3fa;
     margin: 5px;
 }
+
 .progress-bar{
     height: 100%;
     background: #eeee2c;
@@ -477,7 +485,8 @@ section.perfil{
         100% {background-color:rgb(153, 0, 0); right:3vw; bottom:7vh;width: $size - 10;}
       }
 }
-.errorMsg.blue{
+
+.tipMsg{
     position: absolute;
     bottom:7vh;
     right: 3vw;
@@ -503,7 +512,7 @@ section.perfil{
         width: $size - 15;
         height: 12vh;
     }
-    animation-name: example ;
+    animation-name: example2 ;
     animation-duration: 4s ;
     
     .errorName{
@@ -512,7 +521,7 @@ section.perfil{
     .errortext{
         font-size: 15px;
     }
-    @keyframes example {
+    @keyframes example2 {
         0%   {background-color:rgb(0, 71, 153); right:0vw; bottom:7vh;width: 0vw;}
         100% {background-color:rgb(0, 71, 153); right:3vw; bottom:7vh;width: $size - 10;}
       }

@@ -200,7 +200,7 @@ export default function GuardsRegister ({handleSubmit, ...props}) {
                         <input className="col-10" type="password" placeholder="Repita la contraseña" name="PasswordConfirm" required />
                     </fieldset>
                     <fieldset className='col-12'>
-                        <button className="col-2 col-10" type="submit" name="enviar" value="Registrarse" id='form-register-button'>Registrarse</button>
+                        <button className="boton-azul blanco" type="submit" name="enviar" value="Registrarse" id='form-register-button'>Registrarse</button>
                     </fieldset>
                     <div className='col-10'>
                         <Link to="/guardlogin">

@@ -120,7 +120,7 @@ export default function RegisterF ({handleSubmit, ...props}) {
                     </fieldset>
                     
                     <fieldset className='col-12'>
-                        <button className="col-2 col-10" type="submit" name="enviar" value="Registrarse" id='form-register-button'>Registrarse</button>
+                        <button className="boton-azul blanco" type="submit" name="enviar" value="Registrarse" id='form-register-button'>Registrarse</button>
                     </fieldset>
                     <div className='col-10'>
                         <Link to="/login">

@@ -215,7 +215,7 @@ const PerfilGuard = ({ }) => {
         <header className='titulo main flexea perfil'>
             <div className='foto'>
                 {
-                    newmode?<img src="http://localhost:3000/img/pepe-clown.gif" className='imgguard'  alt="" />
+                    newmode?<img src="https://babyguard.vercel.app/img/pepe-clown.gif" className='imgguard'  alt="" />
                     :<img src={"https://babyguard.onrender.com/api/img/public/"+guard.imgUrl} className='imgguard' alt="" />
                 }
             

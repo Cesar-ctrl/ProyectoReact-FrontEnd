@@ -101,7 +101,7 @@ if(info){
                         <input className="col-10" type="file" accept="image/png, image/gif, image/jpeg" name="file" placeholder="¿Quiere subir una imagen?" onChange={(e) => setSelectedFile(e.target.files[0])}  />
                     </fieldset>
                     <fieldset className='col-12'>
-                        <button className="col-2 col-10" type="submit" name="enviar" value="Registrarse" id='form-register-button'>Guardar Información</button>
+                        <button className="boton-azul blanco" type="submit" name="enviar" value="Registrarse" id='form-register-button'>Guardar Información</button>
                     </fieldset>
                 </form>
                 

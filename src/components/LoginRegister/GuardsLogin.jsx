@@ -73,7 +73,7 @@ export default function LoginF () {
                         <input className="col-10" type="password" value={password} name="Password" onChange={handlePasswordChange} />
                     </fieldset>
                     <fieldset className='col-12'>
-                        <button className="col-2 col-10" type="submit" name="enviar" value="Iniciar sesión" id='form-login-button'> Iniciar Sesion</button>
+                        <button className="boton-azul blanco" type="submit" name="enviar" value="Iniciar sesión" id='form-login-button'> Iniciar Sesion</button>
                     </fieldset>
                     <div className='col-10'>
                         <a href="">¿Has olvidado tu contraseña?</a>
