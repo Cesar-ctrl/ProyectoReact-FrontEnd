@@ -51,23 +51,6 @@ function Home() {
           }  
     }, [])
     
-    //useEffect(() => { //utilizamos socket para que recibir notificaciones
-    //    // cambiar a http://localhost:3001 Si se quiere probar en local 
-    //    // Y en el servidor tambén pondré un comentario de que cambiar para que funcione en local 
-    //    if(loggGuardJSON || loggedUserJSON){
-    //        socket.current = io('https://babyguard.onrender.com');
-    //        if (loggGuardJSON) {
-    //            socket.current.emit("add-user", loggGuardJSON.id)
-    //        }
-    //        if(loggedUserJSON){
-    //            socket.current.emit("add-user", loggedUserJSON.id)
-    //        }
-    //    }
-    //    //Continuar con las notificaciones
-    //    
-    //    
-    //}, []);
-    //console.log(socket)
 
     const toggleback = () => {
         setContainer('container backunder')
