@@ -100,7 +100,7 @@ export default function Chat() {
           </div>
         </section>
       :
-      <section>
+      <section className='home chat'>
         <header className='titulo main'>
             <h2>Chat</h2>
         </header>
