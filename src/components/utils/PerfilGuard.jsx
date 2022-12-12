@@ -190,10 +190,16 @@ const PerfilGuard = ({ }) => {
     }
 
     
-    const sendSolicitud = () => {
+    const sendSolicitud = (thorarioinicio, thorariofin, colegio, calle, institucion, ninios) => {
         const bodySolicitud = { 
             user: usuario.id,
-            guard:Id
+            guard:Id,
+            horarioinicio:thorarioinicio, 
+            horariofin:thorariofin, 
+            colegio:colegio, 
+            calle:calle, 
+            institucion:institucion, 
+            ninios:ninios
         }
         solicitudesService
             .postSolicitud(bodySolicitud)
@@ -209,7 +215,7 @@ const PerfilGuard = ({ }) => {
 
     var leng = comments.length
 
-    
+    //Arreglar Link 
     return (
     <section className="home">
         <header className='titulo main flexea perfil'>
@@ -289,7 +295,7 @@ const PerfilGuard = ({ }) => {
                             guard.disponible?
                             solicitadohtml
                             :<a className='boton-azul no-disponible blanco'>No disponible</a>
-                            :<a className='boton-azul no-disponible blanco'>Registrese para solicitar</a>
+                            :<a className='boton-azul no-disponible blanco'  to="/register" >Registrese para solicitar</a>
                         }
                         
                         {

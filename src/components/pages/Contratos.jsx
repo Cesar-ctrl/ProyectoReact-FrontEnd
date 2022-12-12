@@ -25,11 +25,13 @@ const Contratos = () => {
             solicitudService
                 .getHistoryContratos(guardd.id)
                 .then(initialGuards => {
-                    setContratos(initialGuards)
+                    console.log(initialGuards.acabado)
+                    setContratos(initialGuards.sort(function(a,b){return a.acabado-b.acabado}))
                 })
         }
             
     }, [])
+
     //Si no está logueado mostrará BotonRegistro que es una página con un botón para ir al login
 
     return (
@@ -46,13 +48,16 @@ const Contratos = () => {
                 </div>
             </section>
             <section className='flexea column'>
-                <div className='col-10 column listado'>
+                <div className='col-10 column listado contrato'>
                     {contratos.map((contrato, i) =>
                         <Contrato
                             key={i}
                             ouser={contrato.user}
                             aprobado={contrato.aprobado}
                             acabado={contrato.acabado}
+                            ninios={contrato.ninios}
+                            contrato={contrato.id}
+                            guard={guardd.id}
                         />
                     )
                 }   

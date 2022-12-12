@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from "react-router-dom";
 import userService from '../../services/users';
+import solicitudesService from '../../services/solicitudes';
 
 const Contrato = (props) => {
-    const { ouser, aprobado, acabado } = props
+    const { ouser, aprobado, acabado, ninios, contrato, guard } = props
 
     const [user, setUser] = useState([]) 
-    console.log(ouser)
+    const [contratado, setContratado] = useState(acabado)
+    const [cerrado, setCerrado] = useState(true)
+    
     useEffect(() => {
         userService
             .getUser(ouser)
@@ -14,6 +17,18 @@ const Contrato = (props) => {
                 setUser(initialGuards)
             })
     }, [])
+
+    const cerrarSolicitud = async () => {
+        solicitudesService
+            .putEndSolicitud(contrato, true, guard)
+            .then(response => {
+                setContratado(true)
+            })
+            .catch(error => {
+            setTimeout(() => {
+            }, 5000)   
+            })
+    }
     
     const listaalergenos = [
         {
@@ -73,18 +88,33 @@ const Contrato = (props) => {
             id:14
         }
     ]
-    console.log(user)
+
+    var arr = []
+
+    if(user.hijos){
+        
+        user.hijos.map((child, i) =>{
+            if(ninios.includes(child.id)){
+                arr.push(child)
+            }
+        })
+    }
+    
   return (
-    <section className="home">
+    <section className="">
         <header className='titulo main flexea perfil'>
             <div className='foto'>
                 <img src={"https://babyguard.onrender.com/api/img/public/"+user.imgUrl} className='reloj' alt="" />
             </div>
             <h2>{user.name} {user.surnames}</h2>
         </header>
-        <section className='flexea column'>
-            <div className='col-10 column listado deperfil'>
-                <h3>Ficha:</h3>
+        <section className={cerrado?'flexea column noacabado':'flexea column acabado'}>
+            <span>
+                
+            <h3>{acabado?'Contrato Finalizado':'Contrato Actual'}</h3>
+            {cerrado?<img src="../img/filtro-abierto.png" alt="" className='filter abierto' onClick={() => setCerrado(!cerrado)} />:<img src="../img/filtro-cerrado.png" alt="" className='filter cerrado' onClick={() => setCerrado(!cerrado)} />} 
+            </span>
+            <div className='col-10 column listado deperfil contratos'>
                 <div className='cuidador flexea column notcenter'>
                     <p>Nombre: {user.name}</p>
                     <p>Apellidos: {user.surnames}</p>
@@ -93,45 +123,51 @@ const Contrato = (props) => {
                     <p>Foto: </p>
                     <img src={"https://babyguard.onrender.com/api/img/public/"+user.imgUrl} className='reloj grande' alt="" />
                 </div>
-                <h3 className='br'>Hijos:</h3>
+                <h3 className='br'>Hijos que cuidar:</h3>
                 <div className='cuidador flexea column notcenter'>
                     {
                         user.hijos?
-                        user.hijos.map((child, i) =>
-                        <div className='cuidador flexea column notcenter'>
-                            <p>Nombre: {child.name}</p>
-                            <p>Apellidos: {child.surnames}</p>
-                            <p>Edad: {child.edad}</p>
-                            <p>DNI: {child.DNI}</p>
-                            <p>Alergenos:</p>
-                            {child.alergenos.map(({ name, id }, index) => {
-                            return (
-                                <li key={index}>
-                                  <div className="flexea centertext">
-                                    {child.alergenos[index]?
-                                        <img src="https://babyguard.vercel.app/img/Light_green_check.svg" className="dias" alt="" />
-                                        :<img src="https://babyguard.vercel.app/img/Red_x.svg" className="dias" alt="" />
-                                    }
+                        arr.map((child, i) =>
+                            <div className='cuidador flexea column notcenter'>
+                                <p>Nombre: {child.name}</p>
+                                <p>Apellidos: {child.surnames}</p>
+                                <p>Edad: {child.edad}</p>
+                                <p>DNI: {child.DNI}</p>
+                                <p>Alergenos:</p>
+                                {child.alergenos.map(({ name, id }, index) => {
+                                return (
+                                    <li key={index}>
+                                    <div className="flexea centertext">
+                                        {child.alergenos[index]?
+                                            <img src="https://babyguard.vercel.app/img/Light_green_check.svg" className="dias" alt="" />
+                                            :<img src="https://babyguard.vercel.app/img/Red_x.svg" className="dias" alt="" />
+                                        }
 
-                                      <label htmlFor={`custom-checkbox-${index}`}>{listaalergenos[index].name}</label>
-                                  </div>
-                                </li>
-                              );
-                            })}
-                            {
-                                child.necesidadesesp?
-                                <p>Necesidades especiales: {child.necesidadesesp}</p>
-                                :console.log('Sin necesidades especiales')
-                            }
-                            
-                            <p>Foto: </p>
-                            <img src={"https://babyguard.onrender.com/api/img/public/"+child.imgUrl} className='reloj grande' alt="" />
-                        </div>
+                                        <label htmlFor={`custom-checkbox-${index}`}>{listaalergenos[index].name}</label>
+                                    </div>
+                                    </li>
+                                );
+                                })}
+                                {
+                                    child.necesidadesesp?
+                                    <p>Necesidades especiales: {child.necesidadesesp}</p>
+                                    :console.log('Sin necesidades especiales')
+                                }
+                                
+                                <p>Foto: </p>
+                                <img src={"https://babyguard.onrender.com/api/img/public/"+child.imgUrl} className='reloj grande' alt="" />
+                            </div>
+                           
+                        
                         )
                         :
                         <div className='cuidador flexea column notcenter'>
                             <p>No tiene historial de contratos</p>
                         </div>
+                    }
+                    {
+                        contratado? null:
+                        <button onClick={() => cerrarSolicitud()} className={'boton-azul blanco'} >Cerrar contrato</button>
                     }
                 </div>
             

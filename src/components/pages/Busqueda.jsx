@@ -30,11 +30,17 @@ const Busqueda = (currentNotif, socket) => {
 
 
     useEffect(() => {
+        userService
+            .getUser()
+            .then(usuarrio => {
+                setUser(usuarrio)
+            })
         guardService
           .getAll()
           .then(initialGuards => {
             setGuards(initialGuards)
           })
+
     }, [])
 
     useEffect(() => { 
@@ -110,18 +116,20 @@ const Busqueda = (currentNotif, socket) => {
     
     const gothijos = () =>{
         if(usuario){
-            if(!(usuario.hijos.length>0)){
-                setTip(true)
-                setTimeout(() => {
-                    setErrorName('Niños no iniciados')
-                    setErrortext('No tienes ningún niño registrado en la app')
-                }, 2000)
-                setTimeout(() => {
-                    setErrorName('')
-                    setErrortext('')
-                    setTip(false)
-                }, 6000)
-            }
+            if(user){
+                if(!(user.hijos.length>0)){
+                    setTip(true)
+                    setTimeout(() => {
+                        setErrorName('Niños no iniciados')
+                        setErrortext('No tienes ningún niño registrado en la app')
+                    }, 2000)
+                    setTimeout(() => {
+                        setErrorName('')
+                        setErrortext('')
+                        setTip(false)
+                    }, 6000)
+                }
+        }
     }
     }
 
@@ -168,8 +176,8 @@ const Busqueda = (currentNotif, socket) => {
         </header>
         <section className='buscador'>
             <div className='barra'>
-                <input type="number" className={window.screen.width>425?'barra col-5':'barra col-8'} onChange={handleCpChange} placeholder='C.P.' />
-                <input type="text" className={window.screen.width>425?'barra col-5 ':'barra col-8'} onChange={handleSearchChange} placeholder='Buscar por nombre' />
+                <input type="number" className={window.screen.width>425?'barra col-5':'barra col-7'} onChange={handleCpChange} placeholder='C.P.' />
+                <input type="text" className={window.screen.width>425?'barra col-5 ':'barra col-7'} onChange={handleSearchChange} placeholder='Buscar por nombre' />
                 <div className='imgbuscar'>
                     <img src="../img/lupa-busqueda.png" alt="" className='lupa'/>
                 </div>

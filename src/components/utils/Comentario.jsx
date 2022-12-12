@@ -14,7 +14,7 @@ const Comentario = ({ comments }) => {
 
   return (
     <section>
-        <header className='flexea perfil comentario'>
+        <header className='flexea perfil comentario comm'>
             <div className='flexea perfil'>
                 <img src={"https://babyguard.onrender.com/api/img/public/"+comments.autor.imgUrl} alt="" className='fotocomentario '/>
                 <h3>{comments.autor.name} {comments.autor.surnames}</h3>

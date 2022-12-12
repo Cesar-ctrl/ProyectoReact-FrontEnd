@@ -3,7 +3,7 @@
     bottom: 0;
     left: 0;
     right: 0;
-    height: 7vh;
+    height: 8vh;
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
@@ -25,13 +25,13 @@
 .nav{
     display: flex;
     flex-direction: column;
-    padding-top: 5px;
-    padding-bottom: 5px;
     transition: background-color .5s;
     align-items: center;
     color: black;
     font-weight: bold;
     border-radius: 7px;
+    height: 100%;
+    justify-content: space-around;
     .icono{
         width: 20px;
         height: 20px;
@@ -51,8 +51,11 @@
         flex-direction: row-reverse;
         justify-content: center;
         height: 100%;
+        border-left: 1px solid;
         border-right: 1px solid;
         font-size: 20px;
+        justify-content: space-evenly;
+        margin: 2px;
     }
     @include desktop(){
         flex-direction: row-reverse;
@@ -158,12 +161,7 @@
 }
 .titulo{
     color: black;
-    padding: {
-        top: 20px;
-        bottom: 20px;
-        right: 20px;
-        left: 20px;
-    }
+    padding: 15px;
 
     &.main{
         align-self: flex-start;
@@ -201,7 +199,7 @@ h2{
 
 .buscador{
     padding: 10px;
-    padding-bottom: 20px;
+    padding-bottom: 15px;
     .barra{
         display: flex;
         justify-content: space-evenly;
@@ -242,10 +240,22 @@ h2{
         }
       }
     &.abierto{
-        height: 50vh;
+        height: 47vh;
     }
     &.cerrado{
         height: 60vh;
+    }
+    &.contratos{
+        width: 100%;
+        height: 70vh;
+        @include movileS() {
+            width: 100%;
+            height: 70vh;
+        }
+        @include tablet() {
+            width: 80%;
+            height: 70vh;
+        }
     }
     .cuidador{
         transition: background-color .5s;
@@ -314,19 +324,19 @@ h2{
         background: rgba(127, 210, 195, 0.46);
         height: 78vh;
         @include movileS(){
-            height: 76vh;
+            height: 70vh;
         }
         @include movileM(){
-            height: 74vh;
+            height: 70vh;
         }
         @include movile(){
-            height: 72vh;
+            height: 70vh;
         }
         @include tablet(){
-            height: 72vh;
+            height: 68vh;
         }
         @include desktop(){
-            height: 70vh;
+            height: 68vh;
         }
         .cuidador{
             background-color: white;
@@ -343,6 +353,31 @@ h2{
         @include desktop(){
             height: height;
         }
+}
+.contrato{
+    height: 70vh;
+    width:90%;
+    p{
+        font-size: 12px;
+    }
+    @include movileS(){
+        height: 70vh;
+        p{
+            font-size: 14px;
+        }
+    }
+    @include movileM(){
+        height: 70vh;
+        p{
+            font-size: 14px;
+        }
+    }
+    @include movile(){
+        height: 70vh;
+        p{
+            font-size: 14px;
+        }
+    }
 }
 .filtros{
     display: flex;
@@ -595,4 +630,21 @@ section.perfil{
         100% {background-color:rgb(0, 71, 153); right:3vw; bottom:7vh;width: $size - 10;}
       }
 }
+span{
+    display: flex;
+    width: 100%;
+    &.sol{
+        width: auto;
+    }
+    .filter{
+    width: 40px;
+    height: 20px;
+}
+}
 
+.acabado{
+    height: 5vh;
+}
+.noacabado{
+    height: 100%;
+}

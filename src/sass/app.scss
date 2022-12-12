@@ -89,13 +89,29 @@ a {
         justify-content: center;
     }
     &.perfil{
-        justify-content: space-between;
+        justify-content: center;
         align-items: center;
+        &.comm{
+            justify-content: space-between;
+        }
+        .foto{
+            margin-right: 20px;
+        }
     }
     &.wrap{
         flex-wrap: wrap;
         justify-content: space-around;
         align-items: center;
+    }
+    &.muestra{
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        align-items: flex-start;
+    }
+    &.nomuestra{
+        display: none;
+        height: 5vh;
     }
 }
 

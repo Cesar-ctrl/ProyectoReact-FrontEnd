@@ -10,6 +10,8 @@ const SolicitudForm = ({ sendSolicitud, setSolicitar, horariofin, horarioinicio 
     const usuario = JSON.parse(loggedUserJSON);
     const date = new Date();
 
+    const [thorariofin, setTHorariofin] = useState('')
+    const [thorarioinicio, setTHorarioinicio] = useState('')
     const [childs, SetChilds] = useState([]);
     const [calle, SetCalle] = useState('');
     const [institucion, SetInstitucion] = useState('');
@@ -27,6 +29,8 @@ const SolicitudForm = ({ sendSolicitud, setSolicitar, horariofin, horarioinicio 
             })
         
     }, [])
+
+    console.log(institucion)
 
     const comprueba = (e) =>{
         if(document.querySelectorAll('input[type="checkbox"]:checked').length==0){
@@ -46,15 +50,22 @@ const SolicitudForm = ({ sendSolicitud, setSolicitar, horariofin, horarioinicio 
                 setError(false)
             }, 6000)
         }else{
-            sendSolicitud()
+            var ninios = []
+            var inpuuts = document.querySelectorAll('input[type="checkbox"]:checked')
+            inpuuts.forEach(element => {
+                ninios.push(element.value)
+            });
+            sendSolicitud(thorarioinicio, thorariofin, colegio, calle, institucion, ninios)
         }
     }
 
+    const handleHorarioinicioChange = ({target}) => setTHorarioinicio(target.value)
+    const handleHorariofinChange = ({target}) => setTHorariofin(target.value)
     const handleCasaChange = ({target}) => target.checked?SetColegio(false):SetCasa(false)
     const handleColegioChange = ({target}) => target.checked?SetColegio(true):SetColegio(false)
     const handleCalleChange = ({target}) => SetCalle(target.value)
     const handleInstitucionChange = ({target}) => SetInstitucion(target.value)
-
+    
     const errorMsg = 
         <div className='errorMsg'>
             <h2 className='errorName'>{errorName}</h2>
@@ -78,19 +89,19 @@ const SolicitudForm = ({ sendSolicitud, setSolicitar, horariofin, horarioinicio 
                         <label htmlFor="horarioinicio" className='col-10' >Horario de comienzo</label>
                         {
                             (date.getHours()+':'+date.getMinutes())>horarioinicio?
-                            <input className="col-10" type="time" name="horarioinicio" defaultValue={date.getHours()+':'+date.getMinutes()} />
-                            :<input className="col-10" type="time" name="horarioinicio" defaultValue={horarioinicio} />
+                            <input className="col-10" type="time" name="horarioinicio" defaultValue={date.getHours()+':'+date.getMinutes()} value={ thorarioinicio} onChange={handleHorarioinicioChange} />
+                            :<input className="col-10" type="time" name="horarioinicio" defaultValue={horarioinicio}  value={ thorarioinicio} onChange={handleHorarioinicioChange} />
                         }
                         
                         <label htmlFor="horariofin" className='col-10'>Horario de fin</label>
-                        <input className="col-10" type="time" name="horariofin" defaultValue={horariofin} />
+                        <input className="col-10" type="time" name="horariofin" value={ thorariofin}  min={thorarioinicio} defaultValue={horariofin} onChange={handleHorariofinChange} />
                     </fieldset>
 
                     <fieldset className='col-12'>
                         <div>
                             <div className='flexea'>
                                 
-                                <input type="radio" id='colegio' name='tipo' value={colegio} onChange={handleColegioChange}required />
+                                <input type="radio" id='colegio' name='tipo' value={colegio} onChange={handleColegioChange} required />
                                 <label htmlFor='colegio'>Colegio</label>
                             </div>
                         </div>

@@ -68,7 +68,7 @@ function Home() {
     //    
     //}, []);
     //console.log(socket)
-    //Esto es un Easteregg
+
     const toggleback = () => {
         setContainer('container backunder')
         window.localStorage.setItem(
@@ -81,12 +81,12 @@ function Home() {
         <div className={container} id="containermain">
             <main className={state?'main '+state:'main background1'}>
             <Routes>
-                <Route path="/buscar" element={ <Busqueda currentNotif={currentNotif} socket={socket}  />} />
-                <Route path="/favoritos" element={ <Favoritos currentNotif={currentNotif} socket={socket} /> }  />
-                <Route path="/solicitudes" element={ <Solicitudes currentNotif={currentNotif} socket={socket} /> }  />
+                <Route path="/buscar" element={ <Busqueda currentNotif={currentNotif}  />} />
+                <Route path="/favoritos" element={ <Favoritos currentNotif={currentNotif} /> }  />
+                <Route path="/solicitudes" element={ <Solicitudes currentNotif={currentNotif} /> }  />
                 <Route path="/chat" element={ <Chat /> }  />
-                <Route path="/contratos" element={ <Contratos currentNotif={currentNotif} socket={socket} /> } />
-                <Route path="/child" element={ <Child currentNotif={currentNotif} socket={socket} /> } />
+                <Route path="/contratos" element={ <Contratos currentNotif={currentNotif} /> } />
+                <Route path="/child" element={ <Child currentNotif={currentNotif} /> } />
                 <Route path="/child/signup" element={ <ChildRegister 
                     modoEdicion={false}
                     currentNotif={currentNotif} socket={socket}

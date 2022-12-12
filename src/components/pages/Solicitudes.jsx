@@ -24,7 +24,7 @@ const Solicitudes = ({}) =>{
         setId(guardian.id)
     },[])
 
-
+    console.log(solicitudes)
     const rechazarSolicitud = async (idSolicitud, userid,) => {
         console.log(solicitudes)
         solicitudesService
